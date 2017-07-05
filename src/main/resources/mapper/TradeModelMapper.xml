@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.TradeModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.TradeModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="applicant_id" property="applicantId" jdbcType="BIGINT" />
+    <result column="trade_num" property="tradeNum" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="doctor_id" property="doctorId" jdbcType="BIGINT" />
+    <result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    <result column="hospital_id" property="hospitalId" jdbcType="BIGINT" />
+    <result column="hospital_name" property="hospitalName" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="INTEGER" />
+    <result column="ordered_time" property="orderedTime" jdbcType="TIMESTAMP" />
+    <result column="yz_doctor_id" property="yzDoctorId" jdbcType="VARCHAR" />
+    <result column="yz_doctor_num" property="yzDoctorNum" jdbcType="VARCHAR" />
+    <result column="yz_doctor_name" property="yzDoctorName" jdbcType="VARCHAR" />
+    <result column="yz_department_num" property="yzDepartmentNum" jdbcType="VARCHAR" />
+    <result column="yz_department_name" property="yzDepartmentName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, applicant_id, trade_num, status, create_time, pay_time, modify_time, 
+    price, num, name, doctor_id, doctor_name, hospital_id, hospital_name, pay_type, ordered_time, 
+    yz_doctor_id, yz_doctor_num, yz_doctor_name, yz_department_num, yz_department_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_c_trade
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_trade
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.TradeModel" >
+    insert into app_c_trade (id, user_id, applicant_id, 
+      trade_num, status, create_time, 
+      pay_time, modify_time, price, 
+      num, name, doctor_id, 
+      doctor_name, hospital_id, hospital_name, 
+      pay_type, ordered_time, yz_doctor_id, 
+      yz_doctor_num, yz_doctor_name, yz_department_num, 
+      yz_department_name)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{applicantId,jdbcType=BIGINT}, 
+      #{tradeNum,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{price,jdbcType=BIGINT}, 
+      #{num,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{doctorId,jdbcType=BIGINT}, 
+      #{doctorName,jdbcType=VARCHAR}, #{hospitalId,jdbcType=BIGINT}, #{hospitalName,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=INTEGER}, #{orderedTime,jdbcType=TIMESTAMP}, #{yzDoctorId,jdbcType=VARCHAR}, 
+      #{yzDoctorNum,jdbcType=VARCHAR}, #{yzDoctorName,jdbcType=VARCHAR}, #{yzDepartmentNum,jdbcType=VARCHAR}, 
+      #{yzDepartmentName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.TradeModel" >
+    insert into app_c_trade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="applicantId != null" >
+        applicant_id,
+      </if>
+      <if test="tradeNum != null" >
+        trade_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="doctorId != null" >
+        doctor_id,
+      </if>
+      <if test="doctorName != null" >
+        doctor_name,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="hospitalName != null" >
+        hospital_name,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="orderedTime != null" >
+        ordered_time,
+      </if>
+      <if test="yzDoctorId != null" >
+        yz_doctor_id,
+      </if>
+      <if test="yzDoctorNum != null" >
+        yz_doctor_num,
+      </if>
+      <if test="yzDoctorName != null" >
+        yz_doctor_name,
+      </if>
+      <if test="yzDepartmentNum != null" >
+        yz_department_num,
+      </if>
+      <if test="yzDepartmentName != null" >
+        yz_department_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="applicantId != null" >
+        #{applicantId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeNum != null" >
+        #{tradeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorId != null" >
+        #{doctorId,jdbcType=BIGINT},
+      </if>
+      <if test="doctorName != null" >
+        #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=BIGINT},
+      </if>
+      <if test="hospitalName != null" >
+        #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="orderedTime != null" >
+        #{orderedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yzDoctorId != null" >
+        #{yzDoctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDoctorNum != null" >
+        #{yzDoctorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDoctorName != null" >
+        #{yzDoctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDepartmentNum != null" >
+        #{yzDepartmentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDepartmentName != null" >
+        #{yzDepartmentName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.TradeModel" >
+    update app_c_trade
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="applicantId != null" >
+        applicant_id = #{applicantId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeNum != null" >
+        trade_num = #{tradeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorId != null" >
+        doctor_id = #{doctorId,jdbcType=BIGINT},
+      </if>
+      <if test="doctorName != null" >
+        doctor_name = #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=BIGINT},
+      </if>
+      <if test="hospitalName != null" >
+        hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="orderedTime != null" >
+        ordered_time = #{orderedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yzDoctorId != null" >
+        yz_doctor_id = #{yzDoctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDoctorNum != null" >
+        yz_doctor_num = #{yzDoctorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDoctorName != null" >
+        yz_doctor_name = #{yzDoctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDepartmentNum != null" >
+        yz_department_num = #{yzDepartmentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="yzDepartmentName != null" >
+        yz_department_name = #{yzDepartmentName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.TradeModel" >
+    update app_c_trade
+    set user_id = #{userId,jdbcType=BIGINT},
+      applicant_id = #{applicantId,jdbcType=BIGINT},
+      trade_num = #{tradeNum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=BIGINT},
+      num = #{num,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      doctor_id = #{doctorId,jdbcType=BIGINT},
+      doctor_name = #{doctorName,jdbcType=VARCHAR},
+      hospital_id = #{hospitalId,jdbcType=BIGINT},
+      hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=INTEGER},
+      ordered_time = #{orderedTime,jdbcType=TIMESTAMP},
+      yz_doctor_id = #{yzDoctorId,jdbcType=VARCHAR},
+      yz_doctor_num = #{yzDoctorNum,jdbcType=VARCHAR},
+      yz_doctor_name = #{yzDoctorName,jdbcType=VARCHAR},
+      yz_department_num = #{yzDepartmentNum,jdbcType=VARCHAR},
+      yz_department_name = #{yzDepartmentName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

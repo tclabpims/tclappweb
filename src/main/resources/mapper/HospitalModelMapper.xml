@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.HospitalModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.HospitalModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="route" property="route" jdbcType="VARCHAR" />
+    <result column="alipay_pay_account" property="alipayPayAccount" jdbcType="VARCHAR" />
+    <result column="weixin_pay_account" property="weixinPayAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.HospitalModelWithBLOBs" extends="BaseResultMap" >
+    <result column="details" property="details" jdbcType="LONGVARCHAR" />
+    <result column="project_desc" property="projectDesc" jdbcType="LONGVARCHAR" />
+    <result column="specialist" property="specialist" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, address, pic_url, telphone, route, alipay_pay_account, weixin_pay_account
+  </sql>
+  <sql id="Blob_Column_List" >
+    details, project_desc, specialist
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_hospital
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_hospital
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.HospitalModelWithBLOBs" >
+    insert into app_c_hospital (id, name, address, 
+      pic_url, telphone, route, 
+      alipay_pay_account, weixin_pay_account, details, 
+      project_desc, specialist)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{route,jdbcType=VARCHAR}, 
+      #{alipayPayAccount,jdbcType=VARCHAR}, #{weixinPayAccount,jdbcType=VARCHAR}, #{details,jdbcType=LONGVARCHAR}, 
+      #{projectDesc,jdbcType=LONGVARCHAR}, #{specialist,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.HospitalModelWithBLOBs" >
+    insert into app_c_hospital
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+      <if test="route != null" >
+        route,
+      </if>
+      <if test="alipayPayAccount != null" >
+        alipay_pay_account,
+      </if>
+      <if test="weixinPayAccount != null" >
+        weixin_pay_account,
+      </if>
+      <if test="details != null" >
+        details,
+      </if>
+      <if test="projectDesc != null" >
+        project_desc,
+      </if>
+      <if test="specialist != null" >
+        specialist,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+        #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayPayAccount != null" >
+        #{alipayPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinPayAccount != null" >
+        #{weixinPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="projectDesc != null" >
+        #{projectDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="specialist != null" >
+        #{specialist,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.HospitalModelWithBLOBs" >
+    update app_c_hospital
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+        route = #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayPayAccount != null" >
+        alipay_pay_account = #{alipayPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinPayAccount != null" >
+        weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        details = #{details,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="projectDesc != null" >
+        project_desc = #{projectDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="specialist != null" >
+        specialist = #{specialist,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tcl.model.HospitalModelWithBLOBs" >
+    update app_c_hospital
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      route = #{route,jdbcType=VARCHAR},
+      alipay_pay_account = #{alipayPayAccount,jdbcType=VARCHAR},
+      weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR},
+      details = #{details,jdbcType=LONGVARCHAR},
+      project_desc = #{projectDesc,jdbcType=LONGVARCHAR},
+      specialist = #{specialist,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.HospitalModel" >
+    update app_c_hospital
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      route = #{route,jdbcType=VARCHAR},
+      alipay_pay_account = #{alipayPayAccount,jdbcType=VARCHAR},
+      weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

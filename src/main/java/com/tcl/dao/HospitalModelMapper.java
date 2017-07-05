@@ -1,0 +1,20 @@
+package com.tcl.dao;
+
+import com.tcl.model.HospitalModel;
+import com.tcl.model.HospitalModelWithBLOBs;
+
+public interface HospitalModelMapper {
+    int deleteByPrimaryKey(Long id);
+
+    int insert(HospitalModelWithBLOBs record);
+
+    int insertSelective(HospitalModelWithBLOBs record);
+
+    HospitalModelWithBLOBs selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(HospitalModelWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(HospitalModelWithBLOBs record);
+
+    int updateByPrimaryKey(HospitalModel record);
+}

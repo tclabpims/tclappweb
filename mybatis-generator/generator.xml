@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<!-- oracle lib location -->
-		<classPathEntry location="D:\workspace\tclappweb\mybatis-generator\mysql-connector-java-5.1.29.jar" />
+		<classPathEntry location="D:\workspace\tcl_appweb\mybatis-generator\mysql-connector-java-5.1.29.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
@@ -34,7 +34,16 @@
 		<table tableName="permissiongroup" domainObjectName="Permissiongroup" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="pg_module" domainObjectName="Pgmodule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 -->
-		<table tableName="web_user" domainObjectName="WebUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_applicant" domainObjectName="ApplicantModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_bill" domainObjectName="BillModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_doctor" domainObjectName="DoctorModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_hospital" domainObjectName="HospitalModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_newspaper" domainObjectName="NewspaperModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_order" domainObjectName="OrderModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_package" domainObjectName="PackageModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_package_details" domainObjectName="PackageDetailsModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_trade" domainObjectName="TradeModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="app_c_user" domainObjectName="UserModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 
 	</context>
 </generatorConfiguration>

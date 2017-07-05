@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.PackageModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.PackageModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="use_crowd" property="useCrowd" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="report_time" property="reportTime" jdbcType="VARCHAR" />
+    <result column="wj_code" property="wjCode" jdbcType="VARCHAR" />
+    <result column="sale_num" property="saleNum" jdbcType="INTEGER" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.PackageModelWithBLOBs" extends="BaseResultMap" >
+    <result column="need_attention" property="needAttention" jdbcType="LONGVARCHAR" />
+    <result column="project_desc" property="projectDesc" jdbcType="LONGVARCHAR" />
+    <result column="clause" property="clause" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, use_crowd, price, report_time, wj_code, sale_num, pic_url
+  </sql>
+  <sql id="Blob_Column_List" >
+    need_attention, project_desc, clause
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_package
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_package
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.PackageModelWithBLOBs" >
+    insert into app_c_package (id, name, use_crowd, 
+      price, report_time, wj_code, 
+      sale_num, pic_url, need_attention, 
+      project_desc, clause)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{useCrowd,jdbcType=VARCHAR}, 
+      #{price,jdbcType=BIGINT}, #{reportTime,jdbcType=VARCHAR}, #{wjCode,jdbcType=VARCHAR}, 
+      #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR}, 
+      #{projectDesc,jdbcType=LONGVARCHAR}, #{clause,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.PackageModelWithBLOBs" >
+    insert into app_c_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="useCrowd != null" >
+        use_crowd,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="reportTime != null" >
+        report_time,
+      </if>
+      <if test="wjCode != null" >
+        wj_code,
+      </if>
+      <if test="saleNum != null" >
+        sale_num,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="needAttention != null" >
+        need_attention,
+      </if>
+      <if test="projectDesc != null" >
+        project_desc,
+      </if>
+      <if test="clause != null" >
+        clause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="useCrowd != null" >
+        #{useCrowd,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="reportTime != null" >
+        #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wjCode != null" >
+        #{wjCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null" >
+        #{saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="needAttention != null" >
+        #{needAttention,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="projectDesc != null" >
+        #{projectDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="clause != null" >
+        #{clause,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.PackageModelWithBLOBs" >
+    update app_c_package
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="useCrowd != null" >
+        use_crowd = #{useCrowd,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="reportTime != null" >
+        report_time = #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wjCode != null" >
+        wj_code = #{wjCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null" >
+        sale_num = #{saleNum,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="needAttention != null" >
+        need_attention = #{needAttention,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="projectDesc != null" >
+        project_desc = #{projectDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="clause != null" >
+        clause = #{clause,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tcl.model.PackageModelWithBLOBs" >
+    update app_c_package
+    set name = #{name,jdbcType=VARCHAR},
+      use_crowd = #{useCrowd,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT},
+      report_time = #{reportTime,jdbcType=VARCHAR},
+      wj_code = #{wjCode,jdbcType=VARCHAR},
+      sale_num = #{saleNum,jdbcType=INTEGER},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      need_attention = #{needAttention,jdbcType=LONGVARCHAR},
+      project_desc = #{projectDesc,jdbcType=LONGVARCHAR},
+      clause = #{clause,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.PackageModel" >
+    update app_c_package
+    set name = #{name,jdbcType=VARCHAR},
+      use_crowd = #{useCrowd,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT},
+      report_time = #{reportTime,jdbcType=VARCHAR},
+      wj_code = #{wjCode,jdbcType=VARCHAR},
+      sale_num = #{saleNum,jdbcType=INTEGER},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
