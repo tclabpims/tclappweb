@@ -21,7 +21,7 @@
 <div class="nr">
     <%@include file="navigation.jsp"%>
     <div class="pagemain">
-        <input id="strMenuId" type="hidden" value="5"/>
+        <input id="strMenuId" type="hidden" value="0"/>
         <input id="strSubMenuId" type="hidden" value="1"/>
         hello
     </div>

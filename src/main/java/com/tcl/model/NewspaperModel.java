@@ -9,7 +9,7 @@ public class NewspaperModel {
 
     private String imgUrl;
 
-    private String desc;
+    private String descInfo;
 
     private String contentUrl;
 
@@ -47,12 +47,12 @@ public class NewspaperModel {
         this.imgUrl = imgUrl == null ? null : imgUrl.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescInfo() {
+        return descInfo;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setDescInfo(String descInfo) {
+        this.descInfo = descInfo;
     }
 
     public String getContentUrl() {
