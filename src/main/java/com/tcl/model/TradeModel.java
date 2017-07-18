@@ -47,6 +47,14 @@ public class TradeModel {
 
     private String yzDepartmentName;
 
+    private Date yzTime;
+
+    private String createType;
+
+    private Long relationId;
+
+    private String doctorMsg;
+
     public Long getId() {
         return id;
     }
@@ -221,5 +229,37 @@ public class TradeModel {
 
     public void setYzDepartmentName(String yzDepartmentName) {
         this.yzDepartmentName = yzDepartmentName == null ? null : yzDepartmentName.trim();
+    }
+
+    public Date getYzTime() {
+        return yzTime;
+    }
+
+    public void setYzTime(Date yzTime) {
+        this.yzTime = yzTime;
+    }
+
+    public String getCreateType() {
+        return createType;
+    }
+
+    public void setCreateType(String createType) {
+        this.createType = createType == null ? null : createType.trim();
+    }
+
+    public Long getRelationId() {
+        return relationId;
+    }
+
+    public void setRelationId(Long relationId) {
+        this.relationId = relationId;
+    }
+
+    public String getDoctorMsg() {
+        return doctorMsg;
+    }
+
+    public void setDoctorMsg(String doctorMsg) {
+        this.doctorMsg = doctorMsg == null ? null : doctorMsg.trim();
     }
 }

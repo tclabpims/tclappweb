@@ -7,9 +7,12 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
     <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
     <result column="route" property="route" jdbcType="VARCHAR" />
     <result column="alipay_pay_account" property="alipayPayAccount" jdbcType="VARCHAR" />
     <result column="weixin_pay_account" property="weixinPayAccount" jdbcType="VARCHAR" />
+    <result column="distance" property="distance" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.HospitalModelWithBLOBs" extends="BaseResultMap" >
     <result column="details" property="details" jdbcType="LONGVARCHAR" />
@@ -17,7 +20,8 @@
     <result column="specialist" property="specialist" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, address, pic_url, telphone, route, alipay_pay_account, weixin_pay_account
+    id, name, address, pic_url, telphone, longitude, latitude, route, alipay_pay_account, 
+    weixin_pay_account, distance
   </sql>
   <sql id="Blob_Column_List" >
     details, project_desc, specialist
@@ -36,12 +40,14 @@
   </delete>
   <insert id="insert" parameterType="com.tcl.model.HospitalModelWithBLOBs" >
     insert into app_c_hospital (id, name, address, 
-      pic_url, telphone, route, 
-      alipay_pay_account, weixin_pay_account, details, 
+      pic_url, telphone, longitude, 
+      latitude, route, alipay_pay_account, 
+      weixin_pay_account, distance, details, 
       project_desc, specialist)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{picUrl,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{route,jdbcType=VARCHAR}, 
-      #{alipayPayAccount,jdbcType=VARCHAR}, #{weixinPayAccount,jdbcType=VARCHAR}, #{details,jdbcType=LONGVARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{route,jdbcType=VARCHAR}, #{alipayPayAccount,jdbcType=VARCHAR}, 
+      #{weixinPayAccount,jdbcType=VARCHAR}, #{distance,jdbcType=VARCHAR}, #{details,jdbcType=LONGVARCHAR}, 
       #{projectDesc,jdbcType=LONGVARCHAR}, #{specialist,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.HospitalModelWithBLOBs" >
@@ -62,6 +68,12 @@
       <if test="telphone != null" >
         telphone,
       </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
       <if test="route != null" >
         route,
       </if>
@@ -70,6 +82,9 @@
       </if>
       <if test="weixinPayAccount != null" >
         weixin_pay_account,
+      </if>
+      <if test="distance != null" >
+        distance,
       </if>
       <if test="details != null" >
         details,
@@ -97,6 +112,12 @@
       <if test="telphone != null" >
         #{telphone,jdbcType=VARCHAR},
       </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
       <if test="route != null" >
         #{route,jdbcType=VARCHAR},
       </if>
@@ -105,6 +126,9 @@
       </if>
       <if test="weixinPayAccount != null" >
         #{weixinPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=VARCHAR},
       </if>
       <if test="details != null" >
         #{details,jdbcType=LONGVARCHAR},
@@ -132,6 +156,12 @@
       <if test="telphone != null" >
         telphone = #{telphone,jdbcType=VARCHAR},
       </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
       <if test="route != null" >
         route = #{route,jdbcType=VARCHAR},
       </if>
@@ -140,6 +170,9 @@
       </if>
       <if test="weixinPayAccount != null" >
         weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        distance = #{distance,jdbcType=VARCHAR},
       </if>
       <if test="details != null" >
         details = #{details,jdbcType=LONGVARCHAR},
@@ -159,9 +192,12 @@
       address = #{address,jdbcType=VARCHAR},
       pic_url = #{picUrl,jdbcType=VARCHAR},
       telphone = #{telphone,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
       route = #{route,jdbcType=VARCHAR},
       alipay_pay_account = #{alipayPayAccount,jdbcType=VARCHAR},
       weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=VARCHAR},
       details = #{details,jdbcType=LONGVARCHAR},
       project_desc = #{projectDesc,jdbcType=LONGVARCHAR},
       specialist = #{specialist,jdbcType=LONGVARCHAR}
@@ -173,22 +209,23 @@
       address = #{address,jdbcType=VARCHAR},
       pic_url = #{picUrl,jdbcType=VARCHAR},
       telphone = #{telphone,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
       route = #{route,jdbcType=VARCHAR},
       alipay_pay_account = #{alipayPayAccount,jdbcType=VARCHAR},
-      weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR}
+      weixin_pay_account = #{weixinPayAccount,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
 
-
-
-  <select id="selectByType" resultMap="ResultMapWithBLOBs" parameterType="map" >
+  <select id="selectByType" parameterType="map" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from app_c_hospital where 1=1
-    <if test="type != ''" >
+    <if test="type != ''">
       and type = #{type,jdbcType=VARCHAR}
     </if>
   </select>

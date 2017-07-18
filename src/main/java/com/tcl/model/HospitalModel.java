@@ -11,11 +11,17 @@ public class HospitalModel {
 
     private String telphone;
 
+    private String longitude;
+
+    private String latitude;
+
     private String route;
 
     private String alipayPayAccount;
 
     private String weixinPayAccount;
+
+    private String distance;
 
     public Long getId() {
         return id;
@@ -57,6 +63,22 @@ public class HospitalModel {
         this.telphone = telphone == null ? null : telphone.trim();
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude == null ? null : longitude.trim();
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude == null ? null : latitude.trim();
+    }
+
     public String getRoute() {
         return route;
     }
@@ -79,5 +101,13 @@ public class HospitalModel {
 
     public void setWeixinPayAccount(String weixinPayAccount) {
         this.weixinPayAccount = weixinPayAccount == null ? null : weixinPayAccount.trim();
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance == null ? null : distance.trim();
     }
 }

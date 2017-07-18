@@ -3,9 +3,6 @@ package com.tcl.dao;
 import com.tcl.model.HospitalModel;
 import com.tcl.model.HospitalModelWithBLOBs;
 
-import java.util.List;
-import java.util.Map;
-
 public interface HospitalModelMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -20,6 +17,4 @@ public interface HospitalModelMapper {
     int updateByPrimaryKeyWithBLOBs(HospitalModelWithBLOBs record);
 
     int updateByPrimaryKey(HospitalModel record);
-
-    List<HospitalModel> selectByType(Map map);
 }

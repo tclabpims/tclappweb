@@ -52,7 +52,7 @@ public class NewspaperModel {
     }
 
     public void setDescInfo(String descInfo) {
-        this.descInfo = descInfo;
+        this.descInfo = descInfo == null ? null : descInfo.trim();
     }
 
     public String getContentUrl() {

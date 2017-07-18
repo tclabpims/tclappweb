@@ -9,12 +9,12 @@
     <result column="content_url" property="contentUrl" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="create_userId" property="createUserid" jdbcType="BIGINT" />
+    <result column="create_userid" property="createUserid" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, img_url, desc_info, content_url, type, status, create_userId, create_time,
+    id, title, img_url, desc_info, content_url, type, status, create_userid, create_time, 
     modify_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -29,11 +29,11 @@
   </delete>
   <insert id="insert" parameterType="com.tcl.model.NewspaperModel" >
     insert into app_c_newspaper (id, title, img_url, 
-      desc, content_url, type, 
-      status, create_userId, create_time, 
+      desc_info, content_url, type, 
+      status, create_userid, create_time, 
       modify_time)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{contentUrl,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{descInfo,jdbcType=VARCHAR}, #{contentUrl,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{createUserid,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
@@ -49,8 +49,8 @@
       <if test="imgUrl != null" >
         img_url,
       </if>
-      <if test="desc != null" >
-        desc,
+      <if test="descInfo != null" >
+        desc_info,
       </if>
       <if test="contentUrl != null" >
         content_url,
@@ -62,7 +62,7 @@
         status,
       </if>
       <if test="createUserid != null" >
-        create_userId,
+        create_userid,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -81,8 +81,8 @@
       <if test="imgUrl != null" >
         #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=VARCHAR},
+      <if test="descInfo != null" >
+        #{descInfo,jdbcType=VARCHAR},
       </if>
       <if test="contentUrl != null" >
         #{contentUrl,jdbcType=VARCHAR},
@@ -113,8 +113,8 @@
       <if test="imgUrl != null" >
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="descInfo != null" >
+        desc_info = #{descInfo,jdbcType=VARCHAR},
       </if>
       <if test="contentUrl != null" >
         content_url = #{contentUrl,jdbcType=VARCHAR},
@@ -126,7 +126,7 @@
         status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="createUserid != null" >
-        create_userId = #{createUserid,jdbcType=BIGINT},
+        create_userid = #{createUserid,jdbcType=BIGINT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -141,30 +141,25 @@
     update app_c_newspaper
     set title = #{title,jdbcType=VARCHAR},
       img_url = #{imgUrl,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+      desc_info = #{descInfo,jdbcType=VARCHAR},
       content_url = #{contentUrl,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      create_userId = #{createUserid,jdbcType=BIGINT},
+      create_userid = #{createUserid,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
 
-
-
-  <select id="selectByType" resultMap="BaseResultMap" parameterType="map" >
+  <select id="selectByType" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from app_c_newspaper
     where 1=1
-    <if test="type != ''" >
+    <if test="type != ''">
       and type = #{type,jdbcType=VARCHAR}
     </if>
 
   </select>
-
-
-
 </mapper>

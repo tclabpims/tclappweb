@@ -45,7 +45,7 @@
                 <tr>
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.title}</td>
-                    <td class="center left-con"><img src="${item.imgUrl}" height="50px" width="50px"/></td>
+                    <td class="center left-con"><img src="<%@include file="../../constants.jsp"%>${item.imgUrl}" height="50px" width="50px"/></td>
                     <td class="center left-con">
                         <c:if test="${item.type==0}">
                             <span class="sui-label label-success">客户端</span>

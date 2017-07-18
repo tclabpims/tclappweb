@@ -2,9 +2,6 @@ package com.tcl.dao;
 
 import com.tcl.model.NewspaperModel;
 
-import java.util.List;
-import java.util.Map;
-
 public interface NewspaperModelMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -17,6 +14,4 @@ public interface NewspaperModelMapper {
     int updateByPrimaryKeySelective(NewspaperModel record);
 
     int updateByPrimaryKey(NewspaperModel record);
-
-    List<NewspaperModel> selectByType(Map map);
 }

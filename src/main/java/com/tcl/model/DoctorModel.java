@@ -39,9 +39,15 @@ public class DoctorModel {
 
     private Date codeSendTime;
 
+    private String isOpenAutoreceipt;
+
+    private Integer receiptInterval;
+
     private Date createTime;
 
     private Date modifyTime;
+
+    private String auditReason;
 
     private String introduce;
 
@@ -189,6 +195,22 @@ public class DoctorModel {
         this.codeSendTime = codeSendTime;
     }
 
+    public String getIsOpenAutoreceipt() {
+        return isOpenAutoreceipt;
+    }
+
+    public void setIsOpenAutoreceipt(String isOpenAutoreceipt) {
+        this.isOpenAutoreceipt = isOpenAutoreceipt == null ? null : isOpenAutoreceipt.trim();
+    }
+
+    public Integer getReceiptInterval() {
+        return receiptInterval;
+    }
+
+    public void setReceiptInterval(Integer receiptInterval) {
+        this.receiptInterval = receiptInterval;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -203,6 +225,14 @@ public class DoctorModel {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getAuditReason() {
+        return auditReason;
+    }
+
+    public void setAuditReason(String auditReason) {
+        this.auditReason = auditReason == null ? null : auditReason.trim();
     }
 
     public String getIntroduce() {

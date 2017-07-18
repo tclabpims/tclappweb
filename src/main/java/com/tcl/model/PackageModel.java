@@ -17,6 +17,14 @@ public class PackageModel {
 
     private String picUrl;
 
+    private String status;
+
+    private String testType;
+
+    private String diseaseType;
+
+    private String takeType;
+
     public Long getId() {
         return id;
     }
@@ -79,5 +87,37 @@ public class PackageModel {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public String getTestType() {
+        return testType;
+    }
+
+    public void setTestType(String testType) {
+        this.testType = testType == null ? null : testType.trim();
+    }
+
+    public String getDiseaseType() {
+        return diseaseType;
+    }
+
+    public void setDiseaseType(String diseaseType) {
+        this.diseaseType = diseaseType == null ? null : diseaseType.trim();
+    }
+
+    public String getTakeType() {
+        return takeType;
+    }
+
+    public void setTakeType(String takeType) {
+        this.takeType = takeType == null ? null : takeType.trim();
     }
 }
