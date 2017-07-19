@@ -10,28 +10,28 @@ import java.util.List;
 public interface DoctorService {
 
     /**
-     * Í¨¹ıÒ½ÉúIDÕÒÒ½Éú
+     * é€šè¿‡åŒ»ç”ŸIDæ‰¾åŒ»ç”Ÿ
      * @param id
      * @return
      */
     DoctorModel selectById(Long id);
 
     /**
-     * ÁĞ³öÄ³ÖÖÀàĞÍµÄÒ½Éú
+     * åˆ—å‡ºæŸç§ç±»å‹çš„åŒ»ç”Ÿ
      * @param type
      * @return
      */
     List<DoctorModel> selectByType(String type);
 
     /**
-     * Í¨¹ıId½«Ä³Î»Ò½Éú´ÓÊı¾İ¿âÖĞÉ¾³ı
+     * é€šè¿‡Idå°†æŸä½åŒ»ç”Ÿä»æ•°æ®åº“ä¸­åˆ é™¤
      * @param id
      * @return
      */
     int deleteById(Long id);
 
     /**
-     * Í¨¹ıId¸üĞÂÊı¾İ¿â
+     * é€šè¿‡Idæ›´æ–°æ•°æ®åº“
      * @param record
      * @return
      */

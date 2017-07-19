@@ -10,6 +10,10 @@
     <result column="wj_code" property="wjCode" jdbcType="VARCHAR" />
     <result column="sale_num" property="saleNum" jdbcType="INTEGER" />
     <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="test_type" property="testType" jdbcType="VARCHAR" />
+    <result column="disease_type" property="diseaseType" jdbcType="VARCHAR" />
+    <result column="take_type" property="takeType" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.PackageModelWithBLOBs" extends="BaseResultMap" >
     <result column="need_attention" property="needAttention" jdbcType="LONGVARCHAR" />
@@ -17,7 +21,8 @@
     <result column="clause" property="clause" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, use_crowd, price, report_time, wj_code, sale_num, pic_url
+    id, name, use_crowd, price, report_time, wj_code, sale_num, pic_url, status, test_type, 
+    disease_type, take_type
   </sql>
   <sql id="Blob_Column_List" >
     need_attention, project_desc, clause
@@ -37,12 +42,16 @@
   <insert id="insert" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     insert into app_c_package (id, name, use_crowd, 
       price, report_time, wj_code, 
-      sale_num, pic_url, need_attention, 
-      project_desc, clause)
+      sale_num, pic_url, status, 
+      test_type, disease_type, take_type, 
+      need_attention, project_desc, clause
+      )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{useCrowd,jdbcType=VARCHAR}, 
       #{price,jdbcType=BIGINT}, #{reportTime,jdbcType=VARCHAR}, #{wjCode,jdbcType=VARCHAR}, 
-      #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR}, 
-      #{projectDesc,jdbcType=LONGVARCHAR}, #{clause,jdbcType=LONGVARCHAR})
+      #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{testType,jdbcType=VARCHAR}, #{diseaseType,jdbcType=VARCHAR}, #{takeType,jdbcType=VARCHAR}, 
+      #{needAttention,jdbcType=LONGVARCHAR}, #{projectDesc,jdbcType=LONGVARCHAR}, #{clause,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     insert into app_c_package
@@ -70,6 +79,18 @@
       </if>
       <if test="picUrl != null" >
         pic_url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="testType != null" >
+        test_type,
+      </if>
+      <if test="diseaseType != null" >
+        disease_type,
+      </if>
+      <if test="takeType != null" >
+        take_type,
       </if>
       <if test="needAttention != null" >
         need_attention,
@@ -106,6 +127,18 @@
       <if test="picUrl != null" >
         #{picUrl,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="testType != null" >
+        #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseType != null" >
+        #{diseaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="takeType != null" >
+        #{takeType,jdbcType=VARCHAR},
+      </if>
       <if test="needAttention != null" >
         #{needAttention,jdbcType=LONGVARCHAR},
       </if>
@@ -141,6 +174,18 @@
       <if test="picUrl != null" >
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="testType != null" >
+        test_type = #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseType != null" >
+        disease_type = #{diseaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="takeType != null" >
+        take_type = #{takeType,jdbcType=VARCHAR},
+      </if>
       <if test="needAttention != null" >
         need_attention = #{needAttention,jdbcType=LONGVARCHAR},
       </if>
@@ -162,6 +207,10 @@
       wj_code = #{wjCode,jdbcType=VARCHAR},
       sale_num = #{saleNum,jdbcType=INTEGER},
       pic_url = #{picUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      test_type = #{testType,jdbcType=VARCHAR},
+      disease_type = #{diseaseType,jdbcType=VARCHAR},
+      take_type = #{takeType,jdbcType=VARCHAR},
       need_attention = #{needAttention,jdbcType=LONGVARCHAR},
       project_desc = #{projectDesc,jdbcType=LONGVARCHAR},
       clause = #{clause,jdbcType=LONGVARCHAR}
@@ -175,19 +224,20 @@
       report_time = #{reportTime,jdbcType=VARCHAR},
       wj_code = #{wjCode,jdbcType=VARCHAR},
       sale_num = #{saleNum,jdbcType=INTEGER},
-      pic_url = #{picUrl,jdbcType=VARCHAR}
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      test_type = #{testType,jdbcType=VARCHAR},
+      disease_type = #{diseaseType,jdbcType=VARCHAR},
+      take_type = #{takeType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-<!--        ============================================================      -->
-
-  <select id="selectList" resultMap="ResultMapWithBLOBs" parameterType="map" >
+  <select id="selectList" parameterType="map" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from app_c_package
-
-
   </select>
+
 </mapper>

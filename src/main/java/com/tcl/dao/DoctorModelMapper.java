@@ -2,6 +2,9 @@ package com.tcl.dao;
 
 import com.tcl.model.DoctorModel;
 
+import java.util.List;
+import java.util.Map;
+
 public interface DoctorModelMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -16,4 +19,6 @@ public interface DoctorModelMapper {
     int updateByPrimaryKeyWithBLOBs(DoctorModel record);
 
     int updateByPrimaryKey(DoctorModel record);
+
+    List<DoctorModel> selectByType(Map map);
 }

@@ -31,7 +31,7 @@
                <li class="active">
               	<a id="menu4" href="#" class="adbj4 ad" data-spm-anchor-id="0.0.0.0">医生管理</a>
                 <ul style="display: none;" id="divmenu4" class="sub-menu">
-                  <li><a id="sub13" href="#">列表</a></li>
+                  <li><a id="sub13" href="/doctor/list.do?type=">医生列表</a></li>
                 </ul>
               </li>
          </ul>

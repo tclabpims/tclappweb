@@ -24,11 +24,16 @@
     <result column="yz_doctor_name" property="yzDoctorName" jdbcType="VARCHAR" />
     <result column="yz_department_num" property="yzDepartmentNum" jdbcType="VARCHAR" />
     <result column="yz_department_name" property="yzDepartmentName" jdbcType="VARCHAR" />
+    <result column="yz_time" property="yzTime" jdbcType="TIMESTAMP" />
+    <result column="create_type" property="createType" jdbcType="VARCHAR" />
+    <result column="relation_id" property="relationId" jdbcType="BIGINT" />
+    <result column="doctor_msg" property="doctorMsg" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, applicant_id, trade_num, status, create_time, pay_time, modify_time, 
     price, num, name, doctor_id, doctor_name, hospital_id, hospital_name, pay_type, ordered_time, 
-    yz_doctor_id, yz_doctor_num, yz_doctor_name, yz_department_num, yz_department_name
+    yz_doctor_id, yz_doctor_num, yz_doctor_name, yz_department_num, yz_department_name, 
+    yz_time, create_type, relation_id, doctor_msg
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -48,7 +53,8 @@
       doctor_name, hospital_id, hospital_name, 
       pay_type, ordered_time, yz_doctor_id, 
       yz_doctor_num, yz_doctor_name, yz_department_num, 
-      yz_department_name)
+      yz_department_name, yz_time, create_type, 
+      relation_id, doctor_msg)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{applicantId,jdbcType=BIGINT}, 
       #{tradeNum,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{payTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{price,jdbcType=BIGINT}, 
@@ -56,7 +62,8 @@
       #{doctorName,jdbcType=VARCHAR}, #{hospitalId,jdbcType=BIGINT}, #{hospitalName,jdbcType=VARCHAR}, 
       #{payType,jdbcType=INTEGER}, #{orderedTime,jdbcType=TIMESTAMP}, #{yzDoctorId,jdbcType=VARCHAR}, 
       #{yzDoctorNum,jdbcType=VARCHAR}, #{yzDoctorName,jdbcType=VARCHAR}, #{yzDepartmentNum,jdbcType=VARCHAR}, 
-      #{yzDepartmentName,jdbcType=VARCHAR})
+      #{yzDepartmentName,jdbcType=VARCHAR}, #{yzTime,jdbcType=TIMESTAMP}, #{createType,jdbcType=VARCHAR}, 
+      #{relationId,jdbcType=BIGINT}, #{doctorMsg,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.TradeModel" >
     insert into app_c_trade
@@ -127,6 +134,18 @@
       <if test="yzDepartmentName != null" >
         yz_department_name,
       </if>
+      <if test="yzTime != null" >
+        yz_time,
+      </if>
+      <if test="createType != null" >
+        create_type,
+      </if>
+      <if test="relationId != null" >
+        relation_id,
+      </if>
+      <if test="doctorMsg != null" >
+        doctor_msg,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -194,6 +213,18 @@
       </if>
       <if test="yzDepartmentName != null" >
         #{yzDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="yzTime != null" >
+        #{yzTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createType != null" >
+        #{createType,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null" >
+        #{relationId,jdbcType=BIGINT},
+      </if>
+      <if test="doctorMsg != null" >
+        #{doctorMsg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -263,6 +294,18 @@
       <if test="yzDepartmentName != null" >
         yz_department_name = #{yzDepartmentName,jdbcType=VARCHAR},
       </if>
+      <if test="yzTime != null" >
+        yz_time = #{yzTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createType != null" >
+        create_type = #{createType,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null" >
+        relation_id = #{relationId,jdbcType=BIGINT},
+      </if>
+      <if test="doctorMsg != null" >
+        doctor_msg = #{doctorMsg,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -288,7 +331,11 @@
       yz_doctor_num = #{yzDoctorNum,jdbcType=VARCHAR},
       yz_doctor_name = #{yzDoctorName,jdbcType=VARCHAR},
       yz_department_num = #{yzDepartmentNum,jdbcType=VARCHAR},
-      yz_department_name = #{yzDepartmentName,jdbcType=VARCHAR}
+      yz_department_name = #{yzDepartmentName,jdbcType=VARCHAR},
+      yz_time = #{yzTime,jdbcType=TIMESTAMP},
+      create_type = #{createType,jdbcType=VARCHAR},
+      relation_id = #{relationId,jdbcType=BIGINT},
+      doctor_msg = #{doctorMsg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

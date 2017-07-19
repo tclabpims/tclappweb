@@ -347,4 +347,16 @@
       audit_reason = #{auditReason,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_doctor
+    where 1=1
+    <if test="type != ''">
+      and type = #{type, jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>

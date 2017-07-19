@@ -3,6 +3,9 @@ package com.tcl.dao;
 import com.tcl.model.PackageModel;
 import com.tcl.model.PackageModelWithBLOBs;
 
+import java.util.List;
+import java.util.Map;
+
 public interface PackageModelMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -17,4 +20,6 @@ public interface PackageModelMapper {
     int updateByPrimaryKeyWithBLOBs(PackageModelWithBLOBs record);
 
     int updateByPrimaryKey(PackageModel record);
+
+    List<PackageModel> selectList(Map map);
 }
