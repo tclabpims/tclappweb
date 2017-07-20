@@ -332,6 +332,7 @@
       sex = #{sex,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
+      introduce = #{introduce, jdbcType=LONGVARCHAR},
       tou_img = #{touImg,jdbcType=VARCHAR},
       zz_img = #{zzImg,jdbcType=VARCHAR},
       read_report_num = #{readReportNum,jdbcType=INTEGER},

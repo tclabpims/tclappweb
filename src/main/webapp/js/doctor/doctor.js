@@ -66,11 +66,18 @@ function ItemEdit(id) {
         var layer = layui.layer;
         var form = layui.form();
         var element = layui.element();
+        //对ajax获取的返回值进行简单判断
+        if(doctor.userName == "paramIsError") {
+            layer.msg("获取信息失败",{
+                time:1000
+            });
+            return;
+        }
         layer.open({
             type: 1,
             title: "基本信息修改",
             skin: 'layui-layer-rim',
-            area: ['450px', '680px'],
+            area: ['480px', '680px'],
             content:$("#infoEdit"),
             btn:['提交', '取消'],
             yes: function(index, layero) {
@@ -138,18 +145,96 @@ function ItemAudite(id) {
         var form = layui.form();
         layer.open({
             type: 1,
-            title: "审核",
+            title: "医生审核",
             skin: 'layui-layer-rim',
             area: ['480px', '300px'],
             content: $("#doctorAudite"),
             btn:['提交', '取消'],
             yes: function(index, layuio) {
-
+                var audit_data = $("#Audite").serializeArray();
+                $.ajax({
+                    url: "audit.do",
+                    type: "POST",
+                    data: audit_data,
+                    dataType: "json",
+                    success: function(data) {
+                        //当ajax返回的信息是"success"时，则表示操作成功；否则，表示操作失败
+                        if(data.msg == "success") {
+                            layer.msg("操作成功", {
+                                time: 1000
+                            });
+                            setTimeout(function(){
+                                location.href = "list.do?type=";
+                            }, 1000)
+                        } else {
+                            //操作失败在后台打印相关信息
+                            console.log(data.msg);
+                            layer.msg("操作失败", {
+                                time: 1000
+                            });
+                            setTimeout(function(){
+                                location.href = "list.do?type=";
+                            }, 1000)
+                        }
+                    },
+                    error: function(er) {
+                        console.log();
+                    }
+                });
             },
             btn2: function(index, layuio) {
                 layer.close(index);
             }
         });
         form.render();
+        $("#id2").val(id);
     });
+}
+
+//显示某位医生的详细信息
+function ItemDetail(id) {
+    var doctor;
+    $.ajax({
+        url: "getInfo.do",
+        type: "POST",
+        data: {id: id},
+        dataType: "json",
+        async: false,
+        success: function(data) {
+            doctor = data.doctor;
+        },
+        error: function(er) {
+            console.log(er);
+        }
+    });
+    layui.use("layer", function() {
+        var layer = layui.layer;
+        if(doctor.userName == "paramIsError") {
+            layer.msg("获取信息失败", {
+                time: 1000
+            });
+            return;
+        }
+        layer.open({
+            type: 1,
+            title: "基本信息",
+            skin: 'layui-layer-rim',
+            area: ['600px', '680px'],
+            content: $("#detail_info")
+        });
+        var doctor_table = document.getElementById("doctor_table");
+        doctor_table.rows[0].cells[1].innerHTML = doctor.doctorName;
+        doctor_table.rows[0].cells[3].innerHTML = doctor.hospitalName;
+        doctor_table.rows[1].cells[1].innerHTML = doctor.sex;
+        doctor_table.rows[1].cells[3].innerHTML = doctor.age;
+        if(doctor.type == "1") {
+            doctor_table.rows[2].cells[1].innerHTML = "医生";
+        } else if(doctor.type == "2") {
+            doctor_table.rows[2].cells[1].innerHTML = "护士";
+        }
+        doctor_table.rows[2].cells[3].innerHTML = doctor.title;
+        doctor_table.rows[3].cells[1].innerHTML = doctor.sfzNum;
+        doctor_table.rows[4].cells[1].innerHTML = doctor.introduce;
+        $("#doctor_picture").attr("src", doctor.touImg);
+    })
 }

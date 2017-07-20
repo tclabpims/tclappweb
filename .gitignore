@@ -1,6 +1,5 @@
 .apdisk
 .idea/*
-/target/
 src/main/webapp/pdf/*
 src/main/webapp/images/*
 src/main/webapp/WEB-INF/lib/*

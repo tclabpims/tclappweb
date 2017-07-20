@@ -102,7 +102,6 @@ public class DoctorController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> updateById(DoctorModel doctorModel) {
-        System.out.println("password: " + doctorModel.getPassWord());
         doctorModel.setModifyTime(new Date());
         int result = doctorService.updateById(doctorModel);
         Map<String, String> map = new HashMap<String, String>();
@@ -112,5 +111,51 @@ public class DoctorController {
             map.put("msg", "error");
         }
         return map;
+    }
+
+    /**
+     * 审核医生
+     * @param id
+     * @param status
+     * @param auditReason
+     * @return
+     */
+    @RequestMapping(value = "/audit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> updateDoctorStatus(String id, String status, String auditReason) {
+        id = id.trim();
+        Pattern p = Pattern.compile("^[0-9]+$");
+        Matcher matcher = p.matcher(id);
+        Map<String, String> map = new HashMap<String, String>();
+        DoctorModel doctorModel = null;
+        if(matcher.matches()) {
+            doctorModel = doctorService.selectById(Long.parseLong(id));
+            if(doctorModel != null) {
+                doctorModel.setStatus(status);
+                doctorModel.setAuditReason(auditReason);
+                int result = doctorService.updateById(doctorModel);
+                if (result > 0) {
+                    map.put("msg", "success");
+                    return map;
+                } else {
+                    map.put("msg", "failed");
+                    return map;
+                }
+            }
+            map.put("msg", "id error");
+            return map;
+        } else {
+            map.put("msg", "param error");
+            return map;
+        }
+    }
+
+    /**
+     * 增加医生
+     * @return
+     */
+    @RequestMapping(value = "/add")
+    public String addDoctor() {
+        return "doctor/add";
     }
 }
