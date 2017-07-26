@@ -349,15 +349,99 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <select id="selectByType" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from app_c_doctor
     where 1=1
-    <if test="type != ''">
+    <if test="type != '' and type != null">
       and type = #{type, jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectByPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_doctor
+    where 1=1
+    <if test="type != '' and type != null">
+      and type = #{type, jdbcType=VARCHAR}
+    </if>
+    <if test="start_num != null and end_num != null">
+        limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="queryDoctorByInfo" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM app_c_doctor
+    WHERE 1=1
+    <if test="userName != null and userName != ''">
+      AND user_name = #{userName, jdbcType=VARCHAR}
+    </if>
+    <if test="hospitalId != null">
+      AND hospital_id = #{hospitalId, jdbcType=BIGINT}
+    </if>
+    <if test="doctorName != ''">
+      AND doctor_name = #{doctorName, jdbcType=VARCHAR}
+    </if>
+    <if test="title != ''">
+      AND title = #{title, jdbcType=VARCHAR}
+    </if>
+    <if test="status != ''">
+      AND status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="type != ''">
+      AND type = #{type, jdbcType=VARCHAR}
+    </if>
+    <if test="create_time_start != null">
+      AND create_time &gt;= #{create_time_start, jdbcType=TIMESTAMP}
+    </if>
+    <if test="create_time_end != null">
+      AND create_time &lt;= #{create_time_end, jdbcType=TIMESTAMP}
+    </if>
+  </select>
+
+  <select id="queryPageDoctorByInfo" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM app_c_doctor
+    WHERE 1=1
+    <if test="userName != null and userName != ''">
+      AND user_name = #{userName, jdbcType=VARCHAR}
+    </if>
+    <if test="hospitalId != null">
+      AND hospital_id = #{hospitalId, jdbcType=BIGINT}
+    </if>
+    <if test="doctorName != ''">
+      AND doctor_name = #{doctorName, jdbcType=VARCHAR}
+    </if>
+    <if test="title != ''">
+      AND title = #{title, jdbcType=VARCHAR}
+    </if>
+    <if test="status != ''">
+      AND status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="type != ''">
+      AND type = #{type, jdbcType=VARCHAR}
+    </if>
+    <if test="create_time_start != null">
+      AND create_time &gt;= #{create_time_start, jdbcType=TIMESTAMP}
+    </if>
+    <if test="create_time_end != null">
+      AND create_time &lt;= #{create_time_end, jdbcType=TIMESTAMP}
+    </if>
+    <if test="start_num != null and end_num != null">
+      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
     </if>
   </select>
 </mapper>

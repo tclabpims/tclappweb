@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +26,9 @@ import java.util.regex.Pattern;
 @Controller
 @RequestMapping("/doctor")
 public class DoctorController {
+
+    //每页显示的条目数量
+    private static final int PAGE_SIZE = 8;
 
     @Autowired
     private DoctorService doctorService;
@@ -37,11 +41,107 @@ public class DoctorController {
      * @return
      */
     @RequestMapping("/list")
-    public String listDoctor(ModelMap map, HttpServletRequest httpServletRequest, @RequestParam String type) {
-        map.put("list", doctorService.selectByType(type));
+    public String listDoctor(ModelMap map, HttpServletRequest httpServletRequest,
+                             @RequestParam(required = false) String type, @RequestParam(required = false) String pageNo) {
+        int page_no;
+        if(pageNo == null || pageNo == "") {
+            page_no = 1;
+        }else {
+            page_no = Integer.parseInt(pageNo.trim());
+            if (page_no < 1) {
+                page_no = 1;
+            }
+        }
+        List<DoctorModel> doctor_list_all = doctorService.selectByType(type);
+        int total_records = doctor_list_all.size();
+        int total_page = (total_records + PAGE_SIZE - 1) / PAGE_SIZE;
+        if(total_page < 1) {
+            total_page = 1;
+        }
+        if (page_no > total_page) {
+            page_no = total_page;
+        }
+        List<DoctorModel> doctor_list = doctorService.selectByPage(type, page_no, PAGE_SIZE);
+        map.put("pageNo", page_no);
+        map.put("list", doctor_list);
+        map.put("totalPage", total_page);
         return "doctor/list";
     }
+    /**
+     * 查询医生
+     * @param userName
+     * @param hospitalId
+     * @param doctorName
+     * @param title
+     * @param status
+     * @param type
+     * @param createTimeStart
+     * @param createTimeEnd
+     * @return
+     */
+    @RequestMapping(value = "/query")
+    public String queryDoctors(ModelMap map,
+                               String userName,
+                               String hospitalId,
+                               String doctorName,
+                               String title,
+                               String status,
+                               String type,
+                               String createTimeStart,
+                               String createTimeEnd,
+                               String pageNo) {
+        int page_no;
+        if(pageNo == null || pageNo == "") {
+            page_no = 1;
+        }else {
+            page_no = Integer.parseInt(pageNo.trim());
+            if (page_no < 1) {
+                page_no = 1;
+            }
+        }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date create_time_start = null;
+        Date create_time_end = null;
+        Long hospital_id;
+        try{
+            create_time_start = dateFormat.parse(createTimeStart.trim());
+            create_time_end = dateFormat.parse(createTimeEnd.trim());
+        }catch (Exception e) {
+            e.getStackTrace();
+        }
+        if(hospitalId.trim() == null || hospitalId.trim() == "") {
+            hospital_id = null;
+        }else {
+            hospital_id = Long.parseLong(hospitalId.trim());
+        }
+        List<DoctorModel> doctors_all =  doctorService.queryByInfo(userName.trim(), hospital_id, doctorName.trim(),
+                title.trim(), status.trim(), type.trim(), create_time_start, create_time_end);
 
+        int totalPage = (doctors_all.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        if(totalPage < 1) {
+            totalPage = 1;
+        }
+        if(page_no > totalPage) {
+            page_no = totalPage;
+        }
+        if (totalPage > 0) {
+            List<DoctorModel> doctors =  doctorService.queryByInfoPgae(userName.trim(), hospital_id, doctorName.trim(),
+                    title.trim(), status.trim(), type.trim(), create_time_start, create_time_end, page_no, PAGE_SIZE);
+            map.put("list", doctors);
+        }
+        map.put("userName_", userName.trim());
+        map.put("hospital_id", hospital_id);
+        map.put("doctorName", doctorName.trim());
+        map.put("title", title.trim());
+        map.put("status", status.trim());
+        map.put("type", type.trim());
+        map.put("createTimeStart", createTimeStart.trim());
+        map.put("createTimeEnd", createTimeEnd.trim());
+        map.put("pageNo", page_no);
+        map.put("query_flag", true);
+        map.put("totalPage", totalPage);
+        return "doctor/list";
+    }
     /**
      * 通过Id删除一位医生
      * @return
@@ -152,10 +252,24 @@ public class DoctorController {
 
     /**
      * 增加医生
+     * @param doctorModel
      * @return
      */
-    @RequestMapping(value = "/add")
-    public String addDoctor() {
-        return "doctor/add";
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> addDoctor(DoctorModel doctorModel) {
+        doctorModel.setCreateTime(new Date());
+        doctorModel.setReadReportNum(0);
+        doctorModel.setDiagnosisNum(0);
+        doctorModel.setIsOpenAutoreceipt("NO");
+        doctorModel.setReceiptInterval(0);
+        int result = doctorService.addADoctor(doctorModel);
+        Map<String, String> map = new HashMap<String, String>();
+        if(result > 0) {
+            map.put("msg", "success");
+        } else {
+            map.put("msg", "error");
+        }
+        return map;
     }
 }

@@ -26,8 +26,6 @@
       <div class="pagemain">
           <%--<input id="strMenuId" type="hidden" value="3" />
           <input id="strSubMenuId" type="hidden" value="31" />--%>
-
-
       </div>
   </div>
 

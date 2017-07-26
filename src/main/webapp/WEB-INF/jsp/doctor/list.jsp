@@ -18,6 +18,20 @@
       host = host.substring(0, host.indexOf(':'));
     }
   %>
+    <style type="text/css">
+        .label_Style{
+             font-size: small;
+             color: #0C0C0C;
+         }
+        .input_text_style{
+            width: 120px;
+            height: 26px
+        }
+        .select_style{
+            width: 120px;
+            height: 30px
+        }
+    </style>
 </head>
 <body style="background: #f6f1eb none repeat scroll 0 0;">
   <%@include file="../top.jsp"%>
@@ -26,7 +40,64 @@
       <div class="pagemain">
           <%--<input id="strMenuId" type="hidden" value="3" />
           <input id="strSubMenuId" type="hidden" value="31" />--%>
+          <div>
+              <br/><form action="${pageContext.request.contextPath}/doctor/query.do" method="post">
+              &nbsp;&nbsp;&nbsp;
+              <label class="label_Style">用户名:</label>&nbsp;&nbsp;&nbsp;
+              <input id="query_userName" name="userName" type="text" class="input_text_style" />
 
+              &nbsp;&nbsp;&nbsp;
+              <label class="label_Style">医院:</label>&nbsp;&nbsp;&nbsp;
+              <select id="query_hospital_id" name="hospitalId" lay-verify="" class="select_style" />
+              <option value=""></option>
+              </select>
+
+              &nbsp;&nbsp;&nbsp;
+              <label class="label_Style">姓名:</label>&nbsp;&nbsp;&nbsp;
+              <input id="query_doctor_name" name="doctorName" type="text" class="input_text_style" />
+
+              &nbsp;&nbsp;&nbsp;
+              <label class="label_Style">职称:</label>&nbsp;&nbsp;&nbsp;
+              <select id="query_title" name="title" lay-verify="" class="select_style" />
+              <option value=""></option>
+              <option value="主任医师">主任医师</option>
+              <option value="副主任医师">副主任医师</option>
+              </select>
+
+              &nbsp;&nbsp;&nbsp;
+              <label class="label_Style">状态:</label>&nbsp;&nbsp;&nbsp;
+              <select id="query_status" name="status" lay-verify="" class="select_style" >
+                  <option value=""></option>
+                  <option value="0">初始化</option>
+                  <option value="1">可用</option>
+                  <option value="2">待审核</option>
+                  <option value="3">停用</option>
+              </select>
+
+              <br/><br/>&nbsp;&nbsp;&nbsp;
+              <label class="label_Style">类型:</label>&nbsp;&nbsp;&nbsp;
+              <select id="query_type" name="type" lay-verify="" class="select_style" >
+                  <option value=""></option>
+                  <option value="1">医生</option>
+                  <option value="2">护士</option>
+              </select>
+
+              &nbsp;&nbsp;&nbsp;
+              <label class="label_Style">创建时间:</label>&nbsp;&nbsp;&nbsp;
+              <div class="layui-inline">
+                  <input class="input_text_style" name="createTimeStart" placeholder="开始日期" id="createtime_range_start">
+              </div>&nbsp;——&nbsp;
+              <div class="layui-inline">
+                  <input class="input_text_style" name="createTimeEnd" placeholder="结束日期" id="createtime_range_end">
+              </div>
+
+              &nbsp;&nbsp;&nbsp;
+              <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询"/>
+
+              &nbsp;&nbsp;&nbsp;
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addDoctor()">新增</button>
+            </form>
+          </div>
           <table class="sui-table table-bordered" style="margin-top:20px;">
               <thead>
                 <tr>
@@ -76,6 +147,55 @@
                 </c:forEach>
               </tbody>
           </table>
+          <br/><br/>
+          <c:choose>
+              <c:when test="${query_flag == true}">
+                  <div align="center" style="font-size: small;position: fixed;left: 400px;top: 600px;right: 200px">
+                      第${pageNo}页&nbsp;&nbsp;
+                      <c:choose>
+                          <c:when test="${pageNo > 1}">
+                            <a href="${pageContext.request.contextPath}/doctor/query.do?pageNo=${pageNo - 1}&userName=${userName_}&hospitalId=${hospital_id}&doctorName=${doctorName}&title=${title}&status=${status}&type=${type}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">
+                            上一页</a>&nbsp;&nbsp;
+                          </c:when>
+                            <c:otherwise>
+                             <a href="#">上一页</a>&nbsp;&nbsp;
+                            </c:otherwise>
+                      </c:choose>
+                      <c:choose>
+                        <c:when test="${pageNo < totalPage}">
+                            <a href="${pageContext.request.contextPath}/doctor/query.do?pageNo=${pageNo + 1}&userName=${userName_}&hospitalId=${hospital_id}&doctorName=${doctorName}&title=${title}&status=${status}&type=${type}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">
+                            下一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">下一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                      </c:choose>
+                      共${totalPage}页&nbsp;&nbsp;
+                  </div>
+              </c:when>
+              <c:otherwise>
+                  <div align="center" style="font-size: small;position: fixed;left: 400px;top: 600px;right: 200px">
+                      第${pageNo}页&nbsp;&nbsp;
+                      <c:choose>
+                        <c:when  test="${pageNo > 1}">
+                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo - 1}">上一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">上一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                      </c:choose>
+                      <c:choose>
+                        <c:when test="${pageNo < totalPage}">
+                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo + 1}">下一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">下一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                      </c:choose>
+                      共${totalPage}页&nbsp;&nbsp;
+                  </div>
+              </c:otherwise>
+          </c:choose>
       </div>
   </div>
 
@@ -245,6 +365,122 @@
             </tr>
         </tbody>
       </table>
+  </div>
+
+  <%--新增医生--%>
+  <div id="add_doctor" style="display: none;">
+    <br/><form id="add_doctor_form" class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="userName" required lay-verify="required" class="layui-input" style="width: 260px"/>
+            </div>
+        </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="passWord" required lay-verify="required" class="layui-input" style="width: 260px"/>
+            </div>
+       </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">医院名称</label>
+            <div class="layui-input-block" style="width: 260px">
+                <input type="hidden" id="hospital_name" name="hospitalName"/>
+                <select id="hospital_name_select" name="hospitalId" lay-verify="">
+                    <option value=""></option>
+                </select>
+            </div>
+       </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="doctorName" required lay-verify="required" class="layui-input" style="width: 260px"/>
+            </div>
+       </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">身份证号</label>
+            <div class="layui-input-block">
+                <input type="text" name="sfzNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
+            </div>
+       </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block" style="width: 260px">
+                <input type="radio" name="sex" value="男" title="男">
+                <input type="radio" name="sex" value="女" title="女">
+            </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">年龄</label>
+          <div class="layui-input-block">
+              <input type="text" name="age" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">职称</label>
+          <div class="layui-input-block" style="width: 260px">
+              <select name="title" lay-verify="">
+                  <option value=""></option>
+                  <option value="主任医师">主任医师</option>
+                  <option value="副主任医师">副主任医师</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">头像</label>
+          <div class="layui-input-block">
+              <input type="file" id="touimg_id" name="touImg" style="width: 210px"/>
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadTouImg()">上传</button>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">从业执照图片</label>
+          <div class="layui-input-block">
+              <input type="file" name="zzImg" style="width: 210px"/>
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadZZImg()">上传</button>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">状态</label>
+          <div class="layui-input-block" style="width: 260px">
+              <select name="status" lay-verify="">
+                  <option value=""></option>
+                  <option value="0">初始化</option>
+                  <option value="1">可用</option>
+                  <option value="2">待审核</option>
+                  <option value="3">停用</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">类型</label>
+          <div class="layui-input-block" style="width: 260px">
+              <select name="type" lay-verify="">
+                  <option value=""></option>
+                  <option value="1">医生</option>
+                  <option value="2">护士</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label">介绍</label>
+          <div class="layui-input-block">
+              <textarea name="introduce" class="layui-textarea" style="width: 320px"></textarea>
+          </div>
+      </div>
+    </form>
   </div>
 </body>
 </html>

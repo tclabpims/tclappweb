@@ -238,3 +238,159 @@ function ItemDetail(id) {
         $("#doctor_picture").attr("src", doctor.touImg);
     })
 }
+
+/*添加医生*/
+function addDoctor() {
+    layui.use(['layer', 'form'], function() {
+        var layer = layui.layer;
+        var form = layui.form();
+        layer.open({
+            type: 1,
+            title: "新增医生",
+            area: ["480px", "680px"],
+            content: $("#add_doctor"),
+            btn: ["增加", "取消"],
+            yes: function(index, layero) {
+                //确定当前选定的医院
+                var obj = document.getElementById("hospital_name_select");
+                var selected_index = obj.selectedIndex;
+                $("#hospital_name").val(obj.options[selected_index].text);
+                $.ajax({
+                    url: "add.do",
+                    type: "POST",
+                    data: $("#add_doctor_form").serializeArray(),
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.msg == "success") {
+                            layer.msg("添加成功", {
+                                time: 1000
+                            });
+                        } else if(data.msg == "error") {
+                            layer.msg("添加失败", {
+                                time: 1000
+                            });
+                        }
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000)
+                    },
+                    error: function(er) {
+                        console.log(er);
+                    }
+                });
+            },
+            btn2: function(index, layero) {
+                layer.close(index);
+            }
+        })
+        form.render();
+    });
+}
+
+function requireHospitals() {
+    layui.use('form', function() {
+        var form = layui.form();
+        $.ajax({
+            url: "/hospital/listHospitals.do",
+            type: "POST",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var hospitals = data.hospitals;
+                var obj1 = document.getElementById("hospital_name_select");
+                var obj2 = document.getElementById("query_hospital_id");
+                for(i=0; i<hospitals.length; i++) {
+                    obj1.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                    obj2.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                }
+            },
+            error: function(er) {
+                console.log(er);
+            }
+        });
+    });
+}
+requireHospitals();
+
+/**
+ * 上传头像照片
+ */
+function uploadTouImg() {
+    $.ajax({
+        url: "http://183.247.179.221:9099/fileUpload?file=" + $("#touimg_id").val(),
+        type: "get",
+        async: false,
+        dataType: "jsonp",
+        success: function(json) {
+            console.log(json);
+        },
+        error: function(er) {
+            console.log(er);
+        }
+    })
+}
+
+/**
+ * 上传从业执照图片
+ */
+function uploadZZImg() {
+    alert("zz");
+}
+
+/**
+ * 显示年月日
+ */
+layui.use('laydate', function(){
+    var laydate = layui.laydate;
+    var start = {
+        max: laydate.now()
+        ,istoday: false
+        ,choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+
+    var end = {
+        max: laydate.now()
+        ,istoday: false
+        ,choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+
+    document.getElementById('createtime_range_start').onclick = function(){
+        start.elem = this;
+        laydate(start);
+    }
+    document.getElementById('createtime_range_end').onclick = function(){
+        end.elem = this
+        laydate(end);
+    }
+});
+/*
+function doctor_query() {
+    var query_info = {
+        id: $("#query_id").val(),
+        hospitalId: $("#query_hospital_id").val(),
+        doctorName: $("#query_doctor_name").val(),
+        title: $("#query_title").val(),
+        status: $("#query_status").val(),
+        type: $("#query_type").val(),
+        createTimeStart: $("#createtime_range_start").val(),
+        createTimeEnd: $("#createtime_range_end").val()
+    }
+    $.ajax({
+        url: "query.do",
+        type: "POST",
+        data: query_info,
+        dataType: "json",
+        success: function(data) {
+
+        },
+        error: function(er) {
+            console.log(er);
+        }
+    })
+}*/
+
