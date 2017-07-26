@@ -1,0 +1,12 @@
+.label_Style{
+    font-size: small;
+    color: #0C0C0C;
+}
+.input_text_style{
+    width: 120px;
+    height: 26px
+}
+.select_style{
+    width: 120px;
+    height: 30px
+}

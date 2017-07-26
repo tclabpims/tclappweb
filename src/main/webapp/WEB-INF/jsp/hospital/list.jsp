@@ -8,6 +8,7 @@
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
+    <link href="${pageContext.request.contextPath}/css/customStyle.css" rel="stylesheet">
     <%
         request.setAttribute("nav", "draw");
         request.setAttribute("tab", "set");
@@ -25,7 +26,22 @@
     <div class="pagemain">
         <input id="strMenuId" type="hidden" value="2"/>
         <input id="strSubMenuId" type="hidden" value="21"/>
+        <div>
+            <br/>
+            <form action="" method="post">
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">医院名称:</label>
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="name"/>
 
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">电话:</label>
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="telphone"/>
+
+                &nbsp;&nbsp;&nbsp;
+                <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询" />
+
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addHospital()">新增</button>
+            </form>
+        </div>
         <table class="sui-table table-bordered" style="margin-top:20px;">
             <thead>
             <tr>
@@ -45,7 +61,7 @@
                 <tr>
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.name}</td>
-                    <td class="center left-con"><img src="${item.picUrl}" height="50px" width="50px"/></td>
+                    <td class="center left-con"><img src="<%@include file="../../constants.jsp"%>${item.picUrl}" height="50px" width="50px"/></td>
                     <td class="center left-con">${item.address}</td>
                     <td class="center left-con">${item.telphone}</td>
                     <td class="center left-con">
@@ -56,6 +72,13 @@
             </c:forEach>
             </tbody>
     </table>
+    <div align="center" style="font-size: small;position: fixed;left: 400px;top: 600px;right: 200px">
+        第几页&nbsp;&nbsp;
+        上一页&nbsp;&nbsp;
+        下一页&nbsp;&nbsp;
+        共几页
+
+    </div>
    </div>
 </div>
  <%--<%@include file="mbottom.jsp"%>--%>

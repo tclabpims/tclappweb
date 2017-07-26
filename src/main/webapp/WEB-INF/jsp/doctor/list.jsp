@@ -9,6 +9,7 @@
   <%@include file="../../head.jsp"%>
   <%@include file="../../jquery.jsp"%>
   <script src="${pageContext.request.contextPath}/js/doctor/doctor.js"></script>
+  <link href="${pageContext.request.contextPath}/css/customStyle.css" rel="stylesheet">
   <%
     request.setAttribute("nav", "draw");
     request.setAttribute("tab", "set");
@@ -18,20 +19,6 @@
       host = host.substring(0, host.indexOf(':'));
     }
   %>
-    <style type="text/css">
-        .label_Style{
-             font-size: small;
-             color: #0C0C0C;
-         }
-        .input_text_style{
-            width: 120px;
-            height: 26px
-        }
-        .select_style{
-            width: 120px;
-            height: 30px
-        }
-    </style>
 </head>
 <body style="background: #f6f1eb none repeat scroll 0 0;">
   <%@include file="../top.jsp"%>
