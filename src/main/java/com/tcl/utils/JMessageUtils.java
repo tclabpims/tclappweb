@@ -5,6 +5,8 @@ import cn.jiguang.common.resp.APIRequestException;
 import cn.jmessage.api.JMessageClient;
 import cn.jmessage.api.common.model.RegisterInfo;
 
+import java.util.List;
+
 /**
  * Created by wang on 2017-07-27.
  */
@@ -30,15 +32,15 @@ public class JMessageUtils {
         return "";
     }
     //批量注册
-    public static String registerUsers(String[] userNames) {
+    public static String registerUsers(List<String> userNames) {
         JMessageClient client = new JMessageClient(appKey, masterSecret);
         try {
-            if(userNames!=null&&userNames.length>0){
-                RegisterInfo[] users=new RegisterInfo[userNames.length];
-                for(int i=0;i<userNames.length;i++){
+            if(userNames!=null&&userNames.size()>0){
+                RegisterInfo[] users=new RegisterInfo[userNames.size()];
+                for(int i=0;i<userNames.size();i++){
                     RegisterInfo.Builder builder=RegisterInfo.newBuilder();
                     builder.setPassword("tcl123456");
-                    builder.setUsername(userNames[i]);
+                    builder.setUsername(userNames.get(i));
                     users[i]=builder.build();
                 }
                 String result=client.registerUsers(users);
