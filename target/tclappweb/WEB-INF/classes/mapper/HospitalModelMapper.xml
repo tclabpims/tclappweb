@@ -219,7 +219,7 @@
   </update>
 
 
-  <select id="selectByType" parameterType="map" resultMap="ResultMapWithBLOBs">
+  <select id="selectByType" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     ,
@@ -227,6 +227,51 @@
     from app_c_hospital where 1=1
     <if test="type != ''">
       and type = #{type,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectByPageInfo" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_hospital where 1=1
+    <if test="type != ''">
+      and type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="start_num != null and end_num != null">
+      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="queryByInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_hospital where 1=1
+    <if test="name != null and name != ''">
+      AND name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="telphone != null and telphone != ''">
+      AND telphone = #{telphone, jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="queryByPageInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_hospital where 1=1
+    <if test="name != null and name != ''">
+      AND name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="telphone != null and telphone != ''">
+      AND telphone = #{telphone, jdbcType=VARCHAR}
+    </if>
+    <if test="start_num != null and end_num != null">
+      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
     </if>
   </select>
 </mapper>

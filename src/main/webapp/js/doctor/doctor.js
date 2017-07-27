@@ -13,7 +13,6 @@ function ItemDele(id) {
                 offset: '100px',
                 icon: 3},
             function(index){
-                layer.close(index);
                 $.ajax({
                     url: "delete.do",
                     type: "POST",
@@ -23,16 +22,21 @@ function ItemDele(id) {
                     dataType: "json",
                     success: function(data) {
                         if(data.msg == "1") {
-                            console.log("delete success!");
+                            layer.msg('删除成功',{
+                                offset: '160px',
+                                time: 1500
+                            })
                             //删除成功后刷新当前页面
-                            location.reload();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
                         }else if(data.msg == "2"){
-                            layer.msg("delete failed", {
+                            layer.msg("删除失败", {
                                 offset: "160px",
                                 time: 1500
                             });
                         } else {
-                            layer.msg("param has error", {
+                            layer.msg("参数有误", {
                                 offset: "160px",
                                 time: 1500
                             });
@@ -42,6 +46,7 @@ function ItemDele(id) {
                         console.log(er);
                     }
                 });
+                layer.close(index);
             });
     })
 }

@@ -165,7 +165,7 @@
                       第${pageNo}页&nbsp;&nbsp;
                       <c:choose>
                         <c:when  test="${pageNo > 1}">
-                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo - 1}">上一页</a>&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo - 1}&type=${type}">上一页</a>&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
                             <a href="#">上一页</a>&nbsp;&nbsp;
@@ -173,7 +173,7 @@
                       </c:choose>
                       <c:choose>
                         <c:when test="${pageNo < totalPage}">
-                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo + 1}">下一页</a>&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo + 1}&type=${type}">下一页</a>&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
                             <a href="#">下一页</a>&nbsp;&nbsp;

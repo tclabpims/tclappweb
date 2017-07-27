@@ -44,6 +44,7 @@ public class DoctorController {
     public String listDoctor(ModelMap map, HttpServletRequest httpServletRequest,
                              @RequestParam(required = false) String type, @RequestParam(required = false) String pageNo) {
         int page_no;
+        boolean isEmpty = false;
         if(pageNo == null || pageNo == "") {
             page_no = 1;
         }else {
@@ -52,18 +53,24 @@ public class DoctorController {
                 page_no = 1;
             }
         }
-        List<DoctorModel> doctor_list_all = doctorService.selectByType(type);
+        List<DoctorModel> doctor_list_all = doctorService.selectByType(type.trim());
         int total_records = doctor_list_all.size();
         int total_page = (total_records + PAGE_SIZE - 1) / PAGE_SIZE;
         if(total_page < 1) {
             total_page = 1;
+            isEmpty = true;
         }
         if (page_no > total_page) {
             page_no = total_page;
         }
-        List<DoctorModel> doctor_list = doctorService.selectByPage(type, page_no, PAGE_SIZE);
+        if (!isEmpty) {
+            List<DoctorModel> doctor_list = doctorService.selectByPage(type, page_no, PAGE_SIZE);
+            map.put("list", doctor_list);
+        } else {
+            map.put("list", new ArrayList<DoctorModel>());
+        }
+        map.put("type", type.trim());
         map.put("pageNo", page_no);
-        map.put("list", doctor_list);
         map.put("totalPage", total_page);
         return "doctor/list";
     }
@@ -91,6 +98,7 @@ public class DoctorController {
                                String createTimeEnd,
                                String pageNo) {
         int page_no;
+        boolean isEmpty = false;
         if(pageNo == null || pageNo == "") {
             page_no = 1;
         }else {
@@ -120,14 +128,17 @@ public class DoctorController {
         int totalPage = (doctors_all.size() + PAGE_SIZE - 1) / PAGE_SIZE;
         if(totalPage < 1) {
             totalPage = 1;
+            isEmpty = true;
         }
         if(page_no > totalPage) {
             page_no = totalPage;
         }
-        if (totalPage > 0) {
+        if (!isEmpty) {
             List<DoctorModel> doctors =  doctorService.queryByInfoPgae(userName.trim(), hospital_id, doctorName.trim(),
                     title.trim(), status.trim(), type.trim(), create_time_start, create_time_end, page_no, PAGE_SIZE);
             map.put("list", doctors);
+        } else {
+            map.put("list", new ArrayList<DoctorModel>());
         }
         map.put("userName_", userName.trim());
         map.put("hospital_id", hospital_id);
