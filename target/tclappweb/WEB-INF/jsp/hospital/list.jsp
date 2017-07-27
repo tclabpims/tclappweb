@@ -8,6 +8,8 @@
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/hospital/hospital.js"></script>
+    <link href="${pageContext.request.contextPath}/css/customStyle.css" rel="stylesheet">
     <%
         request.setAttribute("nav", "draw");
         request.setAttribute("tab", "set");
@@ -25,7 +27,22 @@
     <div class="pagemain">
         <input id="strMenuId" type="hidden" value="2"/>
         <input id="strSubMenuId" type="hidden" value="21"/>
+        <div>
+            <br/>
+            <form action="${pageContext.request.contextPath}/hospital/query.do" method="post">
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">医院名称:</label>
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="name"/>
 
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">电话:</label>
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="telphone"/>
+
+                &nbsp;&nbsp;&nbsp;
+                <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询" />
+
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addHospital()">新增</button>
+            </form>
+        </div>
         <table class="sui-table table-bordered" style="margin-top:20px;">
             <thead>
             <tr>
@@ -45,19 +62,246 @@
                 <tr>
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.name}</td>
-                    <td class="center left-con"><img src="${item.picUrl}" height="50px" width="50px"/></td>
+                    <td class="center left-con"><img src="<%@include file="../../constants.jsp"%>${item.picUrl}" height="50px" width="50px"/></td>
                     <td class="center left-con">${item.address}</td>
                     <td class="center left-con">${item.telphone}</td>
                     <td class="center left-con">
-                       <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>
-                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>
+                       <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
+                       <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;
+                       <span class=""><a href="javascript:void(0)" onclick="ItemDetail('${item.id}')">详情</a> </span>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
     </table>
+    <div align="center" style="font-size: small;position: fixed;left: 400px;top: 600px;right: 200px">
+        第${pageNo}页&nbsp;&nbsp;
+        <c:choose>
+            <c:when test="${query_flag == true}">
+                <c:choose>
+                    <c:when test="${pageNo > 1}">
+                        <a href="${pageContext.request.contextPath}/hospital/query.do?pageNo=${pageNo - 1}&name=${name}&telphone=${telphone}">上一页</a>&nbsp;&nbsp;
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#">上一页</a>&nbsp;&nbsp;
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${pageNo < totalPage}">
+                        <a href="${pageContext.request.contextPath}/hospital/query.do?pageNo=${pageNo + 1}&name=${name}&telphone${telphone}">下一页</a>&nbsp;&nbsp;
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#">上一页</a>&nbsp;&nbsp;
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>
+                <c:choose>
+                    <c:when test="${pageNo > 1}">
+                        <a href="${pageContext.request.contextPath}/hospital/list.do?pageNo=${pageNo - 1}&type=${type}">上一页</a>&nbsp;&nbsp;
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#">上一页</a>&nbsp;&nbsp;
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${pageNo < totalPage}">
+                        <a href="${pageContext.request.contextPath}/hospital/list.do?pageNo=${pageNo + 1}&type=${type}">下一页</a>&nbsp;&nbsp;
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#">上一页</a>&nbsp;&nbsp;
+                    </c:otherwise>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+        共${totalPage}页
+    </div>
    </div>
 </div>
  <%--<%@include file="mbottom.jsp"%>--%>
+    <div id="add_hospital_page" style="display: none">
+        <br/><form id="add_hospital_form" action="" class="layui-form">
+            <%--医院名--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+            <%--医院地址--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="address" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--医院图片--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院图片</label>
+                <div class="layui-input-block">
+                    <input type="file" name="picUrl" style="width: 210px">
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
+                </div>
+            </div>
+
+            <%--医院电话--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院电话</label>
+                <div class="layui-input-block">
+                    <input type="text" name="telphone" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--医院经度--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院经度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="longitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--医院纬度--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院纬度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="latitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--支付宝付款账户--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">支付宝账户</label>
+                <div class="layui-input-block">
+                    <input type="text" name="alipayPayAccount" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--微信付款账户--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">微信账户</label>
+                <div class="layui-input-block">
+                    <input type="text" name="weixinPayAccount" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--详情介绍--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详情介绍</label>
+                <div class="layui-input-block">
+                    <textarea name="details" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--检验项目说明--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">检验说明</label>
+                <div class="layui-input-block">
+                    <textarea name="projectDesc" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--特色优势--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">特色优势</label>
+                <div class="layui-input-block">
+                    <textarea name="specialist" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <%--编辑医院信息--%>
+    <div id="hospital_info_edit" style="display: none">
+        <br/><form id="edit_hospital_form" action="" class="layui-form">
+            <%--医院名--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_name" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+            <%--医院地址--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院地址</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_address" name="address" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--医院图片--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院图片</label>
+                <div class="layui-input-block">
+                    <input type="file" id="edit_picUrl" name="picUrl" style="width: 210px">
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
+                </div>
+            </div>
+
+            <%--医院电话--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院电话</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_telphone" name="telphone" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--医院经度--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院经度</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_longitude" name="longitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--医院纬度--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院纬度</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_latitude" name="latitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--支付宝付款账户--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">支付宝账户</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_alipayPayAccount" name="alipayPayAccount" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--微信付款账户--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">微信账户</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edit_weixinPayAccount" name="weixinPayAccount" required lay-verify="required" class="layui-input" style="width: 260px">
+                </div>
+            </div>
+
+            <%--详情介绍--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详情介绍</label>
+                <div class="layui-input-block">
+                    <textarea id="edit_details" name="details" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--检验项目说明--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">检验说明</label>
+                <div class="layui-input-block">
+                    <textarea id="edit_projectDesc" name="projectDesc" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--特色优势--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">特色优势</label>
+                <div class="layui-input-block">
+                    <textarea id="edit_specialist" name="specialist" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

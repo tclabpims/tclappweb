@@ -13,9 +13,8 @@ import java.util.Map;
 @Service
 public class PackageServiceImpl implements PackageService {
 
-		@Autowired
-		private PackageModelMapper packageDao;
-
+	@Autowired
+	private PackageModelMapper packageDao;
 
 	public PackageModel selectById(Long id) {
 		return packageDao.selectByPrimaryKey(id);

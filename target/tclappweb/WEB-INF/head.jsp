@@ -5,3 +5,4 @@
 <link href="${pageContext.request.contextPath}/css/checkbox_radio.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/layout.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/head.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/layui.css" rel="stylesheet">
