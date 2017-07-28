@@ -1,5 +1,7 @@
 .apdisk
+.idea/*
 src/main/webapp/pdf/*
+src/main/webapp/images/*
 src/main/webapp/WEB-INF/lib/*
 src/main/webapp/WEB-INF/lib/fonts.jar
 src/main/webapp/WEB-INF/lib/ss_css2.jar
@@ -7,4 +9,3 @@ pims.iml
 #pom.xml
 velocity.log.1
 velocity.log
-.target/*
