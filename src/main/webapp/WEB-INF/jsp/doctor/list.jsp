@@ -194,18 +194,6 @@
           <label class="layui-form-label">用户名</label>
           <div class="layui-input-block">
               <input type="hidden" id="id" name="id">
-              <input type="hidden" id="password" name="passWord">
-              <input type="hidden" id="hospitalId" name="hospitalId">
-              <input type="hidden" id="sfzNum" name="sfzNum">
-              <input type="hidden" id="touImg" name="touImg">
-              <input type="hidden" id="zzImg" name="zzImg">
-              <input type="hidden" id="status" name="status">
-              <input type="hidden" id="auditReason" name="auditReason">
-              <input type="hidden" id="verificationCode" name="verificationCode">
-              <input type="hidden" id="isOpenAutoreceipt" name="isOpenAutoreceipt">
-              <input type="hidden" id="receiptInterval" name="receiptInterval">
-              <input type="hidden" id="codeSendTime" name="codeSendTime">
-              <input type="hidden" id="createTime" name="createTime">
               <input type="text"  id="userName" name="userName"  required lay-verify="required" autocomplete="off"
               class="layui-input" style="width: 220px">
               </div>
@@ -347,7 +335,7 @@
                 <td id="sfzNumber" colspan="3"></td>
             </tr>
             <tr>
-                <td valign="top" align="center" style="height: 300px">医生简介</td>
+                <td valign="top" align="center" style="height: 400px">医生简介</td>
                 <td id="doctorIntroduce" colspan="4" style="height: 400px" valign="top"></td>
             </tr>
         </tbody>

@@ -304,5 +304,54 @@
             </div>
         </form>
     </div>
+
+    <%--显示医院详细信息--%>
+    <div id="detail_info" style="display: none">
+        <table id="detail_info_table" class="layui-table" lay-even lay-skin="nob">
+            <colgroup align="left" span="3">
+                <col width="20%">
+                <col width="35%">
+                <col width="45%">
+                <%--<col width="27%">
+                <col width="23%">--%>
+            </colgroup>
+            <tbody>
+            <tr>
+                <td align="center">医院名称</td>
+                <td align="center"></td>
+                <td rowspan="4"><img id="hospital_picture" alt="照片"
+                                     style="width: 260px;height: 160px"></td>
+            </tr>
+            <tr>
+                <td align="center">电话</td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td align="center">经度</td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td align="center">纬度</td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td align="center">地址</td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="center" style="height: 150px">详情介绍</td>
+                <td colspan="2" style="height: 150px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="center" style="height: 90px">检验项目说明</td>
+                <td colspan="2" style="height: 90px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="center" style="height: 80px">特色优势</td>
+                <td colspan="2" style="height: 80px" valign="top"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

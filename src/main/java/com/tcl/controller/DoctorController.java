@@ -3,6 +3,7 @@ package com.tcl.controller;
 import com.sun.media.sound.ModelDirector;
 import com.tcl.model.DoctorModel;
 import com.tcl.service.DoctorService;
+import com.tcl.utils.JMessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -238,23 +239,24 @@ public class DoctorController {
         Pattern p = Pattern.compile("^[0-9]+$");
         Matcher matcher = p.matcher(id);
         Map<String, String> map = new HashMap<String, String>();
-        DoctorModel doctorModel = null;
         if(matcher.matches()) {
-            doctorModel = doctorService.selectById(Long.parseLong(id));
-            if(doctorModel != null) {
-                doctorModel.setStatus(status);
-                doctorModel.setAuditReason(auditReason);
-                int result = doctorService.updateById(doctorModel);
-                if (result > 0) {
-                    map.put("msg", "success");
-                    return map;
-                } else {
-                    map.put("msg", "failed");
-                    return map;
+            DoctorModel doctorModel = new DoctorModel();
+            doctorModel.setId(Long.parseLong(id));
+            doctorModel.setStatus(status.trim());
+            doctorModel.setAuditReason(auditReason.trim());
+            int result = doctorService.updateById(doctorModel);
+            if (result > 0) {
+                //更新成功后将该医生在极光上注册，实现聊天
+                if (status.trim().equals("1")) {
+                    DoctorModel doctor = doctorService.selectById(Long.parseLong(id));
+                    JMessageUtils.registerUser(doctor.getUserName());
                 }
+                map.put("msg", "success");
+                return map;
+            } else {
+                map.put("msg", "failed");
+                return map;
             }
-            map.put("msg", "id error");
-            return map;
         } else {
             map.put("msg", "param error");
             return map;

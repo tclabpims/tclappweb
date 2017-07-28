@@ -25,7 +25,7 @@ function ItemDele(id) {
                             layer.msg('删除成功',{
                                 offset: '160px',
                                 time: 1500
-                            })
+                            });
                             //删除成功后刷新当前页面
                             setTimeout(function() {
                                 location.reload();
@@ -117,20 +117,11 @@ function ItemEdit(id) {
                 layer.close(index);
             }
 
-        })
+        });
         /*通过数据库中获取的数据动态确定radio选项*/
         $("input[name=sex][value='"+doctor.sex+"']").attr("checked", true);
         $("#doctor_type option[value='"+doctor.type+"']").attr("selected", 'selected');
         $("#id").val(doctor.id);
-        $("#password").val(doctor.passWord);
-        $("#hospitalId").val(doctor.hospitalId);
-        $("#sfzNum").val(doctor.sfzNum);
-        $("#touImg").val(doctor.touImg);
-        $("#zzImg").val(doctor.zzImg);
-        $("#status").val(doctor.status);
-        $("#verificationCode").val(doctor.verificationCode);
-        $("#codeSendTime").val(new Date(doctor.codeSendTime));
-        $("#createTime").val(new Date(doctor.createTime));
         $("#userName").val(doctor.userName);
         $("#hospitalName").val(doctor.hospitalName);
         $("#doctorName").val(doctor.doctorName);
@@ -169,7 +160,7 @@ function ItemAudite(id) {
                                 time: 1000
                             });
                             setTimeout(function(){
-                                location.href = "list.do?type=";
+                                location.reload();
                             }, 1000)
                         } else {
                             //操作失败在后台打印相关信息
@@ -178,7 +169,7 @@ function ItemAudite(id) {
                                 time: 1000
                             });
                             setTimeout(function(){
-                                location.href = "list.do?type=";
+                                location.reload();
                             }, 1000)
                         }
                     },
@@ -287,7 +278,7 @@ function addDoctor() {
             btn2: function(index, layero) {
                 layer.close(index);
             }
-        })
+        });
         form.render();
     });
 }
@@ -352,7 +343,7 @@ layui.use('laydate', function(){
         ,istoday: false
         ,choose: function(datas){
             end.min = datas; //开始日选好后，重置结束日的最小日期
-            end.start = datas //将结束日的初始值设定为开始日
+            end.start = datas; //将结束日的初始值设定为开始日
         }
     };
 
@@ -367,9 +358,9 @@ layui.use('laydate', function(){
     document.getElementById('createtime_range_start').onclick = function(){
         start.elem = this;
         laydate(start);
-    }
+    };
     document.getElementById('createtime_range_end').onclick = function(){
-        end.elem = this
+        end.elem = this;
         laydate(end);
     }
 });

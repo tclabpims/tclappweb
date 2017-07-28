@@ -32,7 +32,7 @@ function addHospital(){
                         }else if(data.msg == "error") {
                             layer.msg("新增失败", {
                                 time: 100
-                            })
+                            });
                             setTimeout(function() {
                                 location.reload();
                             }, 1000);
@@ -135,7 +135,7 @@ function ItemEdit(id) {
             layer.msg('获取信息失败', {
                 time: 1000,
                 offset: '160px',
-            })
+            });
             return;
         }
         layer.open({
@@ -156,7 +156,7 @@ function ItemEdit(id) {
                             layer.msg("更新成功", {
                                 time: 1000,
                                 offset: '160px'
-                            })
+                            });
                             setTimeout(function() {
                                 location.reload();
                             }, 1000);
@@ -164,7 +164,7 @@ function ItemEdit(id) {
                             layer.msg("更新失败", {
                                 time: 1000,
                                 offset: '160px'
-                            })
+                            });
                             setTimeout(function() {
                                 location.reload();
                             }, 1000);
@@ -178,7 +178,7 @@ function ItemEdit(id) {
             btn2: function(index, layero) {
                 layer.close(index);
             }
-        })
+        });
         $("#edit_name").val(hospital.name);
         $("#edit_address").val(hospital.address);
         $("#edit_telphone").val(hospital.telphone);
@@ -199,5 +199,47 @@ function ItemEdit(id) {
  * @constructor
  */
 function ItemDetail(id) {
-    alert(id);
+    var hospital;
+    $.ajax({
+        url: 'acquire.do',
+        type: 'POST',
+        data: {
+            id: id
+        },
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+            hospital = data.hospital;
+        },
+        error: function(er) {
+            console.log(er);
+        }
+    });
+    layui.use('layer', function() {
+        var layer = layui.layer;
+        if(hospital.name == "paramIsError") {
+            layer.msg('获取信息失败', {
+                time: 1000,
+                offset: '160px',
+            });
+            return;
+        }
+        layer.open({
+            type: 1,
+            title: "详细信息",
+            skin: 'layui-layer-rim',
+            area: ['600px', '680px'],
+            content: $("#detail_info")
+        });
+        var hospital_table = document.getElementById("detail_info_table");
+        hospital_table.rows[0].cells[1].innerHTML = hospital.name;
+        hospital_table.rows[1].cells[1].innerHTML = hospital.telphone;
+        hospital_table.rows[2].cells[1].innerHTML = hospital.longitude;
+        hospital_table.rows[3].cells[1].innerHTML = hospital.latitude;
+        hospital_table.rows[4].cells[1].innerHTML = hospital.address;
+        hospital_table.rows[5].cells[1].innerHTML = hospital.details;
+        hospital_table.rows[6].cells[1].innerHTML = hospital.projectDesc;
+        hospital_table.rows[7].cells[1].innerHTML = hospital.specialist;
+        $("#hospital_picture").attr("src", hospital.picUrl);
+    })
 }
