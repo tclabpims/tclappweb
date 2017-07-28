@@ -70,7 +70,7 @@ public class DoctorServiceImpl implements DoctorService{
      * @return
      */
     public int updateById(DoctorModel record) {
-        return doctorDao.updateByPrimaryKey(record);
+        return doctorDao.updateByPrimaryKeySelective(record);
     }
 
     /**
@@ -79,7 +79,7 @@ public class DoctorServiceImpl implements DoctorService{
      * @return
      */
     public int addADoctor(DoctorModel doctorModel) {
-        return doctorDao.insert(doctorModel);
+        return doctorDao.insertSelective(doctorModel);
     }
 
     /**

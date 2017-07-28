@@ -146,7 +146,34 @@ function ItemEdit(id) {
             content: $("#hospital_info_edit"),
             btn: ['提交', '取消'],
             yes: function(index, layero) {
-
+                $.ajax({
+                    url: "update.do",
+                    type: "POST",
+                    data: $("#edit_hospital_form").serializeArray(),
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.msg == "success") {
+                            layer.msg("更新成功", {
+                                time: 1000,
+                                offset: '160px'
+                            })
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }else if(data.msg == "error") {
+                            layer.msg("更新失败", {
+                                time: 1000,
+                                offset: '160px'
+                            })
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    },
+                    error: function(er) {
+                      console.log(er);
+                    }
+                });
             },
             btn2: function(index, layero) {
                 layer.close(index);
@@ -162,6 +189,7 @@ function ItemEdit(id) {
         $("#edit_details").val(hospital.details);
         $("#edit_projectDesc").val(hospital.projectDesc);
         $("#edit_specialist").val(hospital.specialist);
+        $("#id_form").val(hospital.id);
     })
 }
 

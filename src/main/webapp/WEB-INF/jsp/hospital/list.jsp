@@ -218,6 +218,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">医院名称</label>
                 <div class="layui-input-block">
+                    <input type="hidden" id="id_form" name="id" />
                     <input type="text" id="edit_name" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
                 </div>
             </div>

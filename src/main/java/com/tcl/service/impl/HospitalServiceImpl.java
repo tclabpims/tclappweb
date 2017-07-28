@@ -38,8 +38,13 @@ public class HospitalServiceImpl implements HospitalService {
 		return hospitalDao.selectByPageInfo(map);
 	}
 
+	/**
+	 * 增加医院
+	 * @param hospitalModel
+	 * @return
+	 */
 	public int addHospital(HospitalModelWithBLOBs hospitalModel) {
-		return hospitalDao.insert(hospitalModel);
+		return hospitalDao.insertSelective(hospitalModel);
 	}
 
 	/**
@@ -62,7 +67,7 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 
 	/**
-	 * 通过参数胡查询医生
+	 * 通过参数查询医生
 	 * @param name
 	 * @param telphone
 	 * @return
@@ -75,11 +80,20 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 
 	/**
-	 * 通过ID删除某位医生
+	 * 通过ID删除个医院
 	 * @param id
 	 * @return
 	 */
 	public int deleteById(Long id) {
 		return hospitalDao.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 通过ID更新医院信息
+	 * @param hospitalModel
+	 * @return
+	 */
+	public int updateById(HospitalModelWithBLOBs hospitalModel) {
+		return hospitalDao.updateByPrimaryKeySelective(hospitalModel);
 	}
 }

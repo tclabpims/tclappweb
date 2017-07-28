@@ -168,6 +168,11 @@ public class HospitalController {
 		return map;
 	}
 
+	/**
+	 * 通过ID查找某家医院
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/acquire")
 	@ResponseBody
 	public Map<String, Object> selectById(String id) {
@@ -176,13 +181,30 @@ public class HospitalController {
 		Pattern p = Pattern.compile("^[0-9]+$");
 		Matcher matcher = p.matcher(id);
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(matcher.matches());
 		if (matcher.matches()) {
 			map.put("hospital", hospitalService.selectById(Long.parseLong(id)));
 		} else {
 			HospitalModelWithBLOBs hospitalModel = new HospitalModelWithBLOBs();
 			hospitalModel.setName("paramIsError");
 			map.put("hospital", hospitalModel);
+		}
+		return map;
+	}
+
+	/**
+	 * 对某家医院的信息进行更新
+	 * @param hospitalModel
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> updateById(HospitalModelWithBLOBs hospitalModel) {
+		int result = hospitalService.updateById(hospitalModel);
+		Map<String, String> map = new HashMap<String, String>();
+		if (result > 0) {
+			map.put("msg", "success");
+		}else {
+			map.put("msg", "error");
 		}
 		return map;
 	}

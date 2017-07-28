@@ -22,4 +22,6 @@ public interface HospitalService {
     List<HospitalModel> queryByInfo(String name, String telphone);
 
     int deleteById(Long id);
+
+    int updateById(HospitalModelWithBLOBs hospitalModel);
 }

@@ -332,7 +332,6 @@
       sex = #{sex,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
-      introduce = #{introduce, jdbcType=LONGVARCHAR},
       tou_img = #{touImg,jdbcType=VARCHAR},
       zz_img = #{zzImg,jdbcType=VARCHAR},
       read_report_num = #{readReportNum,jdbcType=INTEGER},
@@ -349,11 +348,9 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="selectByType" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from app_c_doctor
     where 1=1
     <if test="type != '' and type != null">
@@ -361,11 +358,9 @@
     </if>
   </select>
 
-  <select id="selectByPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from app_c_doctor
     where 1=1
     <if test="type != '' and type != null">
@@ -376,11 +371,9 @@
     </if>
   </select>
 
-  <select id="queryDoctorByInfo" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+  <select id="queryDoctorByInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
     SELECT
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     FROM app_c_doctor
     WHERE 1=1
     <if test="userName != null and userName != ''">
@@ -409,11 +402,9 @@
     </if>
   </select>
 
-  <select id="queryPageDoctorByInfo" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+  <select id="queryPageDoctorByInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
     SELECT
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     FROM app_c_doctor
     WHERE 1=1
     <if test="userName != null and userName != ''">
