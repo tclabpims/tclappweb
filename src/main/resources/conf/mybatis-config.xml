@@ -5,18 +5,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
         <!-- 命名空间 -->
     <typeAliases>
-        <typeAlias alias="AppCApplicantEntity" type="com.tcl.model.AppCApplicantEntity"/>
-        <typeAlias alias="AppCBillEntity" type="com.tcl.model.AppCBillEntity"/>
-        <typeAlias alias="AppCCatEntity" type="com.tcl.model.AppCCatEntity"/>
-        <typeAlias alias="AppCDoctorEntity" type="com.tcl.model.AppCDoctorEntity"/>
-        <typeAlias alias="AppCHospitalEntity" type="com.tcl.model.AppCHospitalEntity"/>
-        <typeAlias alias="AppCOrderEntity" type="com.tcl.model.AppCOrderEntity"/>
-        <typeAlias alias="AppCPackageEntity" type="com.tcl.model.AppCPackageEntity"/>
-        <typeAlias alias="AppCPackageDetailsEntity" type="com.tcl.model.AppCPackageDetailsEntity"/>
-        <typeAlias alias="AppCTradeEntity" type="com.tcl.model.AppCTradeEntity"/>
-        <typeAlias alias="AppCUserEntity" type="com.tcl.model.AppCUserEntity"/>
-        <typeAlias alias="WebUserEntity" type="com.tcl.model.WebUserEntity"/>
-        <typeAlias alias="WebUser" type="com.tcl.model.WebUser"/>
     </typeAliases>
 
     <!-- 映射map -->

@@ -9,3 +9,5 @@ pims.iml
 #pom.xml
 velocity.log.1
 velocity.log
+.target/*
+target/
