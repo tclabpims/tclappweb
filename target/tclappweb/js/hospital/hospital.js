@@ -16,6 +16,7 @@ function addHospital(){
             content: $("#add_hospital_page"),
             btn: ['增加', '取消'],
             yes: function(index, layero) {
+                $("#picUrl_add_").val(hospitalImg_path);
                 $.ajax({
                     url: "add.do",
                     type: "POST",
@@ -51,6 +52,44 @@ function addHospital(){
         });
         form.render();
     })
+}
+
+/*上传医院照片*/
+var hospitalImg_path;
+function uploadPic() {
+    var formData = new FormData();
+    formData.append('file',$("#picUrl_add")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#picUrl_add")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        hospitalImg_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
 }
 
 /**
@@ -146,6 +185,7 @@ function ItemEdit(id) {
             content: $("#hospital_info_edit"),
             btn: ['提交', '取消'],
             yes: function(index, layero) {
+                $("#edit_picUrl_").val(hospitalImg_edit_path);
                 $.ajax({
                     url: "update.do",
                     type: "POST",
@@ -192,6 +232,44 @@ function ItemEdit(id) {
         $("#id_form").val(hospital.id);
     })
 }
+/*编辑时上传图片*/
+var hospitalImg_edit_path;
+function uploadPicEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#edit_picUrl")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#edit_picUrl")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        hospitalImg_edit_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+
 
 /**
  * 显示医院详细信息
@@ -240,6 +318,6 @@ function ItemDetail(id) {
         hospital_table.rows[5].cells[1].innerHTML = hospital.details;
         hospital_table.rows[6].cells[1].innerHTML = hospital.projectDesc;
         hospital_table.rows[7].cells[1].innerHTML = hospital.specialist;
-        $("#hospital_picture").attr("src", hospital.picUrl);
+        $("#hospital_picture").attr("src", $("#hospital_picture")[0].title + hospital.picUrl);
     })
 }

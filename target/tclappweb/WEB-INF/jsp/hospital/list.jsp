@@ -119,6 +119,7 @@
    </div>
 </div>
  <%--<%@include file="mbottom.jsp"%>--%>
+    <%--增加医院--%>
     <div id="add_hospital_page" style="display: none">
         <br/><form id="add_hospital_form" action="" class="layui-form">
             <%--医院名--%>
@@ -140,8 +141,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">医院图片</label>
                 <div class="layui-input-block">
-                    <input type="file" name="picUrl" style="width: 210px">
-                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
+                    <input type="file" id="picUrl_add" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+                    <input type="hidden" id="picUrl_add_" name="picUrl"/>
+                    <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
                 </div>
             </div>
 
@@ -234,8 +236,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">医院图片</label>
                 <div class="layui-input-block">
-                    <input type="file" id="edit_picUrl" name="picUrl" style="width: 210px">
-                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
+                    <input type="file" id="edit_picUrl" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+                    <input type="hidden" id="edit_picUrl_" name="picUrl" />
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPicEdit()">
                 </div>
             </div>
 
@@ -319,7 +322,7 @@
             <tr>
                 <td align="center">医院名称</td>
                 <td align="center"></td>
-                <td rowspan="4"><img id="hospital_picture" alt="照片"
+                <td rowspan="4"><img id="hospital_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
                                      style="width: 260px;height: 160px"></td>
             </tr>
             <tr>

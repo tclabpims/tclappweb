@@ -231,7 +231,7 @@ function ItemDetail(id) {
         doctor_table.rows[2].cells[3].innerHTML = doctor.title;
         doctor_table.rows[3].cells[1].innerHTML = doctor.sfzNum;
         doctor_table.rows[4].cells[1].innerHTML = doctor.introduce;
-        $("#doctor_picture").attr("src", doctor.touImg);
+        $("#doctor_picture").attr("src", $("#doctor_picture")[0].title + doctor.touImg);
     })
 }
 
@@ -251,6 +251,8 @@ function addDoctor() {
                 var obj = document.getElementById("hospital_name_select");
                 var selected_index = obj.selectedIndex;
                 $("#hospital_name").val(obj.options[selected_index].text);
+                $("#touimg_id_").val(tou_img_path);
+                $("#zzImg_id_").val(zzImg_path);
                 $.ajax({
                     url: "add.do",
                     type: "POST",
@@ -311,26 +313,79 @@ requireHospitals();
 /**
  * 上传头像照片
  */
+var tou_img_path;
 function uploadTouImg() {
+    var formData = new FormData();
+    formData.append('file',$("#touimg_id")[0].files[0]);    //将文件转成二进制形式
     $.ajax({
-        url: "http://183.247.179.221:9099/fileUpload?file=" + $("#touimg_id").val(),
-        type: "get",
+        type: "post",
+        url: $("#touimg_id")[0].title,
         async: false,
-        dataType: "jsonp",
-        success: function(json) {
-            console.log(json);
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null || data.txt != "") {
+                    tou_img_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
-        error: function(er) {
+        error:function(er){
             console.log(er);
         }
-    })
+    });
 }
 
 /**
  * 上传从业执照图片
  */
+var zzImg_path;
 function uploadZZImg() {
-    alert("zz");
+    var formData = new FormData();
+    formData.append('file',$("#zzImg_id")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#zzImg_id")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        zzImg_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
 }
 
 /**

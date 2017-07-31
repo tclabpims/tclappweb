@@ -315,7 +315,7 @@
                 <td align="center"></td>
                 <td align="center">医院名称</td>
                 <td align="center"></td>
-                <td rowspan="4"><img id="doctor_picture" alt="照片"
+                <td rowspan="4"><img id="doctor_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
                     style="width: 138px;height: 150px"></td>
             </tr>
             <tr>
@@ -412,7 +412,8 @@
       <div class="layui-form-item">
           <label class="layui-form-label">头像</label>
           <div class="layui-input-block">
-              <input type="file" id="touimg_id" name="touImg" style="width: 210px"/>
+              <input type="file" id="touimg_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
+              <input type="hidden" id="touimg_id_" name="touImg" />
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadTouImg()">上传</button>
           </div>
       </div>
@@ -420,7 +421,8 @@
       <div class="layui-form-item">
           <label class="layui-form-label">从业执照图片</label>
           <div class="layui-input-block">
-              <input type="file" name="zzImg" style="width: 210px"/>
+              <input type="file" id="zzImg_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
+              <input type="hidden" id="zzImg_id_" name="zzImg"/>
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadZZImg()">上传</button>
           </div>
       </div>
