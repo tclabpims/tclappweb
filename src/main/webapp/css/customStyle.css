@@ -10,3 +10,10 @@
     width: 120px;
     height: 30px
 }
+.page_num_style{
+    font-size: small;
+    position: fixed;
+    left: 400px;
+    top: 600px;
+    right: 200px
+}

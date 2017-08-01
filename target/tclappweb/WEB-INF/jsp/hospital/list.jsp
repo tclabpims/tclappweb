@@ -31,10 +31,10 @@
             <br/>
             <form action="${pageContext.request.contextPath}/hospital/query.do" method="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">医院名称:</label>
-                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="name"/>
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="name" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">电话:</label>
-                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="telphone"/>
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="telphone" />
 
                 &nbsp;&nbsp;&nbsp;
                 <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询" />
@@ -322,7 +322,7 @@
             <tr>
                 <td align="center">医院名称</td>
                 <td align="center"></td>
-                <td rowspan="4"><img id="hospital_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
+                <td rowspan="5"><img id="hospital_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
                                      style="width: 260px;height: 160px"></td>
             </tr>
             <tr>

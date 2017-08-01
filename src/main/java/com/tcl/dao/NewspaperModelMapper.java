@@ -19,4 +19,10 @@ public interface NewspaperModelMapper {
     int updateByPrimaryKey(NewspaperModel record);
 
     List<NewspaperModel> selectByType(Map map);
+
+    List<NewspaperModel> selectByPageInfo(Map<String, Object> map);
+
+    List<NewspaperModel> queryByInfo(NewspaperModel newspaperModel);
+
+    List<NewspaperModel> queryByPageInfo(Map<String, Object> map);
 }

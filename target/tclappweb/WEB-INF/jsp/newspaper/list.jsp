@@ -8,6 +8,8 @@
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
+    <link href="${pageContext.request.contextPath}/css/customStyle.css" rel="stylesheet">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/newspaper/newspapaer.js"></script>
     <%
         request.setAttribute("nav", "draw");
         request.setAttribute("tab", "set");
@@ -25,7 +27,33 @@
     <div class="pagemain">
         <input id="strMenuId" type="hidden" value="3"/>
         <input id="strSubMenuId" type="hidden" value="31"/>
+        <div>
+            <br/>
+            <form action="${pageContext.request.contextPath}/newspaper/query.do" METHOD="post">
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">标题</label>
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="title" />
 
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">类型</label>&nbsp;&nbsp;&nbsp;
+                <select class="select_style" name="type" >
+                    <option value=""></option>
+                    <option value="0">客户端首页广告</option>
+                    <option value="1">医生端广告</option>
+                    <option value="2">护士</option>
+                </select>
+
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">状态</label>&nbsp;&nbsp;&nbsp;
+                <select class="select_style" name="status" >
+                    <option value=""></option>
+                    <option value="0">暂存草稿</option>
+                    <option value="1">已发布</option>
+                    <option value="2">取消发布</option>
+                </select>
+
+                &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
+                &nbsp;&nbsp;&nbsp;<button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addNewspaper()">增加</button>
+
+            </form>
+        </div>
         <table class="sui-table table-bordered" style="margin-top:20px;">
             <thead>
             <tr>
@@ -53,6 +81,9 @@
                         <c:if test="${item.type==1}">
                             <span class="sui-label label-">医生端</span>
                         </c:if>
+                        <c:if test="${item.type==2}">
+                            <span class="sui-label label-">护士端</span>
+                        </c:if>
                     </td>
                     <td class="center left-con">
                         <c:if test="${item.status==0}">
@@ -66,15 +97,232 @@
                         </c:if>
                     </td>
                     <td class="center left-con">
-                       <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>
-                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>
+                       <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
+                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;
+                        <span class=""><a href="javascript:void(0)" onclick="ItemDetail('${item.id}');">详情</a></span>&nbsp;&nbsp;
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
     </table>
+
+        <div align="center" class="page_num_style">
+            第${pageNo}页&nbsp;&nbsp;
+            <c:choose>
+                <c:when test="${query_flag == true}">
+                    <c:choose>
+                        <c:when test="${pageNo > 1}">
+                            <a href="${pageContext.request.contextPath}/newspaper/query.do?pageNo=${pageNo - 1}&title=${title}&type=${type}&status=${status}">上一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">上一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${pageNo < totalPage}">
+                            <a href="${pageContext.request.contextPath}/newspaper/query.do?pageNo=${pageNo + 1}&title=${title}&type=${type}&status=${status}">下一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">下一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${pageNo > 1}">
+                            <a href="${pageContext.request.contextPath}/newspaper/list.do?pageNo=${pageNo - 1}&type=${type}">上一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">上一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${pageNo < totalPage}">
+                            <a href="${pageContext.request.contextPath}/newspaper/list.do?pageNo=${pageNo + 1}&type=${type}">下一页</a>&nbsp;&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#">下一页</a>&nbsp;&nbsp;
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+            共${totalPage}页
+        </div>
    </div>
 </div>
  <%--<%@include file="mbottom.jsp"%>--%>
+<%--添加新闻--%>
+<div id="add_newspaper" style="display: none">
+    <br/><form id="add_newspaper_form" action="" class="layui-form">
+    <%--广告标题--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告标题</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+    <%--广告主图--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告主图</label>
+        <div class="layui-input-block">
+            <input type="file" id="imgUrl_add" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+            <input type="hidden" id="imgUrl_add_" name="imgUrl"/>
+            <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
+        </div>
+    </div>
+
+    <%--广告内容链接--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容链接</label>
+        <div class="layui-input-block">
+            <input type="text" name="contentUrl" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+
+    <%--广告类型--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告类型</label>
+        <div class="layui-input-block" style="width: 260px">
+            <select name="type" lay-verify="">
+                <option value=""></option>
+                <option value="0">客户端首页广告</option>
+                <option value="1">医生端广告</option>
+                <option value="2">护士</option>
+            </select>
+        </div>
+    </div>
+
+    <%--广告状态--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告状态</label>
+        <div class="layui-input-block" style="width: 260px">
+            <select name="status" lay-verify="">
+                <option value=""></option>
+                <option value="0">暂存草稿</option>
+                <option value="1">已发布</option>
+                <option value="2">取消发布</option>
+            </select>
+        </div>
+    </div>
+
+    <%--广告描述--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告描述</label>
+        <div class="layui-input-block">
+            <textarea name="descInfo" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+</form>
+</div>
+
+<%--编辑新闻--%>
+<div id="edit_newspaper" style="display: none">
+    <br/><form id="edit_newspaper_form" action="" class="layui-form">
+    <%--广告标题--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告标题</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="id" id="id_edit" >
+            <input type="text" id="title_edit" name="title" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+    <%--广告主图--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告主图</label>
+        <div class="layui-input-block">
+            <input type="file" id="imgUrl_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+            <input type="hidden" id="imgUrl_edit_" name="imgUrl"/>
+            <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPicEdit()">
+        </div>
+    </div>
+
+    <%--广告内容链接--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容链接</label>
+        <div class="layui-input-block">
+            <input type="text" id="contentUrl_edit" name="contentUrl" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+
+    <%--广告类型--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告类型</label>
+        <div class="layui-input-block" style="width: 260px">
+            <select name="type" id="type_edit" lay-verify="">
+                <option value=""></option>
+                <option value="0">客户端首页广告</option>
+                <option value="1">医生端广告</option>
+                <option value="2">护士</option>
+            </select>
+        </div>
+    </div>
+
+    <%--广告状态--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告状态</label>
+        <div class="layui-input-block" style="width: 260px">
+            <select name="status" id="status_edit" lay-verify="">
+                <option value=""></option>
+                <option value="0">暂存草稿</option>
+                <option value="1">已发布</option>
+                <option value="2">取消发布</option>
+            </select>
+        </div>
+    </div>
+
+    <%--广告描述--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告描述</label>
+        <div class="layui-input-block">
+            <textarea name="descInfo" id="descInfo_edit" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+</form>
+</div>
+
+<%--显示详情--%>
+<div id="detail_newspaper" style="display: none">
+    <table id="detail_newspaper_table" class="layui-table" lay-even lay-skin="nob">
+        <colgroup align="left" span="3">
+            <col width="20%">
+            <col width="35%">
+            <col width="45%">
+            <%--<col width="27%">
+            <col width="23%">--%>
+        </colgroup>
+        <tbody>
+        <tr>
+            <td align="center">广告标题</td>
+            <td align="center"></td>
+            <td rowspan="5"><img id="newspaper_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
+                                 style="width: 260px;height: 180px"></td>
+        </tr>
+        <tr>
+            <td align="center">广告类型</td>
+            <td align="center"></td>
+        </tr>
+        <tr>
+            <td align="center">广告状态</td>
+            <td align="center"></td>
+        </tr>
+        <tr>
+            <td align="center">创建人</td>
+            <td align="center"></td>
+        </tr>
+        <tr>
+            <td align="center">创建时间</td>
+            <td align="center"></td>
+        </tr>
+        <tr>
+            <td align="center">内容链接</td>
+            <td align="center" colspan="2"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="center" style="height: 240px">广告描述</td>
+            <td colspan="2" style="height: 240px" valign="top"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

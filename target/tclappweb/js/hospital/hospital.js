@@ -10,7 +10,7 @@ function addHospital(){
         var form = layui.form();
         layer.open({
             type: 1,
-            title: "基本信息",
+            title: "增加医院",
             skin: 'layui-layer-rim', //加上边框
             area: ["480px", "680px"],
             content: $("#add_hospital_page"),

@@ -110,7 +110,7 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="imgUrl != null" >
+      <if test="imgUrl != null and imgUrl != ''" >
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="descInfo != null" >
@@ -160,6 +160,53 @@
     <if test="type != ''">
       and type = #{type,jdbcType=VARCHAR}
     </if>
+  </select>
 
+  <select id="selectByPageInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_c_newspaper
+    where 1=1
+    <if test="type != ''">
+      and type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="start_num !=null and end_num != null">
+      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="queryByInfo" resultMap="BaseResultMap" parameterType="com.tcl.model.NewspaperModel" >
+    select
+    <include refid="Base_Column_List" />
+    from app_c_newspaper
+    WHERE 1=1
+    <if test="title != null and title != ''">
+      and title = #{title, jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and type != ''">
+      and type = #{type, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      and status = #{status, jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="queryByPageInfo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from app_c_newspaper
+    WHERE 1=1
+    <if test="title != null and title != ''">
+      and title = #{title, jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and type != ''">
+      and type = #{type, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      and status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="start_num !=null and end_num != null">
+      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    </if>
   </select>
 </mapper>
