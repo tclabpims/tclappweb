@@ -167,7 +167,7 @@ function ItemEdit(id) {
         }
         layer.open({
             type: 1,
-            title: '信息编辑',
+            title: '广告编辑',
             area: ['480px', '520px'],
             skin: "layui-layer-rim",
             content: $("#edit_newspaper"),
@@ -290,9 +290,41 @@ function ItemDetail(id){
         });
         var newspaper_table = document.getElementById("detail_newspaper_table");
         newspaper_table.rows[0].cells[1].innerHTML = newspaper.title;
-        newspaper_table.rows[1].cells[1].innerHTML = newspaper.type;
-        newspaper_table.rows[2].cells[1].innerHTML = newspaper.status;
-        newspaper_table.rows[3].cells[1].innerHTML = newspaper.createUserid;
+        var newspaper_type;
+        if(newspaper.type == "0") {
+            newspaper_type = "客户端广告";
+        }else if(newspaper.type == "1") {
+            newspaper_type = "医生端广告";
+        }else if(newspaper.type == "2") {
+            newspaper_type = "护士端广告";
+        }
+        newspaper_table.rows[1].cells[1].innerHTML = newspaper_type;
+        var newspaper_status;
+        if(newspaper.status == "0") {
+            newspaper_status = "暂存草稿";
+        }else if(newspaper.status == "1") {
+            newspaper_status = "已发布";
+        }else if(newspaper.status == "2") {
+            newspaper_status = "取消发布";
+        }
+        newspaper_table.rows[2].cells[1].innerHTML = newspaper_status;
+        var username;
+        $.ajax({
+            url: "/webUser/acquireUserName.do",
+            type: "POST",
+            data: {
+                createUserid: newspaper.createUserid
+            },
+            async: false,
+            dataType: "json",
+            success: function(data) {
+                username = data.username;
+            },
+            error: function(er) {
+                console.log(er);
+            }
+        });
+        newspaper_table.rows[3].cells[1].innerHTML = username;
         newspaper_table.rows[4].cells[1].innerHTML = new Date(newspaper.createTime).format(('yyyy-MM-dd hh:mm:ss'));
         newspaper_table.rows[5].cells[1].innerHTML = newspaper.contentUrl;
         newspaper_table.rows[6].cells[1].innerHTML = newspaper.descInfo;
@@ -321,4 +353,84 @@ Date.prototype.format = function(format) {
         }
     }
     return format;
+}
+
+/*编辑广告内容*/
+function ItemContent(id) {
+    layui.use(['layer', 'form'],function(){
+        var layer = layui.layer;
+        var form = layui.form();
+        layer.open({
+            type: 1,
+            title: '广告内容编辑',
+            area: ['700px', '600px'],
+            content: $("#newspaper_edit_content"),
+            zIndex: 99,
+            btn: '提交',
+            yes: function(){
+                /*editor.appendHtml("<body><html>");*/
+                editor.sync();
+                var html = "<!DOCTYPE html>" + "\n" +
+                           "<html>" + "\n" +
+                           "<head>" + "\n" +
+                           "<meta charset='utf-8'>" + "\n" +
+                           "<meta name='viewport' content='width=device-width'>" + "\n" +
+                           "<title></title>" + "\n" +
+                           "</head>" +"\n" +
+                           "<body>" + "\n";
+                html = html + $("#editor_id").val();
+                html = html + "\n" + "</body>" + "\n"  +
+                              "</html>";
+                $.ajax({
+                    url: "content.do",
+                    type: "post",
+                    data: {
+                        id: id,
+                        content: html
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            if(data.msg == "success") {
+                                layer.msg("广告内容编辑成功", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            } else {
+                                console.log(data.msg);
+                                layer.msg("广告内容编辑失败", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        })
+                    },
+                    error: function(er) {
+                        console.log(er);
+                    }
+
+                });
+            },
+            cancel: function() {
+                //editor.remove("#editor_id");
+                editor.remove();
+            }
+        })
+        //$(document).off();
+        var editor = KindEditor.create("#editor_id", {
+            resizeType : 1,
+            uploadJson : '/kindedit/upload.do',
+            //fileManagerJson : '../jsp/file_manager_json.jsp',
+            allowFileManager : true,
+            height: '520px'
+        });
+    });
+
 }

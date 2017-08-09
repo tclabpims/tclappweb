@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/webUser")
@@ -37,5 +42,24 @@ public class WebUserController {
 		WebUser user=webUserService.selectById(1L);
 		return user;
 	}
-	
+
+	@RequestMapping(value = "/acquireUserName", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> getUserName(String createUserid) {
+		createUserid = createUserid.trim();
+		Pattern p = Pattern.compile("^[0-9]+$");
+		Matcher matcher = p.matcher(createUserid);
+		Map<String, String> map = new HashMap<String, String>();
+		if (matcher.matches()) {
+			WebUser webUser = webUserService.selectById(Long.parseLong(createUserid));
+			if (webUser != null) {
+				map.put("username", webUser.getUserName());
+			} else {
+				map.put("username", "error");
+			}
+		} else {
+			map.put("username", "error");
+		}
+		return map;
+	}
 }

@@ -32,9 +32,8 @@ public class HospitalServiceImpl implements HospitalService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		int start_num = (page_no - 1) * pageSize;
-		int end_num = page_no * pageSize;
 		map.put("start_num", start_num);
-		map.put("end_num", end_num);
+		map.put("pageSize", pageSize);
 		return hospitalDao.selectByPageInfo(map);
 	}
 
@@ -60,9 +59,8 @@ public class HospitalServiceImpl implements HospitalService {
 		map.put("name", name);
 		map.put("telphone", telphone);
 		int start_num = (page_no - 1) * pageSize;
-		int end_num = page_no * pageSize;
 		map.put("start_num", start_num);
-		map.put("end_num", end_num);
+		map.put("pageSize", pageSize);
 		return hospitalDao.queryByPageInfo(map);
 	}
 

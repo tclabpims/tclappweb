@@ -22,4 +22,10 @@ public interface PackageModelMapper {
     int updateByPrimaryKey(PackageModel record);
 
     List<PackageModel> selectList(Map map);
+
+    List<PackageModel> selectListByPage(Map map);
+
+    List<PackageModel> queryPackage(Map map);
+
+    List<PackageModel> queryListByPage(Map map);
 }

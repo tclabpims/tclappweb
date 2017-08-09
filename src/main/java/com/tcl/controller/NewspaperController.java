@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.nio.Buffer;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -205,6 +208,90 @@ public class NewspaperController {
 			map.put("msg", "success");
 		}else {
 			map.put("msg", "error");
+		}
+		return map;
+	}
+
+	/**
+	 * 上传文件
+	 * @param request
+	 * @param content
+	 * @return
+	 */
+	@RequestMapping(value = "/content", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> getNewsPaperPage(HttpServletRequest request, String content, String id) {
+		String saveHtmlFileDir = null;
+		String htmlUrl = null;
+		Properties prop = new Properties();
+		Map<String, String> map = new HashMap<String, String>();
+		try {
+			prop.load(NewspaperController.class.getClassLoader().getResourceAsStream("conf/config.properties"));
+			saveHtmlFileDir = prop.getProperty("realHtmlPath");
+			htmlUrl = prop.getProperty("htmlUrl");
+		} catch (IOException e) {
+			e.printStackTrace();
+			map.put("msg", "无法获取文件路径");
+			return map;
+		}
+		File filedir = new File(saveHtmlFileDir);
+		//判断上传文件的保存目录是否存在
+		if (!filedir.exists() && !filedir.isDirectory()) {
+			System.out.println(saveHtmlFileDir+"目录不存在，需要创建");
+			//创建目录
+			filedir.mkdirs();
+		}
+		StringBuilder tempPath = new StringBuilder(saveHtmlFileDir);
+		tempPath.append("/");
+		SimpleDateFormat folderNameFormat = new SimpleDateFormat("yyyyMMdd");
+		tempPath.append(folderNameFormat.format(new Date()));
+		File temp = new File(tempPath.toString());
+		if(!temp.exists()) temp.mkdirs();
+		SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
+		tempPath.append("/").append(fileNameFormat.format(new Date()));
+		tempPath.append(".").append("html");
+		String htmlFilePath = tempPath.toString().replaceAll("\\\\", "/");
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		try {
+			fw = new FileWriter(htmlFilePath);
+			bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			map.put("msg", "error");
+			return map;
+		} finally {
+			if(bw != null) {
+				try {
+					bw.close();
+					bw = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (fw != null) {
+				try {
+					fw.close();
+					fw = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		int point = htmlFilePath.lastIndexOf("/") - 8;
+		StringBuilder url = new StringBuilder(htmlUrl);
+		url.append("/");
+		url.append(htmlFilePath.substring(point));
+		NewspaperModel newspaperModel = new NewspaperModel();
+		newspaperModel.setId(Long.parseLong(id.trim()));
+		newspaperModel.setContentUrl(url.toString());
+		int result = newspaperService.updateById(newspaperModel);
+		if (result > 0) {
+			map.put("msg", "success");
+		} else {
+			map.put("msg", "内容链接更新失败");
 		}
 		return map;
 	}

@@ -366,8 +366,8 @@
     <if test="type != '' and type != null">
       and type = #{type, jdbcType=VARCHAR}
     </if>
-    <if test="start_num != null and end_num != null">
-        limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    <if test="start_num != null and page_size != null">
+        limit #{start_num, jdbcType=INTEGER}, #{page_size, jdbcType=INTEGER}
     </if>
   </select>
 
@@ -431,8 +431,8 @@
     <if test="create_time_end != null">
       AND create_time &lt;= #{create_time_end, jdbcType=TIMESTAMP}
     </if>
-    <if test="start_num != null and end_num != null">
-      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    <if test="start_num != null and page_size != null">
+      limit #{start_num, jdbcType=INTEGER}, #{page_size, jdbcType=INTEGER}
     </if>
   </select>
 </mapper>

@@ -16,7 +16,16 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/tcl/controller/conf/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/conf/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/tcl/controller/conf/spring-mybatis.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/conf/spring-mybatis.xml</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/tcl/controller/conf/spring.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/conf/spring.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
@@ -70,5 +79,8 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.3.1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.8.0" level="project" />
     <orderEntry type="library" name="Maven: cn.jpush.api:jmessage-client:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1" level="project" />
   </component>
 </module>

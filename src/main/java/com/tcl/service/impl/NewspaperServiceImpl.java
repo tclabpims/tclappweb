@@ -39,9 +39,8 @@ import java.util.Map;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
 		int start_num = (page_no - 1) * pageSize;
-		int end_num = page_no * pageSize;
 		map.put("start_num", start_num);
-		map.put("end_num", end_num);
+		map.put("pageSize", pageSize);
 		return newspaperDao.selectByPageInfo(map);
 	}
 
@@ -70,9 +69,8 @@ import java.util.Map;
 		map.put("status", status);
 		map.put("pageSize", pageSize);
 		int start_num = (page_no - 1) * pageSize;
-		int end_num = page_no * pageSize;
 		map.put("start_num", start_num);
-		map.put("end_num", end_num);
+		map.put("pageSize", pageSize);
 		return newspaperDao.queryByPageInfo(map);
 	}
 

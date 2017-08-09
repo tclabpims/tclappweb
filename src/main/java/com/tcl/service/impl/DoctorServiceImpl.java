@@ -48,10 +48,9 @@ public class DoctorServiceImpl implements DoctorService{
     public List<DoctorModel> selectByPage(String type, int page_no, int page_size) {
         Map map = new HashMap<String, String>();
         int start_num = (page_no - 1) * page_size;
-        int end_num = page_no * page_size;
         map.put("type",type);
         map.put("start_num", start_num);
-        map.put("end_num", end_num);
+        map.put("page_size", page_size);
         return doctorDao.selectByPage(map);
     }
 
@@ -135,9 +134,8 @@ public class DoctorServiceImpl implements DoctorService{
         map.put("create_time_start", create_time_start);
         map.put("create_time_end", create_time_end);
         int start_num = (page_no - 1) * page_size;
-        int end_num = page_no * page_size;
         map.put("start_num", start_num);
-        map.put("end_num", end_num);
+        map.put("page_size", page_size);
         return doctorDao.queryPageDoctorByInfo(map);
     }
 }

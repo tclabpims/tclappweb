@@ -171,7 +171,7 @@
       <if test="saleNum != null" >
         sale_num = #{saleNum,jdbcType=INTEGER},
       </if>
-      <if test="picUrl != null" >
+      <if test="picUrl != null and picUrl != ''" >
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
@@ -238,6 +238,78 @@
     ,
     <include refid="Blob_Column_List" />
     from app_c_package
+  </select>
+
+  <select id="selectListByPage" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_package
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="queryPackage" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_package where 1=1
+    <if test="name != ''">
+     AND name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != ''">
+      AND status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="wjCode != ''">
+      AND  wj_code = #{wjCode, jdbcType=VARCHAR}
+    </if>
+    <if test="min_price != '' and min_price != null">
+      AND price &gt;= #{min_price, jdbcType=INTEGER}
+    </if>
+    <if test="max_price != '' and max_price != null">
+      AND price &lt;= #{max_price, jdbcType=INTEGER}
+    </if>
+    <if test="min_saleNum != '' and min_saleNum != null">
+      AND sale_num &gt;= #{min_saleNum, jdbcType=INTEGER}
+    </if>
+    <if test="max_saleNum != '' and max_saleNum != null">
+      AND sale_num &lt;= #{max_saleNum, jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="queryListByPage" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_package where 1=1
+    <if test="name != ''">
+      AND name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != ''">
+      AND status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="wjCode != ''">
+      AND wj_code = #{wjCode, jdbcType=VARCHAR}
+    </if>
+    <if test="min_price != '' and min_price != null">
+      AND price &gt;= #{min_price, jdbcType=INTEGER}
+    </if>
+    <if test="max_price != '' and max_price != null">
+      AND price &lt;= #{max_price, jdbcType=INTEGER}
+    </if>
+    <if test="min_saleNum != '' and min_saleNum != null">
+      AND sale_num &gt;= #{min_saleNum, jdbcType=INTEGER}
+    </if>
+    <if test="max_saleNum != '' and max_saleNum != null">
+      AND sale_num &lt;= #{max_saleNum, jdbcType=INTEGER}
+    </if>
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
   </select>
 
 </mapper>

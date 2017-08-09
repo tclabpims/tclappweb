@@ -203,8 +203,34 @@
 			<artifactId>jmessage-client</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
 		<!--     极光IM end   -->
+		<!-- kindedit strat -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!--<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>-->
+		<!-- kindedit end -->
+
 	</dependencies>
 	<build>
 		<finalName>tclappweb</finalName>

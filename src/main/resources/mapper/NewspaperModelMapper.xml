@@ -170,8 +170,8 @@
     <if test="type != ''">
       and type = #{type,jdbcType=VARCHAR}
     </if>
-    <if test="start_num !=null and end_num != null">
-      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    <if test="start_num !=null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </if>
   </select>
 
@@ -205,8 +205,8 @@
     <if test="status != null and status != ''">
       and status = #{status, jdbcType=VARCHAR}
     </if>
-    <if test="start_num !=null and end_num != null">
-      limit #{start_num, jdbcType=INTEGER}, #{end_num, jdbcType=INTEGER}
+    <if test="start_num !=null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </if>
   </select>
 </mapper>

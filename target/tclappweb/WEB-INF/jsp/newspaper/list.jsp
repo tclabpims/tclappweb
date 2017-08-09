@@ -5,10 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/KindEdit/themes/default/default.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/KindEdit/plugins/code/prettify.css" />
+<script charset="utf-8" src="${pageContext.request.contextPath}/KindEdit/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="${pageContext.request.contextPath}/KindEdit/lang/zh-CN.js"></script>
+<script charset="utf-8" src="${pageContext.request.contextPath}/KindEdit/plugins/code/prettify.js"></script>
+<link href="${pageContext.request.contextPath}/css/customStyle.css" rel="stylesheet">
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
-    <link href="${pageContext.request.contextPath}/css/customStyle.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/newspaper/newspapaer.js"></script>
     <%
         request.setAttribute("nav", "draw");
@@ -98,8 +103,9 @@
                     </td>
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
-                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;
-                        <span class=""><a href="javascript:void(0)" onclick="ItemDetail('${item.id}');">详情</a></span>&nbsp;&nbsp;
+                       <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;
+                       <span class=""><a href="javascript:void(0)" onclick="ItemContent('${item.id}');">内容</a></span>&nbsp;&nbsp;
+                       <span class=""><a href="javascript:void(0)" onclick="ItemDetail('${item.id}');">详情</a></span>&nbsp;&nbsp;
                     </td>
                 </tr>
             </c:forEach>
@@ -172,12 +178,12 @@
     </div>
 
     <%--广告内容链接--%>
-    <div class="layui-form-item">
+    <%--<div class="layui-form-item">
         <label class="layui-form-label">内容链接</label>
         <div class="layui-input-block">
             <input type="text" name="contentUrl" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
-    </div>
+    </div>--%>
 
     <%--广告类型--%>
     <div class="layui-form-item">
@@ -226,23 +232,24 @@
             <input type="text" id="title_edit" name="title" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
+
     <%--广告主图--%>
     <div class="layui-form-item">
         <label class="layui-form-label">广告主图</label>
         <div class="layui-input-block">
             <input type="file" id="imgUrl_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
-            <input type="hidden" id="imgUrl_edit_" name="imgUrl"/>
+            <input type="hidden" id="imgUrl_edit_" name="imgUrl" />
             <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPicEdit()">
         </div>
     </div>
 
     <%--广告内容链接--%>
-    <div class="layui-form-item">
+    <%--<div class="layui-form-item">
         <label class="layui-form-label">内容链接</label>
         <div class="layui-input-block">
             <input type="text" id="contentUrl_edit" name="contentUrl" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
-    </div>
+    </div>--%>
 
     <%--广告类型--%>
     <div class="layui-form-item">
@@ -282,7 +289,7 @@
 
 <%--显示详情--%>
 <div id="detail_newspaper" style="display: none">
-    <table id="detail_newspaper_table" class="layui-table" lay-even lay-skin="nob">
+    <table id="detail_newspaper_table" class="layui-table" lay-even lay-skin="nob" style='word-break:break-all'>
         <colgroup align="left" span="3">
             <col width="20%">
             <col width="35%">
@@ -314,8 +321,8 @@
             <td align="center"></td>
         </tr>
         <tr>
-            <td align="center">内容链接</td>
-            <td align="center" colspan="2"></td>
+            <td align="center" align="center">内容链接</td>
+            <td colspan="2"></td>
         </tr>
         <tr>
             <td valign="top" align="center" style="height: 240px">广告描述</td>
@@ -323,6 +330,18 @@
         </tr>
         </tbody>
     </table>
+</div>
+
+<%--编辑广告内容--%>
+<div id="newspaper_edit_content" style="display: none;z-index: 99">
+    <form id="newspaper_page" action="<%--${pageContext.request.contextPath}/newspaper/content.do--%>" class="layui-form" method="post">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <textarea id="editor_id" name="content" style="width:700px;height:300px;">
+                </textarea>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>
