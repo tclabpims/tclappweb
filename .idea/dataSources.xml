@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="3435028910">
+  <component name="DataSourceManagerImpl" format="xml" hash="4041517968">
     <data-source source="LOCAL" name="MySQL - tclapp@localhost" uuid="9caf6be0-ece9-4c4f-a68a-cd41f2ee191b">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -13,7 +13,11 @@
         <property name="characterSetResults" value="utf8" />
         <property name="yearIsDateType" value="false" />
       </driver-properties>
-      <libraries />
+      <libraries>
+        <library>
+          <url>file://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.29/mysql-connector-java-5.1.29.jar</url>
+        </library>
+      </libraries>
     </data-source>
   </component>
 </project>

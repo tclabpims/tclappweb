@@ -86,6 +86,11 @@ function ItemEdit(id) {
             content:$("#infoEdit"),
             btn:['提交', '取消'],
             yes: function(index, layero) {
+                var obj = document.getElementById("hospital_Id");
+                var selected_index = obj.selectedIndex;
+                $("#hospitalName").val(obj.options[selected_index].text);
+                $("#touimg_edit_").val(tou_img_edit_path);
+                $("#zzImg_edit_").val(zzImg_edit_path);
                 $.ajax({
                     url: "update.do",
                     type: "POST",
@@ -97,14 +102,14 @@ function ItemEdit(id) {
                                 time: 1000
                             });
                             setTimeout(function(){
-                                location.href = "list.do?type=";
+                                location.reload();
                             }, 1000)
                         } else if(data.msg() == "error") {
                             layer.msg("更新失败", {
                                 time: 1000
                             });
                             setTimeout(function(){
-                                location.href = "list.do?type=";
+                                location.reload();
                             }, 1000)
                         }
                     },
@@ -123,14 +128,93 @@ function ItemEdit(id) {
         $("#doctor_type option[value='"+doctor.type+"']").attr("selected", 'selected');
         $("#id").val(doctor.id);
         $("#userName").val(doctor.userName);
-        $("#hospitalName").val(doctor.hospitalName);
+        $("#hospital_Id option[value='"+doctor.hospitalId+"']").attr("selected", 'selected');
         $("#doctorName").val(doctor.doctorName);
         $("#age").val(doctor.age);
-        $("#title").val(doctor.title);
+
+        $("#title option[value='"+doctor.title+"']").attr("selected", 'selected');
         $("#readReportNum").val(doctor.readReportNum);
         $("#diagnosisNum").val(doctor.diagnosisNum);
         $("#introduce").val(doctor.introduce);
         form.render();
+    });
+}
+
+/**
+ * 编辑时上传头像照片
+ */
+var tou_img_edit_path;
+function uploadTouImgEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#touimg_edit")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#touimg_edit")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null || data.txt != "") {
+                    tou_img_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+
+/**
+ * 编辑时上传从业执照图片
+ */
+var zzImg_edit_path;
+function uploadZZImgEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#zzImg_edit")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#zzImg_edit")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        zzImg_edit_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
     });
 }
 
@@ -297,9 +381,11 @@ function requireHospitals() {
                 var hospitals = data.hospitals;
                 var obj1 = document.getElementById("hospital_name_select");
                 var obj2 = document.getElementById("query_hospital_id");
+                var obj3 = document.getElementById("hospital_Id");
                 for(i=0; i<hospitals.length; i++) {
                     obj1.options.add(new Option(hospitals[i].name, hospitals[i].id));
                     obj2.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                    obj3.options.add(new Option(hospitals[i].name, hospitals[i].id));
                 }
             },
             error: function(er) {

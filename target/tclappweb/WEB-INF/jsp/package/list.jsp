@@ -151,7 +151,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">套餐名称</label>
         <div class="layui-input-block">
-            <input type="text" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
+            <input type="text" id="name_add" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--使用人群---%>
@@ -260,6 +260,29 @@
 </form>
 </div>
 <%--增加套餐 end--%>
+
+<%--套餐关联信息 start--%>
+<div id="package_detail_add" style="display: none">
+    <br/><form id="package_detail_add_form" action="" class="layui-form">
+    <%--his项目名称--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">his项目名称</label>
+        <div class="layui-input-block" style="width: 260px">
+            <select name="status" lay-verify="">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <%--his价格到分--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">his价格到分</label>
+        <div class="layui-input-block">
+            <input type="text" name="hisPrice" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+    </form>
+</div>
+<%--套餐关联信息 end--%>
 
 <%--编辑套餐 start--%>
 <div id="edit_package" style="display: none">

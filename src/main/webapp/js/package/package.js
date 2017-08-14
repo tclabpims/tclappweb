@@ -134,6 +134,25 @@ function uploadPic() {
         }
     });
 }
+$("document").ready(function(){
+    $("#name_add").click(function () {
+        layui.use(['layer', 'form'], function() {
+            var layer = layui.layer;
+            var form = layui.form();
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '240px'], //宽高
+                content: $("#package_detail_add"),
+                btn: ['确认', '取消'],
+                yes: function(index) {
+
+                }
+            })
+            form.render();
+        })
+    })
+})
 /*编辑套餐*/
 function ItemEdit(id) {
     var package;

@@ -269,7 +269,21 @@ function uploadPicEdit() {
         }
     });
 }
-
+/*获取经纬度*/
+function getLongitudeAndLatitude() {
+    layui.use('layer', function() {
+        layer = layui.layer;
+        layer.open({
+            type: 2,
+            title: '经纬度获取',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['893px', '600px'],
+            content: 'http://api.map.baidu.com/lbsapi/getpoint/index.html' //iframe的url
+        });
+    })
+}
 
 /**
  * 显示医院详细信息

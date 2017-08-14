@@ -196,14 +196,16 @@
               <input type="hidden" id="id" name="id">
               <input type="text"  id="userName" name="userName"  required lay-verify="required" autocomplete="off"
               class="layui-input" style="width: 220px">
-              </div>
           </div>
+      </div>
       <%--医院名称--%>
       <div class="layui-form-item">
           <label class="layui-form-label">医院名称</label>
-          <div class="layui-input-block">
-              <input type="text" id="hospitalName" name="hospitalName"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+          <div class="layui-input-block" style="width: 220px">
+              <input type="hidden" id="hospitalName" name="hospitalName"/>
+              <select id="hospital_Id" name="hospitalId" lay-verify="">
+                  <option value=""></option>
+              </select>
           </div>
       </div>
       <%--医生姓名--%>
@@ -233,9 +235,30 @@
       <%--职称--%>
       <div class="layui-form-item">
           <label class="layui-form-label">职称</label>
+          <div class="layui-input-block" style="width: 220px">
+              <select id="title" name="title" lay-verify="">
+                  <option value=""></option>
+                  <option value="主任医师">主任医师</option>
+                  <option value="副主任医师">副主任医师</option>
+              </select>
+          </div>
+      </div>
+      <%--医生头像--%>
+      <div class="layui-form-item">
+          <label class="layui-form-label">头像</label>
           <div class="layui-input-block">
-              <input type="text" id="title" name="title"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+              <input type="file" id="touimg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
+              <input type="hidden" id="touimg_edit_" name="touImg" />
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadTouImgEdit()">上传</button>
+          </div>
+      </div>
+      <%--从业执照图片--%>
+      <div class="layui-form-item">
+          <label class="layui-form-label">从业执照图片</label>
+          <div class="layui-input-block">
+              <input type="file" id="zzImg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
+              <input type="hidden" id="zzImg_edit_" name="zzImg"/>
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadZZImgEdit()">上传</button>
           </div>
       </div>
       <%--解读报告次数--%>
@@ -315,8 +338,7 @@
                 <td align="center"></td>
                 <td align="center">医院名称</td>
                 <td align="center"></td>
-                <td rowspan="4"><img id="doctor_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
-                    style="width: 138px;height: 150px"></td>
+                <td rowspan="4"><img id="doctor_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 138px;height: 150px"></td>
             </tr>
             <tr>
                 <td align="center">性别</td>

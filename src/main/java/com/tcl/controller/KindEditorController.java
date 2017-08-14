@@ -69,6 +69,7 @@ public class KindEditorController {
     @RequestMapping("/upload")
     @ResponseBody
     public Map<String, Object> uploadFileForKindEdit(MultipartFile imgFile, HttpServletRequest request, String dir) {
+        Map<String, Object> map = new HashMap<String, Object>();
         Properties prop = new Properties();
         String fileUploadPath = null;
         String fileAcquireUrl = null;
@@ -78,6 +79,9 @@ public class KindEditorController {
             fileAcquireUrl = prop.getProperty("realUrl").trim();
         } catch (IOException e) {
             e.printStackTrace();
+            map.put("error", 1);
+            map.put("message", "读取文件路径失败");
+            return map;
         }
         //检查并创建上传文件夹
         File uploadFileDir = new File(fileUploadPath);
@@ -85,7 +89,6 @@ public class KindEditorController {
             uploadFileDir.mkdirs();
         }
         //初始化相关变量
-        Map<String, Object> map = new HashMap<String, Object>();
 //        ServletContext context = request.getSession().getServletContext();
 //        pageCtx = context.getContextPath().concat(filePath);
 //        relPath = context.getRealPath(filePath);
@@ -192,6 +195,120 @@ public class KindEditorController {
         }
     }
 
+    /**
+     * @category 管理文件上传的请求以及目录管理
+     * @param dir
+     * @param request
+     * @param path
+     * @param order
+     * @return
+     */
+    @RequestMapping("/manager")
+    @ResponseBody
+    public Map<String, Object> manager(String dir, HttpServletRequest request, String path, String order) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Properties prop = new Properties();
+        String fileUploadPath = null;
+        String fileAcquireUrl = null;
+        try {
+            prop.load(KindEditorController.class.getClassLoader().getResourceAsStream("conf/config.properties"));
+            fileUploadPath = prop.getProperty("uploadUrl").trim();
+            fileAcquireUrl = prop.getProperty("realUrl").trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+            map.put("error", 1);
+            map.put("message", "读取文件路径失败");
+            return map;
+        }
+        //检查并创建上传文件夹
+        File uploadFileDir = new File(fileUploadPath);
+        if(!uploadFileDir.exists() || !uploadFileDir.isDirectory()) {
+            uploadFileDir.mkdirs();
+        }
+        relPath = fileUploadPath;
+        pageCtx = fileAcquireUrl;
+        fileDir = dir;
+        if (null == dir || dir.isEmpty()) {
+            fileDir = "file";
+        }
+        if (!extMap.containsKey(fileDir)) {
+            map.put("error", 1);
+            map.put("message", "目录名不正确,请检查.");
+            return map;
+        }
+        String tempPath = null == path ? fileDir.concat("/") : fileDir.concat("/"+path);
+        String curPath = pageCtx.concat(tempPath);
+        String curFileDir = relPath.concat("/"+tempPath);
+        String curDir = path;
+        String moveupDir = "";
+        // 检查当前目录是否为根目录
+        if (!"".equals(path)) {
+            String str = curDir.substring(0, curDir.length() - 1);
+            moveupDir = str.lastIndexOf("/") >= 0 ? str.substring(0, str.lastIndexOf("/") + 1) : "";
+        }
+        // 检查..命令
+        if(path.indexOf("..") >= 0){
+            map.put("error", 1);
+            map.put("message", "不允许使用..命令返回上一层.");
+            return map;
+        }
+        //最后一个字符不是/
+        if (!"".equals(path) && !path.endsWith("/")) {
+            map.put("error", 1);
+            map.put("message", "文件路径不合法.");
+            return map;
+        }
+        // 检查当前目录
+        File curPathFile = new File(curFileDir);
+        if (!curPathFile.isDirectory()) {
+            map.put("error", 1);
+            map.put("message", "当前目录不存在.");
+            return map;
+        }
+        //遍历目录取的文件信息
+        @SuppressWarnings("rawtypes")
+        List<HashMap> fileList = new ArrayList<HashMap>();
+        if (curPathFile.listFiles() != null) {
+            for (File file : curPathFile.listFiles()) {
+                HashMap<String, Object> hash = new HashMap<String, Object>();
+                String fileName = file.getName();
+                if (file.isDirectory()) {
+                    hash.put("is_dir", true);
+                    hash.put("has_file", (file.listFiles() != null));
+                    hash.put("filesize", 0L);
+                    hash.put("is_photo", false);
+                    hash.put("filetype", "");
+                } else if (file.isFile()) {
+                    fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+                    hash.put("is_dir", false);
+                    hash.put("has_file", false);
+                    hash.put("filesize", file.length());
+                    hash.put("is_photo", Arrays.<String>asList(extMap.get("image").split(",")).contains(fileExt));
+                    hash.put("filetype", fileExt);
+                }
+                hash.put("filename", fileName);
+                hash.put("datetime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.lastModified()));
+                fileList.add(hash);
+            }
+        }
+        // 文件排序方式
+        String tempOrder = order != null ? order.toLowerCase() : "name";
+        if ("size".equals(tempOrder)) {
+            Collections.sort(fileList, new SizeComparator());
+        } else if ("type".equals(tempOrder)) {
+            Collections.sort(fileList, new TypeComparator());
+        } else {
+            Collections.sort(fileList, new NameComparator());
+        }
+        // 输出遍历后的文件信息数据
+        map.put("moveup_dir_path", moveupDir);
+        map.put("current_dir_path", curDir);
+        map.put("current_url", curPath);
+        map.put("total_count", fileList.size());
+        map.put("file_list", fileList);
+        return map;
+    }
+
     //生成新的文件名，并按日期分类
     private void newSavePath() {
         StringBuilder tempPath = new StringBuilder(relPath);
@@ -224,5 +341,71 @@ public class KindEditorController {
         if(!folder.canWrite())
             return false;
         return true;
+    }
+
+
+    /**
+     * @category 查询服务器的文件并根据文件名称排序
+     */
+    @SuppressWarnings("rawtypes")
+    public class NameComparator implements Comparator {
+
+        //复写比较器
+        public int compare(Object a, Object b) {
+            HashMap hashA = (HashMap) a;
+            HashMap hashB = (HashMap) b;
+            if (((Boolean) hashA.get("is_dir")) && !((Boolean) hashB.get("is_dir"))) {
+                return -1;
+            } else if (!((Boolean) hashA.get("is_dir")) && ((Boolean) hashB.get("is_dir"))) {
+                return 1;
+            } else {
+                return ((String) hashA.get("filename")).compareTo((String) hashB.get("filename"));
+            }
+        }
+    }
+
+    /**
+     * @category 查询服务器的文件并根据文件大小排序
+     */
+    @SuppressWarnings("rawtypes")
+    public class SizeComparator implements Comparator {
+
+        //复写比较器
+        public int compare(Object a, Object b) {
+            HashMap hashA = (HashMap) a;
+            HashMap hashB = (HashMap) b;
+            if (((Boolean) hashA.get("is_dir")) && !((Boolean) hashB.get("is_dir"))) {
+                return -1;
+            } else if (!((Boolean) hashA.get("is_dir")) && ((Boolean) hashB.get("is_dir"))) {
+                return 1;
+            } else {
+                if (((Long) hashA.get("filesize")) > ((Long) hashB.get("filesize"))) {
+                    return 1;
+                } else if (((Long) hashA.get("filesize")) < ((Long) hashB.get("filesize"))) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * @category 查询服务器的文件并根据文件类型排序
+     */
+    public class TypeComparator implements Comparator {
+
+        //复写比较器
+        public int compare(Object a, Object b) {
+            HashMap hashA = (HashMap) a;
+            HashMap hashB = (HashMap) b;
+            if (((Boolean) hashA.get("is_dir")) && !((Boolean) hashB.get("is_dir"))) {
+                return -1;
+            } else if (!((Boolean) hashA.get("is_dir")) && ((Boolean) hashB.get("is_dir"))) {
+                return 1;
+            } else {
+                return ((String) hashA.get("filetype")).compareTo((String) hashB.get("filetype"));
+            }
+        }
     }
 }

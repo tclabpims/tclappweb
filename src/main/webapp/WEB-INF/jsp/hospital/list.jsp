@@ -155,21 +155,31 @@
                 </div>
             </div>
 
-            <%--医院经度--%>
-            <div class="layui-form-item">
-                <label class="layui-form-label">医院经度</label>
-                <div class="layui-input-block">
-                    <input type="text" name="longitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                <%--医院经度--%>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">医院经度</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="longitude" required lay-verify="required" class="layui-input" style="width: 200px">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
+                    </div>
                 </div>
-            </div>
 
-            <%--医院纬度--%>
-            <div class="layui-form-item">
-                <label class="layui-form-label">医院纬度</label>
-                <div class="layui-input-block">
-                    <input type="text" name="latitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                <%--医院纬度--%>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">医院纬度</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="latitude" required lay-verify="required" class="layui-input" style="width: 200px">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
+                    </div>
                 </div>
-            </div>
 
             <%--支付宝付款账户--%>
             <div class="layui-form-item">
@@ -252,17 +262,27 @@
 
             <%--医院经度--%>
             <div class="layui-form-item">
-                <label class="layui-form-label">医院经度</label>
-                <div class="layui-input-block">
-                    <input type="text" id="edit_longitude" name="longitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                <div class="layui-inline">
+                    <label class="layui-form-label">医院经度</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="edit_longitude" name="longitude" required lay-verify="required" class="layui-input" style="width: 200px">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
                 </div>
             </div>
 
             <%--医院纬度--%>
             <div class="layui-form-item">
-                <label class="layui-form-label">医院纬度</label>
-                <div class="layui-input-block">
-                    <input type="text" id="edit_latitude" name="latitude" required lay-verify="required" class="layui-input" style="width: 260px">
+                <div class="layui-inline">
+                    <label class="layui-form-label">医院纬度</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="edit_latitude" name="latitude" required lay-verify="required" class="layui-input" style="width: 200px">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
                 </div>
             </div>
 

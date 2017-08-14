@@ -427,7 +427,7 @@ function ItemContent(id) {
         var editor = KindEditor.create("#editor_id", {
             resizeType : 1,
             uploadJson : '/kindedit/upload.do',
-            //fileManagerJson : '../jsp/file_manager_json.jsp',
+            fileManagerJson : '/kindedit/manager.do',
             allowFileManager : true,
             height: '520px'
         });
