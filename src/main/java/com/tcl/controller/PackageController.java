@@ -4,6 +4,10 @@ import com.tcl.model.PackageDetailsModel;
 import com.tcl.model.PackageModel;
 import com.tcl.model.PackageModelWithBLOBs;
 import com.tcl.service.PackageService;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +47,7 @@ public class PackageController {
 			}
 		}
 		Map m=new HashMap<String ,Objects>();
-		List<PackageModel> package_list = packageService.selectList(m);
+		List<PackageModelWithBLOBs> package_list = packageService.selectList(m);
 		int total_page = (package_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
 		if (total_page < 1) {
 			total_page = 1;
@@ -208,5 +217,66 @@ public class PackageController {
 			map.put("msg", "error");
 		}
 		return map;
+	}
+
+	@RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
+	public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<PackageModelWithBLOBs> package_list = null;
+		//标题行
+		String title[] = {"套餐名称", "价格到分", "报告时间说明", "报告时间说明", "物价编码", "已使用数量", "套餐状态",
+				"使用人群", "注意事项", "检验项目说明", "检验分类", "疾病分类", "采集分类", "相关问题及免责条款"};
+		StringBuilder tempPath = new StringBuilder();
+		SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
+		tempPath.append(fileNameFormat.format(new Date()));
+		tempPath.append(".").append("xls");
+		String filename = tempPath.toString();
+		try {
+			response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+			response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
+			OutputStream os = response.getOutputStream();
+			WritableWorkbook book = Workbook.createWorkbook(os);
+			WritableSheet sheet = book.createSheet("套餐信息", 0);
+			//写入标题
+			for (int i=0; i<title.length; i++) {
+				sheet.addCell(new Label(i, 0, title[i]));
+			}
+			package_list = packageService.selectList(new HashMap<String, Object>());
+			for (int i=0; i<package_list.size(); i++) {
+				int j=0;
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getName()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getPrice() != null ? Long.toString(package_list.get(i).getPrice()) : ""));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getReportTime()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getReportTimeDesc()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getWjCode()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getSaleNum() != null ? Integer.toString(package_list.get(i).getSaleNum()) : ""));
+				if (package_list.get(i).getStatus().equals("0")) {
+					sheet.addCell(new Label(j++, i+1, "未发布"));
+				} else if (package_list.get(i).getStatus().equals("1")) {
+					sheet.addCell(new Label(j++, i+1, "已发布"));
+				} else if (package_list.get(i).getStatus().equals("2")) {
+					sheet.addCell(new Label(j++, i+1, "已下线"));
+				} else {
+					sheet.addCell(new Label(j++, i+1, "暂无"));
+				}
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getUseCrowd()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getNeedAttention()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getProjectDesc()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getTestType()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getDiseaseType()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getTakeType()));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getClause()));
+			}
+			//写入数据
+			book.write();
+			//关闭文件
+			book.close();
+			os.flush();
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

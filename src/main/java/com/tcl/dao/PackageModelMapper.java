@@ -21,7 +21,7 @@ public interface PackageModelMapper {
 
     int updateByPrimaryKey(PackageModel record);
 
-    List<PackageModel> selectList(Map map);
+    List<PackageModelWithBLOBs> selectList(Map map);
 
     List<PackageModel> selectListByPage(Map map);
 

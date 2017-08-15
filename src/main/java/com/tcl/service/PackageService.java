@@ -12,7 +12,7 @@ import java.util.Map;
 public interface PackageService {
     PackageModelWithBLOBs selectById(Long id);
 
-    List<PackageModel> selectList(Map map);
+    List<PackageModelWithBLOBs> selectList(Map map);
 
     List<PackageModel> selectListByPage(Map map);
 

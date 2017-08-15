@@ -11,6 +11,8 @@ public class PackageModel {
 
     private String reportTime;
 
+    private String reportTimeDesc;
+
     private String wjCode;
 
     private Integer saleNum;
@@ -63,6 +65,14 @@ public class PackageModel {
 
     public void setReportTime(String reportTime) {
         this.reportTime = reportTime == null ? null : reportTime.trim();
+    }
+
+    public String getReportTimeDesc() {
+        return reportTimeDesc;
+    }
+
+    public void setReportTimeDesc(String reportTimeDesc) {
+        this.reportTimeDesc = reportTimeDesc == null ? null : reportTimeDesc.trim();
     }
 
     public String getWjCode() {

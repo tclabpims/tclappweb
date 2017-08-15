@@ -256,7 +256,7 @@ public class NewspaperController {
 		try {
 			fw = new FileWriter(htmlFilePath);
 			bw = new BufferedWriter(fw);
-			bw.write(content);
+			bw.write(new String(content.getBytes(), "utf-8"));
 			bw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -7,6 +7,7 @@
     <result column="use_crowd" property="useCrowd" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="BIGINT" />
     <result column="report_time" property="reportTime" jdbcType="VARCHAR" />
+    <result column="report_time_desc" property="reportTimeDesc" jdbcType="VARCHAR" />
     <result column="wj_code" property="wjCode" jdbcType="VARCHAR" />
     <result column="sale_num" property="saleNum" jdbcType="INTEGER" />
     <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
@@ -21,8 +22,8 @@
     <result column="clause" property="clause" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, use_crowd, price, report_time, wj_code, sale_num, pic_url, status, test_type, 
-    disease_type, take_type
+    id, name, use_crowd, price, report_time, report_time_desc, wj_code, sale_num, pic_url, 
+    status, test_type, disease_type, take_type
   </sql>
   <sql id="Blob_Column_List" >
     need_attention, project_desc, clause
@@ -41,17 +42,17 @@
   </delete>
   <insert id="insert" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     insert into app_c_package (id, name, use_crowd, 
-      price, report_time, wj_code, 
-      sale_num, pic_url, status, 
-      test_type, disease_type, take_type, 
-      need_attention, project_desc, clause
-      )
+      price, report_time, report_time_desc, 
+      wj_code, sale_num, pic_url, 
+      status, test_type, disease_type, 
+      take_type, need_attention, project_desc, 
+      clause)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{useCrowd,jdbcType=VARCHAR}, 
-      #{price,jdbcType=BIGINT}, #{reportTime,jdbcType=VARCHAR}, #{wjCode,jdbcType=VARCHAR}, 
-      #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{testType,jdbcType=VARCHAR}, #{diseaseType,jdbcType=VARCHAR}, #{takeType,jdbcType=VARCHAR}, 
-      #{needAttention,jdbcType=LONGVARCHAR}, #{projectDesc,jdbcType=LONGVARCHAR}, #{clause,jdbcType=LONGVARCHAR}
-      )
+      #{price,jdbcType=BIGINT}, #{reportTime,jdbcType=VARCHAR}, #{reportTimeDesc,jdbcType=VARCHAR}, 
+      #{wjCode,jdbcType=VARCHAR}, #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR}, #{diseaseType,jdbcType=VARCHAR}, 
+      #{takeType,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR}, #{projectDesc,jdbcType=LONGVARCHAR}, 
+      #{clause,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     insert into app_c_package
@@ -70,6 +71,9 @@
       </if>
       <if test="reportTime != null" >
         report_time,
+      </if>
+      <if test="reportTimeDesc != null" >
+        report_time_desc,
       </if>
       <if test="wjCode != null" >
         wj_code,
@@ -118,6 +122,9 @@
       <if test="reportTime != null" >
         #{reportTime,jdbcType=VARCHAR},
       </if>
+      <if test="reportTimeDesc != null" >
+        #{reportTimeDesc,jdbcType=VARCHAR},
+      </if>
       <if test="wjCode != null" >
         #{wjCode,jdbcType=VARCHAR},
       </if>
@@ -165,13 +172,16 @@
       <if test="reportTime != null" >
         report_time = #{reportTime,jdbcType=VARCHAR},
       </if>
+      <if test="reportTimeDesc != null" >
+        report_time_desc = #{reportTimeDesc,jdbcType=VARCHAR},
+      </if>
       <if test="wjCode != null" >
         wj_code = #{wjCode,jdbcType=VARCHAR},
       </if>
       <if test="saleNum != null" >
         sale_num = #{saleNum,jdbcType=INTEGER},
       </if>
-      <if test="picUrl != null and picUrl != ''" >
+      <if test="picUrl != null" >
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
@@ -204,6 +214,7 @@
       use_crowd = #{useCrowd,jdbcType=VARCHAR},
       price = #{price,jdbcType=BIGINT},
       report_time = #{reportTime,jdbcType=VARCHAR},
+      report_time_desc = #{reportTimeDesc,jdbcType=VARCHAR},
       wj_code = #{wjCode,jdbcType=VARCHAR},
       sale_num = #{saleNum,jdbcType=INTEGER},
       pic_url = #{picUrl,jdbcType=VARCHAR},
@@ -222,6 +233,7 @@
       use_crowd = #{useCrowd,jdbcType=VARCHAR},
       price = #{price,jdbcType=BIGINT},
       report_time = #{reportTime,jdbcType=VARCHAR},
+      report_time_desc = #{reportTimeDesc,jdbcType=VARCHAR},
       wj_code = #{wjCode,jdbcType=VARCHAR},
       sale_num = #{saleNum,jdbcType=INTEGER},
       pic_url = #{picUrl,jdbcType=VARCHAR},
@@ -258,7 +270,7 @@
     <include refid="Blob_Column_List" />
     from app_c_package where 1=1
     <if test="name != ''">
-     AND name = #{name, jdbcType=VARCHAR}
+      AND name = #{name, jdbcType=VARCHAR}
     </if>
     <if test="status != ''">
       AND status = #{status, jdbcType=VARCHAR}
@@ -311,5 +323,4 @@
       limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </if>
   </select>
-
 </mapper>

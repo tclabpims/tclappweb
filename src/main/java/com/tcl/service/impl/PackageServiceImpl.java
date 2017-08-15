@@ -21,7 +21,7 @@ public class PackageServiceImpl implements PackageService {
 		return packageDao.selectByPrimaryKey(id);
 	}
 
-	public List<PackageModel> selectList(Map map) {
+	public List<PackageModelWithBLOBs> selectList(Map map) {
 		return packageDao.selectList(map);
 	}
 
