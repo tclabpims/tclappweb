@@ -7,9 +7,26 @@
     <result column="his_name" property="hisName" jdbcType="VARCHAR" />
     <result column="his_price" property="hisPrice" jdbcType="BIGINT" />
     <result column="package_id" property="packageId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
   </resultMap>
+
+  <resultMap id="RelatedResultMap" type="com.tcl.model.PackageDetailsModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="his_id" property="hisId" jdbcType="VARCHAR" />
+    <result column="his_name" property="hisName" jdbcType="VARCHAR" />
+    <result column="his_price" property="hisPrice" jdbcType="BIGINT" />
+    <result column="package_id" property="packageId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <collection property="packageModel" javaType="com.tcl.model.PackageModel">
+      <id column="b_id" property="id" jdbcType="BIGINT" />
+      <result column="b_name" property="name" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
-    id, his_id, his_name, his_price, package_id
+    id, his_id, his_name, his_price, package_id, name, price
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -23,9 +40,11 @@
   </delete>
   <insert id="insert" parameterType="com.tcl.model.PackageDetailsModel" >
     insert into app_c_package_details (id, his_id, his_name, 
-      his_price, package_id)
+      his_price, package_id, name, 
+      price)
     values (#{id,jdbcType=BIGINT}, #{hisId,jdbcType=VARCHAR}, #{hisName,jdbcType=VARCHAR}, 
-      #{hisPrice,jdbcType=BIGINT}, #{packageId,jdbcType=BIGINT})
+      #{hisPrice,jdbcType=BIGINT}, #{packageId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{price,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.PackageDetailsModel" >
     insert into app_c_package_details
@@ -45,6 +64,12 @@
       <if test="packageId != null" >
         package_id,
       </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -61,6 +86,12 @@
       </if>
       <if test="packageId != null" >
         #{packageId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -79,6 +110,12 @@
       <if test="packageId != null" >
         package_id = #{packageId,jdbcType=BIGINT},
       </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -87,7 +124,43 @@
     set his_id = #{hisId,jdbcType=VARCHAR},
       his_name = #{hisName,jdbcType=VARCHAR},
       his_price = #{hisPrice,jdbcType=BIGINT},
-      package_id = #{packageId,jdbcType=BIGINT}
+      package_id = #{packageId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectList" parameterType="java.util.Map" resultMap="RelatedResultMap">
+    select
+    a.id, his_id, his_name, his_price, package_id, a.name, a.price, b.id b_id, b.name b_name
+    from app_c_package_details a LEFT JOIN app_c_package b ON a.package_id = b.id
+    where 1=1
+    <if test="id != null">
+      and a.id = #{id, jdbcType=BIGINT}
+    </if>
+    <if test="hisId != null">
+      and his_id = #{hisId, jdbcType=VARCHAR}
+    </if>
+    <if test="hisName != null and hisName != ''">
+      and his_name = #{hisName, jdbcType=VARCHAR}
+    </if>
+    <if test="hisPrice != null">
+      and his_price = #{hisPrice, jdbcType=BIGINT}
+    </if>
+    <if test="packageId != null">
+      and package_id = #{packageId, jdbcType=BIGINT}
+    </if>
+    <if test="name != null and name != ''">
+      and a.name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="price != null">
+      and a.price = #{price, jdbcType=BIGINT}
+    </if>
+    <if test="packageName != null and packageName != ''">
+      and b.name = #{packageName, jdbcType=VARCHAR}
+    </if>
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>

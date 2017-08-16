@@ -31,7 +31,7 @@ public class PackageController {
 	@Autowired
 	private PackageService packageService;
 
-	private static final int PAGE_SIZE = 2;
+	private static final int PAGE_SIZE = 5;
 
 	@RequestMapping("listPage")
 	public String listPage(ModelMap map, HttpServletRequest request, String pageNo){
@@ -78,7 +78,7 @@ public class PackageController {
 			page_no = 1;
 		}
 		else {
-			page_no = Integer.parseInt(pageNo);
+			page_no = Integer.parseInt(pageNo.trim());
 			if (page_no < 1) {
 				page_no = 1;
 			}

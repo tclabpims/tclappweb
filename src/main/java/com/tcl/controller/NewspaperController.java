@@ -251,12 +251,12 @@ public class NewspaperController {
 		tempPath.append("/").append(fileNameFormat.format(new Date()));
 		tempPath.append(".").append("html");
 		String htmlFilePath = tempPath.toString().replaceAll("\\\\", "/");
-		FileWriter fw = null;
+		OutputStreamWriter osw = null;
 		BufferedWriter bw = null;
 		try {
-			fw = new FileWriter(htmlFilePath);
-			bw = new BufferedWriter(fw);
-			bw.write(new String(content.getBytes(), "utf-8"));
+			osw = new OutputStreamWriter(new FileOutputStream(htmlFilePath), "UTF-8");
+			bw = new BufferedWriter(osw);
+			bw.write(content);
 			bw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -271,10 +271,10 @@ public class NewspaperController {
 					e.printStackTrace();
 				}
 			}
-			if (fw != null) {
+			if (osw != null) {
 				try {
-					fw.close();
-					fw = null;
+					osw.close();
+					osw = null;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

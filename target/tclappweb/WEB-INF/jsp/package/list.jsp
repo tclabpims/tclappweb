@@ -90,10 +90,10 @@
                 <tr>
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.name}</td>
-                    <td class="center left-con"><img src="<%@include file="../../ImgUrl/acquireUrl.jsp"%>${item.picUrl}" height="50px" width="50px"/></td>
-                    <td class="center left-con">${item.useCrowd}</td>
+                    <td class="center left-con"><img src="<%@include file="../../ImgUrl/acquireUrl.jsp"%>${item.picUrl}" style="height: 30px; width: 50px"/></td>
+                    <td class="line_limit" valign="middle" style="height: 34px">${item.useCrowd}</td>
                     <td class="center left-con">${item.price}</td>
-                    <td class="center left-con">${item.needAttention}</td>
+                    <td class="line_limit" valign="middle" style="height: 34px">${item.needAttention}</td>
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;

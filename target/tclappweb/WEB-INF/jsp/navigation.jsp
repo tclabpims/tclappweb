@@ -12,8 +12,8 @@
               <li class="active">
               	<a class="ad adbj1" href="#" id="menu1" data-spm-anchor-id="0.0.0.0">基础字典</a>
                 <ul style="display: none;" id="divmenu1" class="sub-menu">
-                  <li><a id="sub1" href="#">检验细项</a></li>
-                  <li><a id="sub2" href="/package/listPage.do?">套餐列表</a></li>
+                  <li><a id="sub1" href="/packageDetails/list.do">检验细项</a></li>
+                  <li><a id="sub2" href="/package/listPage.do">套餐列表</a></li>
                   <li><a id="sub3" href="#">采集手册</a></li>
                 </ul>
               </li>

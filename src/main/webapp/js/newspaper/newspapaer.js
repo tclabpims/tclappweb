@@ -431,6 +431,7 @@ function ItemContent(id) {
             allowFileManager : true,
             height: '520px'
         });
+        form.render();
     });
 
 }

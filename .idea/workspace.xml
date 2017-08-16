@@ -2,45 +2,32 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="tclappweb:war" />
+      <artifact name="tclappweb:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d8a7db3-ad76-4de1-9d2b-f3842d2764a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_jexcelapi_jxl_2_6_3.xml" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170806\20170806141836_166.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170806\20170806213205_290.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807093903_64.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807094116_977.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807094359_691.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807094446_225.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807094518_294.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807095200_378.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807095918_697.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807100531_319.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807101008_502.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807101304_797.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807101501_254.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807101739_120.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807102029_422.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807102233_467.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807102353_654.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807102508_401.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807102621_836.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\attached\image\20170807\20170807105444_42.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\target\tclappweb.war" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageDetailsController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/service/PackageDetailsService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageDetailsServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/packageDetails/list.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/js/packageDetails/packageDetails.js" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\config.properties" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\jdbc.properties" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\log4j.properties" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\mybatis-config.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\spring-mvc.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\spring-mybatis.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller\conf\spring.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Java\Idea-workspace\tclappweb\src\main\webapp\WEB-INF\newspaperPage\20170808\20170808102428_245.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/controller/NewspaperController.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/controller/NewspaperController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/controller/NewspaperController.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/controller/NewspaperController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/controller/PackageController.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/controller/PackageController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/controller/PackageController.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/controller/PackageController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/model/PackageModel.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/model/PackageModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/model/PackageModel.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/model/PackageModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/dao/PackageModelMapper.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/dao/PackageModelMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/dao/PackageModelMapper.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/dao/PackageModelMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/service/PackageService.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/service/PackageService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/service/PackageService.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/service/PackageService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/service/impl/PackageServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/service/impl/PackageServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/service/impl/PackageServiceImpl.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/service/impl/PackageServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/model/PackageDetailsModel.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/model/PackageDetailsModel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/model/PackageDetailsModel.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/model/PackageDetailsModel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/tcl/dao/PackageDetailsModelMapper.class" afterPath="$PROJECT_DIR$/target/classes/com/tcl/dao/PackageDetailsModelMapper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/dao/PackageDetailsModelMapper.class" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/com/tcl/dao/PackageDetailsModelMapper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
@@ -94,24 +81,24 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/NewspaperModelMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/NewspaperModelMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/OrderModelMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/OrderModelMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageController.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageDetailsModel.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageDetailsModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageDetailsModelMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageDetailsModelMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/PackageDetailsModelMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/PackageDetailsModelMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/mapper/PackageDetailsModelMapper.xml" afterPath="$PROJECT_DIR$/target/classes/mapper/PackageDetailsModelMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/mapper/PackageDetailsModelMapper.xml" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/mapper/PackageDetailsModelMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModel.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageModelMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageModelMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/PackageModelMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/PackageModelMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/mapper/PackageModelMapper.xml" afterPath="$PROJECT_DIR$/target/classes/mapper/PackageModelMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/mapper/PackageModelMapper.xml" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/classes/mapper/PackageModelMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModelWithBLOBs.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModelWithBLOBs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/service/PackageService.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/service/PackageService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/TradeModelMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/TradeModelMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserModelMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserModelMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/WebUserMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/WebUserMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ImgUrl/acquireUrl.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ImgUrl/acquireUrl.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/css/customStyle.css" afterPath="$PROJECT_DIR$/src/main/webapp/css/customStyle.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/css/customStyle.css" afterPath="$PROJECT_DIR$/target/tclappweb/css/customStyle.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mybatis-generator/generator.xml" afterPath="$PROJECT_DIR$/mybatis-generator/generator.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/jsp/package/list.jsp" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/jsp/package/list.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/logs/log.log" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/logs/log.log" />
@@ -119,6 +106,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/tclappweb/WEB-INF/jsp/navigation.jsp" afterPath="$PROJECT_DIR$/target/tclappweb/WEB-INF/jsp/navigation.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/newspaper/newspapaer.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/newspaper/newspapaer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.jst.j2ee.ejb.annotations.xdoclet.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jst.j2ee.ejb.annotations.xdoclet.prefs" />
@@ -126,10 +114,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.component" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.component" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.validation.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.validation.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/package/package.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/package/package.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tclappweb.iml" afterPath="$PROJECT_DIR$/tclappweb.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/tclappweb_war.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/tclappweb_war.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/tclappweb_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/tclappweb_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
@@ -179,141 +164,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="212.1">
-              <caret line="67" column="112" selection-start-line="67" selection-start-column="112" selection-end-line="67" selection-end-column="112" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PackageController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.607143">
-              <caret line="255" column="73" selection-start-line="255" selection-start-column="73" selection-end-line="255" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="133" column="17" selection-start-line="133" selection-start-column="17" selection-end-line="133" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PackageDetailsModelMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/PackageDetailsModelMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="141" column="45" selection-start-line="141" selection-start-column="45" selection-end-line="141" selection-end-column="45" />
               <folding>
-                <element signature="e#5440#5456#0" expanded="true" />
-                <element signature="e#6370#6386#0" expanded="true" />
+                <marker date="1502847501175" expanded="true" signature="1752:1868" placeholder="select from ..app_c_package_details..." />
+                <marker date="1502847501175" expanded="true" signature="1952:2022" placeholder="delete from ..." />
+                <marker date="1502847501175" expanded="true" signature="2113:2435" placeholder="insert into ..." />
+                <marker date="1502847501175" expanded="true" signature="3819:4459" placeholder="update app_c..." />
+                <marker date="1502847501175" expanded="true" signature="4562:4891" placeholder="update app_c..." />
+                <marker date="1502847501175" expanded="true" signature="4995:5187" placeholder="select from ..app_c_package_details..." />
+                <marker date="1502847501175" expanded="true" signature="4995:5190" placeholder="select from ..app_c_package_details..." />
+                <marker date="1502847501175" expanded="true" signature="5896:5958" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/newspaper/list.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-31.966667">
-              <caret line="335" column="67" selection-start-line="335" selection-start-column="67" selection-end-line="335" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newspapaer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/newspaper/newspapaer.js">
+      <file leaf-file-name="PackageDetailsModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/model/PackageDetailsModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="385" column="33" selection-start-line="385" selection-start-column="33" selection-end-line="385" selection-end-column="33" />
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewspaperController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/NewspaperController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6438095">
-              <caret line="256" column="46" selection-start-line="256" selection-start-column="46" selection-end-line="256" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PackageModelMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageModelMapper.java">
+      <file leaf-file-name="PackageDetailsService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/PackageDetailsService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PackageModelMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/PackageModelMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+              <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
               <folding>
-                <marker date="1502701839183" expanded="true" signature="1932:2087" placeholder="select , fro..." />
-                <marker date="1502701839183" expanded="true" signature="2171:2233" placeholder="delete from ..." />
-                <marker date="1502701839183" expanded="true" signature="2326:3090" placeholder="insert into ..." />
-                <marker date="1502701839183" expanded="true" signature="5912:7478" placeholder="update app_c..." />
-                <marker date="1502701839183" expanded="true" signature="7592:8384" placeholder="update app_c..." />
-                <marker date="1502701839183" expanded="true" signature="8480:9105" placeholder="update app_c..." />
-                <marker date="1502701839183" expanded="true" signature="9201:9318" placeholder="select , fro..." />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PackageModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModel.java">
+      <file leaf-file-name="PackageDetailsServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageDetailsServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+            <state vertical-scroll-proportion="-0.045454547">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
-                <element signature="e#454#455#0" expanded="false" />
-                <element signature="e#479#480#0" expanded="false" />
-                <element signature="e#513#514#0" expanded="false" />
-                <element signature="e#541#542#0" expanded="false" />
-                <element signature="e#572#573#0" expanded="false" />
-                <element signature="e#599#600#0" expanded="false" />
-                <element signature="e#639#640#0" expanded="false" />
-                <element signature="e#700#701#0" expanded="false" />
-                <element signature="e#735#736#0" expanded="false" />
-                <element signature="e#766#767#0" expanded="false" />
-                <element signature="e#814#815#0" expanded="false" />
-                <element signature="e#887#888#0" expanded="false" />
-                <element signature="e#917#918#0" expanded="false" />
-                <element signature="e#945#946#0" expanded="false" />
-                <element signature="e#985#986#0" expanded="false" />
-                <element signature="e#1019#1020#0" expanded="false" />
-                <element signature="e#1056#1057#0" expanded="false" />
-                <element signature="e#1089#1090#0" expanded="false" />
-                <element signature="e#1141#1142#0" expanded="false" />
-                <element signature="e#1220#1221#0" expanded="false" />
-                <element signature="e#1261#1262#0" expanded="false" />
-                <element signature="e#1298#1299#0" expanded="false" />
-                <element signature="e#1482#1483#0" expanded="false" />
-                <element signature="e#1511#1512#0" expanded="false" />
-                <element signature="e#1555#1556#0" expanded="false" />
-                <element signature="e#1622#1623#0" expanded="false" />
-                <element signature="e#1657#1658#0" expanded="false" />
-                <element signature="e#1687#1688#0" expanded="false" />
-                <element signature="e#1734#1735#0" expanded="false" />
-                <element signature="e#1772#1773#0" expanded="false" />
-                <element signature="e#1805#1806#0" expanded="false" />
-                <element signature="e#1834#1835#0" expanded="false" />
-                <element signature="e#1878#1879#0" expanded="false" />
-                <element signature="e#1945#1946#0" expanded="false" />
-                <element signature="e#1978#1979#0" expanded="false" />
-                <element signature="e#2007#2008#0" expanded="false" />
-                <element signature="e#2051#2052#0" expanded="false" />
-                <element signature="e#2118#2119#0" expanded="false" />
-                <element signature="e#2153#2154#0" expanded="false" />
-                <element signature="e#2184#2185#0" expanded="false" />
-                <element signature="e#2232#2233#0" expanded="false" />
-                <element signature="e#2305#2306#0" expanded="false" />
-                <element signature="e#2343#2344#0" expanded="false" />
-                <element signature="e#2377#2378#0" expanded="false" />
-                <element signature="e#2548#2549#0" expanded="false" />
-                <element signature="e#2579#2580#0" expanded="false" />
-                <element signature="e#2627#2628#0" expanded="false" />
-                <element signature="e#2700#2701#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#841#842#0" expanded="true" />
+                <element signature="e#904#905#0" expanded="true" />
+                <element signature="e#1101#1102#0" expanded="true" />
+                <element signature="e#1164#1165#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -322,18 +234,46 @@
       <file leaf-file-name="navigation.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.4">
-              <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="79" selection-start-line="14" selection-start-column="79" selection-end-line="14" selection-end-column="79" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/package/package.js">
+      <file leaf-file-name="PackageDetailsController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageDetailsController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="176" column="45" selection-start-line="176" selection-start-column="45" selection-end-line="176" selection-end-column="45" />
+              <caret line="145" column="50" selection-start-line="145" selection-start-column="50" selection-end-line="145" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1022#1038#0" expanded="true" />
+                <element signature="e#1735#1751#0" expanded="true" />
+                <element signature="e#2676#2692#0" expanded="true" />
+                <element signature="e#3332#3348#0" expanded="true" />
+                <element signature="e#4099#4115#0" expanded="true" />
+                <element signature="e#5293#5309#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/packageDetails/list.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.9">
+              <caret line="78" column="48" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="packageDetails.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/packageDetails/packageDetails.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="241" column="24" selection-start-line="241" selection-start-column="24" selection-end-line="241" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -344,12 +284,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="jsf" />
         <option value="CSS File" />
         <option value="Jsp File" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -370,16 +310,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/tcl/utils/JMessageUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/DoctorController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/ajaxfileupload.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/ImgUrl/acquire_url" />
-        <option value="$PROJECT_DIR$/src/main/webapp/ImgUrl/acquireUrl.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/ImgUrl/upload_url" />
-        <option value="$PROJECT_DIR$/src/main/webapp/ImgUrl/uploadUrl.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/constants.jsp" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jquery.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/dao/NewspaperModelMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/NewspaperService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/WebUserController.java" />
@@ -400,10 +330,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/impl/NewspaperServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/newspaper/list.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/conf/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/conf/jdbc.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/newspaper/newspapaer.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/KindEditorController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/css/customStyle.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/hospital/hospital.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/hospital/list.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/doctor/doctor.js" />
@@ -416,11 +343,24 @@
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageModelMapper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/PackageModelMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/package/package.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/NewspaperController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/newspaper/newspapaer.js" />
+        <option value="$PROJECT_DIR$/src/main/resources/conf/jdbc.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/css/customStyle.css" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/PackageDetail.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/PackageDetailService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageDetailsModelMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/model/PackageDetailsModel.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/PackageDetailsModelMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/packageDetails/packageDetails.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/packageDetails/list.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageDetailsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/PackageDetailsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageDetailsServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -457,20 +397,6 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="tclappweb Maven Webapp" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tclappweb Maven Webapp" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Plugins" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$PluginsNode" />
         </PATH_ELEMENT>
       </PATH>
     </treeState>
@@ -538,7 +464,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -558,28 +484,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tclappweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tclappweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../eclipse-workspace/testmvn" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="recentsLimit" value="5" />
@@ -600,11 +512,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Java\Idea-workspace\tclappweb\src\main\webapp\js\packageDetails" />
+      <recent name="D:\Java\Idea-workspace\tclappweb\src\main\webapp\WEB-INF\jsp\packageDetails" />
       <recent name="D:\Java\Idea-workspace\tclappweb\src\main\resources\mapper" />
+      <recent name="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\dao" />
       <recent name="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\model" />
-      <recent name="D:\Java\Idea-workspace\tclappweb\src\main\java" />
-      <recent name="D:\Java\Idea-workspace\tclappweb\src\main\java\com\tcl\controller" />
-      <recent name="D:\Java\Idea-workspace\tclappweb\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Java\Idea-workspace\tclappweb\target\tclappweb\newspaperPage" />
@@ -1060,7 +972,8 @@
       <workItem from="1502673059952" duration="15129000" />
       <workItem from="1502702008215" duration="6802000" />
       <workItem from="1502717675353" duration="5566000" />
-      <workItem from="1502758743428" duration="9432000" />
+      <workItem from="1502758743428" duration="38744000" />
+      <workItem from="1502845171438" duration="15260000" />
     </task>
     <task id="LOCAL-00001" summary="doctor">
       <created>1500439998997</created>
@@ -1140,11 +1053,17 @@
       <option name="project" value="LOCAL" />
       <updated>1502677210673</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="修改了广告内容乱码，excel表格导出">
+      <created>1502773891500</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1502773891500</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="667381000" />
+    <option name="totallyTimeSpent" value="711953000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1170,17 +1089,17 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22281879" sideWeight="0.49485862" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24295302" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261745" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24563758" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23764259" sideWeight="0.49932885" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24935733" sideWeight="0.50067115" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2332905" sideWeight="0.50067115" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24935733" sideWeight="0.5151515" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14781491" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24935733" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19730078" sideWeight="0.28037384" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25637585" sideWeight="0.48971722" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3409396" sideWeight="0.48971722" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1208,7 +1127,7 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36510068" sideWeight="0.48971722" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3409396" sideWeight="0.48971722" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261745" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35167786" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1217,10 +1136,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22281879" sideWeight="0.49485862" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24295302" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261745" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24563758" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23764259" sideWeight="0.49932885" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24935733" sideWeight="0.50067115" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2332905" sideWeight="0.50067115" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24935733" sideWeight="0.5151515" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44941956" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1258,11 +1177,12 @@
     <MESSAGE value="广告页面的增、删、改、查功能，以及页面的分页" />
     <MESSAGE value="增加广告页面的编辑广告内容，套餐页面的相关功能。" />
     <MESSAGE value="提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="提交" />
+    <MESSAGE value="修改了广告内容乱码，excel表格导出" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了广告内容乱码，excel表格导出" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1271,69 +1191,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/spring-mvc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2560748">
-          <caret line="32" column="66" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/spring.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53846157">
-          <caret line="13" column="60" selection-start-line="13" selection-start-column="60" selection-end-line="13" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/conf/spring.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/NewspaperServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79469275">
-          <caret line="102" column="1" selection-start-line="102" selection-start-column="1" selection-end-line="102" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/NewspaperService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7733813">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/KindEdit/plugins/baidumap/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35318276">
-          <caret line="22" column="56" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/KindEdit/plugins/map/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30367506">
-          <caret line="113" column="11" selection-start-line="113" selection-start-column="11" selection-end-line="113" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/css/layout.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41002277">
           <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/css/customStyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -1358,49 +1219,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/jdbc.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17910448">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/ImgUrl/uploadUrl.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/DoctorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/DoctorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/DoctorServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="44" selection-start-line="71" selection-start-column="44" selection-end-line="71" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/model/PackageDetailsModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1441,6 +1264,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6480447">
           <caret line="234" column="54" selection-start-line="234" selection-start-column="54" selection-end-line="234" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1505,6 +1329,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43994415">
           <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1522,13 +1347,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15035799">
-          <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/doctor/doctor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.70167065">
@@ -1541,20 +1359,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="319" column="83" selection-start-line="319" selection-start-column="83" selection-end-line="319" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3547486">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/PackageService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2932961">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1578,79 +1383,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
-          <folding>
-            <marker date="1502701839183" expanded="true" signature="1932:2087" placeholder="select , fro..." />
-            <marker date="1502701839183" expanded="true" signature="2171:2233" placeholder="delete from ..." />
-            <marker date="1502701839183" expanded="true" signature="2326:3090" placeholder="insert into ..." />
-            <marker date="1502701839183" expanded="true" signature="5912:7478" placeholder="update app_c..." />
-            <marker date="1502701839183" expanded="true" signature="7592:8384" placeholder="update app_c..." />
-            <marker date="1502701839183" expanded="true" signature="8480:9105" placeholder="update app_c..." />
-            <marker date="1502701839183" expanded="true" signature="9201:9318" placeholder="select , fro..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding>
-            <element signature="e#454#455#0" expanded="false" />
-            <element signature="e#479#480#0" expanded="false" />
-            <element signature="e#513#514#0" expanded="false" />
-            <element signature="e#541#542#0" expanded="false" />
-            <element signature="e#572#573#0" expanded="false" />
-            <element signature="e#599#600#0" expanded="false" />
-            <element signature="e#639#640#0" expanded="false" />
-            <element signature="e#700#701#0" expanded="false" />
-            <element signature="e#735#736#0" expanded="false" />
-            <element signature="e#766#767#0" expanded="false" />
-            <element signature="e#814#815#0" expanded="false" />
-            <element signature="e#887#888#0" expanded="false" />
-            <element signature="e#917#918#0" expanded="false" />
-            <element signature="e#945#946#0" expanded="false" />
-            <element signature="e#985#986#0" expanded="false" />
-            <element signature="e#1019#1020#0" expanded="false" />
-            <element signature="e#1056#1057#0" expanded="false" />
-            <element signature="e#1089#1090#0" expanded="false" />
-            <element signature="e#1141#1142#0" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1261#1262#0" expanded="false" />
-            <element signature="e#1298#1299#0" expanded="false" />
-            <element signature="e#1482#1483#0" expanded="false" />
-            <element signature="e#1511#1512#0" expanded="false" />
-            <element signature="e#1555#1556#0" expanded="false" />
-            <element signature="e#1622#1623#0" expanded="false" />
-            <element signature="e#1657#1658#0" expanded="false" />
-            <element signature="e#1687#1688#0" expanded="false" />
-            <element signature="e#1734#1735#0" expanded="false" />
-            <element signature="e#1772#1773#0" expanded="false" />
-            <element signature="e#1805#1806#0" expanded="false" />
-            <element signature="e#1834#1835#0" expanded="false" />
-            <element signature="e#1878#1879#0" expanded="false" />
-            <element signature="e#1945#1946#0" expanded="false" />
-            <element signature="e#1978#1979#0" expanded="false" />
-            <element signature="e#2007#2008#0" expanded="false" />
-            <element signature="e#2051#2052#0" expanded="false" />
-            <element signature="e#2118#2119#0" expanded="false" />
-            <element signature="e#2153#2154#0" expanded="false" />
-            <element signature="e#2184#2185#0" expanded="false" />
-            <element signature="e#2232#2233#0" expanded="false" />
-            <element signature="e#2305#2306#0" expanded="false" />
-            <element signature="e#2343#2344#0" expanded="false" />
-            <element signature="e#2377#2378#0" expanded="false" />
-            <element signature="e#2548#2549#0" expanded="false" />
-            <element signature="e#2579#2580#0" expanded="false" />
-            <element signature="e#2627#2628#0" expanded="false" />
-            <element signature="e#2700#2701#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="212.1">
-          <caret line="67" column="112" selection-start-line="67" selection-start-column="112" selection-end-line="67" selection-end-column="112" />
           <folding />
         </state>
       </provider>
@@ -1663,54 +1395,218 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.4">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding />
+        <state vertical-scroll-proportion="0.13319239">
+          <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageModelMapper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/newspaper/list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.07430998">
+          <caret line="309" column="13" selection-start-line="309" selection-start-column="13" selection-end-line="309" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/newspaper/newspapaer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="385" column="33" selection-start-line="385" selection-start-column="33" selection-end-line="385" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.38123754">
+          <caret line="417" column="0" selection-start-line="417" selection-start-column="0" selection-end-line="417" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/newspaper/list.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/NewspaperController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-31.966667">
-          <caret line="335" column="67" selection-start-line="335" selection-start-column="67" selection-end-line="335" selection-end-column="67" />
+        <state vertical-scroll-proportion="-0.16766468">
+          <caret line="263" column="23" selection-start-line="263" selection-start-column="23" selection-end-line="263" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/jdbc.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1257485">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/css/customStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37724552">
+          <caret line="35" column="32" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageModelMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.003992016">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/PackageService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29341316">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22954091">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#625#626#0" expanded="true" />
+            <element signature="e#665#666#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/DoctorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43994415">
+          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/dao/PackageDetailsModelMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/navigation.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="79" selection-start-line="14" selection-start-column="79" selection-end-line="14" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/DoctorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/DoctorServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36681223">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/package/list.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46585366">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/PackageDetailsModelMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="45" selection-start-line="141" selection-start-column="45" selection-end-line="141" selection-end-column="45" />
+          <folding>
+            <marker date="1502847501175" expanded="true" signature="1752:1868" placeholder="select from ..app_c_package_details..." />
+            <marker date="1502847501175" expanded="true" signature="1952:2022" placeholder="delete from ..." />
+            <marker date="1502847501175" expanded="true" signature="2113:2435" placeholder="insert into ..." />
+            <marker date="1502847501175" expanded="true" signature="3819:4459" placeholder="update app_c..." />
+            <marker date="1502847501175" expanded="true" signature="4562:4891" placeholder="update app_c..." />
+            <marker date="1502847501175" expanded="true" signature="4995:5187" placeholder="select from ..app_c_package_details..." />
+            <marker date="1502847501175" expanded="true" signature="4995:5190" placeholder="select from ..app_c_package_details..." />
+            <marker date="1502847501175" expanded="true" signature="5896:5958" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/model/PackageModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/model/PackageDetailsModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/packageDetails/packageDetails.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="241" column="24" selection-start-line="241" selection-start-column="24" selection-end-line="241" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.607143">
-          <caret line="255" column="73" selection-start-line="255" selection-start-column="73" selection-end-line="255" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="17" selection-start-line="133" selection-start-column="17" selection-end-line="133" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/packageDetails/list.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.9">
+          <caret line="78" column="48" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/PackageDetailsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="145" column="50" selection-start-line="145" selection-start-column="50" selection-end-line="145" selection-end-column="50" />
           <folding>
-            <element signature="e#5440#5456#0" expanded="true" />
-            <element signature="e#6370#6386#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1022#1038#0" expanded="true" />
+            <element signature="e#1735#1751#0" expanded="true" />
+            <element signature="e#2676#2692#0" expanded="true" />
+            <element signature="e#3332#3348#0" expanded="true" />
+            <element signature="e#4099#4115#0" expanded="true" />
+            <element signature="e#5293#5309#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/controller/NewspaperController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/PackageDetailsService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6438095">
-          <caret line="256" column="46" selection-start-line="256" selection-start-column="46" selection-end-line="256" selection-end-column="46" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tcl/service/impl/PackageDetailsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.045454547">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#904#905#0" expanded="true" />
+            <element signature="e#1101#1102#0" expanded="true" />
+            <element signature="e#1164#1165#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
