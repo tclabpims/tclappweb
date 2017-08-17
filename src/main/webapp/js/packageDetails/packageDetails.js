@@ -110,62 +110,6 @@ function addPackageDetails(id) {
         form.render();
     });
 }
-/*上传套餐主图*/
-var packageImg_path;
-function uploadPic() {
-    var formData = new FormData();
-    formData.append('file',$("#picUrl_add")[0].files[0]);    //将文件转成二进制形式
-    $.ajax({
-        type: "post",
-        url: $("#picUrl_add")[0].title,
-        async: false,
-        contentType: false,    //这个一定要写
-        processData: false, //这个也一定要写，不然会报错
-        data:formData,
-        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
-        success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        packageImg_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
-        },
-        error:function(er){
-            console.log(er);
-        }
-    });
-}
-$("document").ready(function(){
-    $("#name_add").click(function () {
-        layui.use(['layer', 'form'], function() {
-            var layer = layui.layer;
-            var form = layui.form();
-            layer.open({
-                type: 1,
-                skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '240px'], //宽高
-                content: $("#package_detail_add"),
-                btn: ['确认', '取消'],
-                yes: function(index) {
-
-                }
-            })
-            form.render();
-        })
-    })
-})
 
 function getRootPath(){
     //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
@@ -285,98 +229,29 @@ function ItemEdit(id) {
         form.render();
     })
 }
-/*修改套餐主图*/
-var packageImg_edit_path;
-function uploadPicEdit() {
-    var formData = new FormData();
-    formData.append('file',$("#picUrl_edit")[0].files[0]);    //将文件转成二进制形式
-    $.ajax({
-        type: "post",
-        url: $("#picUrl_edit")[0].title,
-        async: false,
-        contentType: false,    //这个一定要写
-        processData: false, //这个也一定要写，不然会报错
-        data:formData,
-        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
-        success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        packageImg_edit_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
-        },
-        error:function(er){
-            console.log(er);
-        }
-    });
+
+function getRootPath(){
+    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath=window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8083
+    var localhostPaht=curWwwPath.substring(0,pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    return(localhostPaht+projectName);
 }
 
-/*套餐详情*/
-function ItemDetail(id) {
-    var package;
-    $.ajax({
-        url: 'acquire.do',
-        type: 'POST',
-        data: {
-            id: id
-        },
-        async: false,
-        dataType: 'json',
-        success: function(data) {
-            package = data.package;
-        },
-        error: function(er) {
-            console.log(er);
-        }
-    });
-    layui.use('layer', function() {
-        var layer = layui.layer;
-        if(package.name == "paramIsError") {
-            layer.msg('获取信息失败', {
-                time: 1000,
-                offset: '160px',
-            });
-            return;
-        }
-        layer.open({
-            type: 1,
-            title: "详细信息",
-            skin: 'layui-layer-rim',
-            area: ['600px', '580px'],
-            content: $("#detail_package")
-        });
-        var package_table = document.getElementById("detail_package_table");
-        package_table.rows[0].cells[1].innerHTML = package.name;
-        package_table.rows[1].cells[1].innerHTML = package.price + " 元";
-        if(package.status == "0") {
-            package_table.rows[2].cells[1].innerHTML = "未发布";
-        }else if(package.status == "1") {
-            package_table.rows[2].cells[1].innerHTML = "已发布";
-        }else if(package.status == "2") {
-            package_table.rows[2].cells[1].innerHTML = "已下线";
-        }
-        package_table.rows[3].cells[1].innerHTML = package.reportTime;
-        package_table.rows[4].cells[1].innerHTML = package.wjCode;
-        package_table.rows[4].cells[3].innerHTML = package.saleNum + " 次";
-        package_table.rows[5].cells[1].innerHTML = package.useCrowd;
-        package_table.rows[6].cells[1].innerHTML = package.testType;
-        package_table.rows[7].cells[1].innerHTML = package.diseaseType;
-        package_table.rows[8].cells[1].innerHTML = package.takeType;
-        package_table.rows[9].cells[1].innerHTML = package.needAttention;
-        package_table.rows[10].cells[1].innerHTML = package.projectDesc;
-        package_table.rows[11].cells[1].innerHTML = package.clause;
-        $("#package_picture").attr("src", $("#package_picture")[0].title + package.picUrl);
+/*导出Excel表格*/
+function exportExcel() {
+    $(document).ready(function() {
+        var temp_form = document.createElement("form");
+        temp_form.action = getRootPath() + "/exportexcel.do";
+        temp_form.method = "post";
+        temp_form.style.display = "none";
+        document.body.appendChild(temp_form);
+        temp_form.submit();
     })
 }
+

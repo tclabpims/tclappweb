@@ -219,9 +219,10 @@
   </update>
 
 
-  <select id="selectByType" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByType" parameterType="map" resultMap="ResultMapWithBLOBs">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
     from app_c_hospital where 1=1
     <if test="type != ''">
       and type = #{type,jdbcType=VARCHAR}

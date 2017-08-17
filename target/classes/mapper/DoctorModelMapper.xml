@@ -5,15 +5,23 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
-    <result column="hospital_id" property="hospitalId" jdbcType="BIGINT" />
-    <result column="hospital_name" property="hospitalName" jdbcType="VARCHAR" />
     <result column="doctor_name" property="doctorName" jdbcType="VARCHAR" />
     <result column="sfz_num" property="sfzNum" jdbcType="VARCHAR" />
+    <result column="hospital_id" property="hospitalId" jdbcType="BIGINT" />
+    <result column="hospital_name" property="hospitalName" jdbcType="VARCHAR" />
+    <result column="department_num" property="departmentNum" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="cures" property="cures" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
     <result column="tou_img" property="touImg" jdbcType="VARCHAR" />
     <result column="zz_img" property="zzImg" jdbcType="VARCHAR" />
+    <result column="zz_num" property="zzNum" jdbcType="VARCHAR" />
+    <result column="zc_img" property="zcImg" jdbcType="VARCHAR" />
+    <result column="zc_num" property="zcNum" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
     <result column="read_report_num" property="readReportNum" jdbcType="INTEGER" />
     <result column="diagnosis_num" property="diagnosisNum" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="VARCHAR" />
@@ -22,6 +30,7 @@
     <result column="code_send_time" property="codeSendTime" jdbcType="TIMESTAMP" />
     <result column="is_open_autoreceipt" property="isOpenAutoreceipt" jdbcType="CHAR" />
     <result column="receipt_interval" property="receiptInterval" jdbcType="INTEGER" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="audit_reason" property="auditReason" jdbcType="VARCHAR" />
@@ -30,16 +39,17 @@
     <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_name, pass_word, hospital_id, hospital_name, doctor_name, sfz_num, sex, 
-    age, title, tou_img, zz_img, read_report_num, diagnosis_num, status, type, verification_code, 
-    code_send_time, is_open_autoreceipt, receipt_interval, create_time, modify_time, 
-    audit_reason
+    id, user_name, pass_word, doctor_name, sfz_num, hospital_id, hospital_name, department_num,
+    department_name, cures, sex, age, title, position, tou_img, zz_img, zz_num, zc_img,
+    zc_num, education, read_report_num, diagnosis_num, status, type, verification_code,
+    code_send_time, is_open_autoreceipt, receipt_interval, last_login_time, create_time,
+    modify_time, audit_reason
   </sql>
   <sql id="Blob_Column_List" >
     introduce
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -51,22 +61,28 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.tcl.model.DoctorModel" >
-    insert into app_c_doctor (id, user_name, pass_word, 
-      hospital_id, hospital_name, doctor_name, 
-      sfz_num, sex, age, title, 
-      tou_img, zz_img, read_report_num, 
-      diagnosis_num, status, type, 
-      verification_code, code_send_time, is_open_autoreceipt, 
-      receipt_interval, create_time, modify_time, 
-      audit_reason, introduce)
-    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
-      #{hospitalId,jdbcType=BIGINT}, #{hospitalName,jdbcType=VARCHAR}, #{doctorName,jdbcType=VARCHAR}, 
-      #{sfzNum,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{touImg,jdbcType=VARCHAR}, #{zzImg,jdbcType=VARCHAR}, #{readReportNum,jdbcType=INTEGER}, 
-      #{diagnosisNum,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{verificationCode,jdbcType=VARCHAR}, #{codeSendTime,jdbcType=TIMESTAMP}, #{isOpenAutoreceipt,jdbcType=CHAR}, 
-      #{receiptInterval,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{auditReason,jdbcType=VARCHAR}, #{introduce,jdbcType=LONGVARCHAR})
+    insert into app_c_doctor (id, user_name, pass_word,
+    doctor_name, sfz_num, hospital_id,
+    hospital_name, department_num, department_name,
+    cures, sex, age, title,
+    position, tou_img, zz_img,
+    zz_num, zc_img, zc_num,
+    education, read_report_num, diagnosis_num,
+    status, type, verification_code,
+    code_send_time, is_open_autoreceipt, receipt_interval,
+    last_login_time, create_time, modify_time,
+    audit_reason, introduce)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
+    #{doctorName,jdbcType=VARCHAR}, #{sfzNum,jdbcType=VARCHAR}, #{hospitalId,jdbcType=BIGINT},
+    #{hospitalName,jdbcType=VARCHAR}, #{departmentNum,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR},
+    #{cures,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+    #{position,jdbcType=VARCHAR}, #{touImg,jdbcType=VARCHAR}, #{zzImg,jdbcType=VARCHAR},
+    #{zzNum,jdbcType=VARCHAR}, #{zcImg,jdbcType=VARCHAR}, #{zcNum,jdbcType=VARCHAR},
+    #{education,jdbcType=VARCHAR}, #{readReportNum,jdbcType=INTEGER}, #{diagnosisNum,jdbcType=INTEGER},
+    #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{verificationCode,jdbcType=VARCHAR},
+    #{codeSendTime,jdbcType=TIMESTAMP}, #{isOpenAutoreceipt,jdbcType=CHAR}, #{receiptInterval,jdbcType=INTEGER},
+    #{lastLoginTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+    #{auditReason,jdbcType=VARCHAR}, #{introduce,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.DoctorModel" >
     insert into app_c_doctor
@@ -80,17 +96,26 @@
       <if test="passWord != null" >
         pass_word,
       </if>
+      <if test="doctorName != null" >
+        doctor_name,
+      </if>
+      <if test="sfzNum != null" >
+        sfz_num,
+      </if>
       <if test="hospitalId != null" >
         hospital_id,
       </if>
       <if test="hospitalName != null" >
         hospital_name,
       </if>
-      <if test="doctorName != null" >
-        doctor_name,
+      <if test="departmentNum != null" >
+        department_num,
       </if>
-      <if test="sfzNum != null" >
-        sfz_num,
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="cures != null" >
+        cures,
       </if>
       <if test="sex != null" >
         sex,
@@ -101,11 +126,26 @@
       <if test="title != null" >
         title,
       </if>
+      <if test="position != null" >
+        position,
+      </if>
       <if test="touImg != null" >
         tou_img,
       </if>
       <if test="zzImg != null" >
         zz_img,
+      </if>
+      <if test="zzNum != null" >
+        zz_num,
+      </if>
+      <if test="zcImg != null" >
+        zc_img,
+      </if>
+      <if test="zcNum != null" >
+        zc_num,
+      </if>
+      <if test="education != null" >
+        education,
       </if>
       <if test="readReportNum != null" >
         read_report_num,
@@ -131,6 +171,9 @@
       <if test="receiptInterval != null" >
         receipt_interval,
       </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -154,17 +197,26 @@
       <if test="passWord != null" >
         #{passWord,jdbcType=VARCHAR},
       </if>
+      <if test="doctorName != null" >
+        #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzNum != null" >
+        #{sfzNum,jdbcType=VARCHAR},
+      </if>
       <if test="hospitalId != null" >
         #{hospitalId,jdbcType=BIGINT},
       </if>
       <if test="hospitalName != null" >
         #{hospitalName,jdbcType=VARCHAR},
       </if>
-      <if test="doctorName != null" >
-        #{doctorName,jdbcType=VARCHAR},
+      <if test="departmentNum != null" >
+        #{departmentNum,jdbcType=VARCHAR},
       </if>
-      <if test="sfzNum != null" >
-        #{sfzNum,jdbcType=VARCHAR},
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="cures != null" >
+        #{cures,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=VARCHAR},
@@ -175,11 +227,26 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
       <if test="touImg != null" >
         #{touImg,jdbcType=VARCHAR},
       </if>
       <if test="zzImg != null" >
         #{zzImg,jdbcType=VARCHAR},
+      </if>
+      <if test="zzNum != null" >
+        #{zzNum,jdbcType=VARCHAR},
+      </if>
+      <if test="zcImg != null" >
+        #{zcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="zcNum != null" >
+        #{zcNum,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
       </if>
       <if test="readReportNum != null" >
         #{readReportNum,jdbcType=INTEGER},
@@ -205,6 +272,9 @@
       <if test="receiptInterval != null" >
         #{receiptInterval,jdbcType=INTEGER},
       </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -228,17 +298,26 @@
       <if test="passWord != null" >
         pass_word = #{passWord,jdbcType=VARCHAR},
       </if>
+      <if test="doctorName != null" >
+        doctor_name = #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzNum != null" >
+        sfz_num = #{sfzNum,jdbcType=VARCHAR},
+      </if>
       <if test="hospitalId != null" >
         hospital_id = #{hospitalId,jdbcType=BIGINT},
       </if>
       <if test="hospitalName != null" >
         hospital_name = #{hospitalName,jdbcType=VARCHAR},
       </if>
-      <if test="doctorName != null" >
-        doctor_name = #{doctorName,jdbcType=VARCHAR},
+      <if test="departmentNum != null" >
+        department_num = #{departmentNum,jdbcType=VARCHAR},
       </if>
-      <if test="sfzNum != null" >
-        sfz_num = #{sfzNum,jdbcType=VARCHAR},
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="cures != null" >
+        cures = #{cures,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=VARCHAR},
@@ -249,11 +328,26 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="touImg != null" >
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="touImg != null and touImg != ''" >
         tou_img = #{touImg,jdbcType=VARCHAR},
       </if>
-      <if test="zzImg != null" >
+      <if test="zzImg != null and zzImg != ''" >
         zz_img = #{zzImg,jdbcType=VARCHAR},
+      </if>
+      <if test="zzNum != null" >
+        zz_num = #{zzNum,jdbcType=VARCHAR},
+      </if>
+      <if test="zcImg != null and zcImg != ''" >
+        zc_img = #{zcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="zcNum != null" >
+        zc_num = #{zcNum,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
       </if>
       <if test="readReportNum != null" >
         read_report_num = #{readReportNum,jdbcType=INTEGER},
@@ -279,6 +373,9 @@
       <if test="receiptInterval != null" >
         receipt_interval = #{receiptInterval,jdbcType=INTEGER},
       </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -297,60 +394,79 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tcl.model.DoctorModel" >
     update app_c_doctor
     set user_name = #{userName,jdbcType=VARCHAR},
-      pass_word = #{passWord,jdbcType=VARCHAR},
-      hospital_id = #{hospitalId,jdbcType=BIGINT},
-      hospital_name = #{hospitalName,jdbcType=VARCHAR},
-      doctor_name = #{doctorName,jdbcType=VARCHAR},
-      sfz_num = #{sfzNum,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      tou_img = #{touImg,jdbcType=VARCHAR},
-      zz_img = #{zzImg,jdbcType=VARCHAR},
-      read_report_num = #{readReportNum,jdbcType=INTEGER},
-      diagnosis_num = #{diagnosisNum,jdbcType=INTEGER},
-      status = #{status,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      verification_code = #{verificationCode,jdbcType=VARCHAR},
-      code_send_time = #{codeSendTime,jdbcType=TIMESTAMP},
-      is_open_autoreceipt = #{isOpenAutoreceipt,jdbcType=CHAR},
-      receipt_interval = #{receiptInterval,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      audit_reason = #{auditReason,jdbcType=VARCHAR},
-      introduce = #{introduce,jdbcType=LONGVARCHAR}
+    pass_word = #{passWord,jdbcType=VARCHAR},
+    doctor_name = #{doctorName,jdbcType=VARCHAR},
+    sfz_num = #{sfzNum,jdbcType=VARCHAR},
+    hospital_id = #{hospitalId,jdbcType=BIGINT},
+    hospital_name = #{hospitalName,jdbcType=VARCHAR},
+    department_num = #{departmentNum,jdbcType=VARCHAR},
+    department_name = #{departmentName,jdbcType=VARCHAR},
+    cures = #{cures,jdbcType=VARCHAR},
+    sex = #{sex,jdbcType=VARCHAR},
+    age = #{age,jdbcType=INTEGER},
+    title = #{title,jdbcType=VARCHAR},
+    position = #{position,jdbcType=VARCHAR},
+    tou_img = #{touImg,jdbcType=VARCHAR},
+    zz_img = #{zzImg,jdbcType=VARCHAR},
+    zz_num = #{zzNum,jdbcType=VARCHAR},
+    zc_img = #{zcImg,jdbcType=VARCHAR},
+    zc_num = #{zcNum,jdbcType=VARCHAR},
+    education = #{education,jdbcType=VARCHAR},
+    read_report_num = #{readReportNum,jdbcType=INTEGER},
+    diagnosis_num = #{diagnosisNum,jdbcType=INTEGER},
+    status = #{status,jdbcType=VARCHAR},
+    type = #{type,jdbcType=VARCHAR},
+    verification_code = #{verificationCode,jdbcType=VARCHAR},
+    code_send_time = #{codeSendTime,jdbcType=TIMESTAMP},
+    is_open_autoreceipt = #{isOpenAutoreceipt,jdbcType=CHAR},
+    receipt_interval = #{receiptInterval,jdbcType=INTEGER},
+    last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+    audit_reason = #{auditReason,jdbcType=VARCHAR},
+    introduce = #{introduce,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tcl.model.DoctorModel" >
     update app_c_doctor
     set user_name = #{userName,jdbcType=VARCHAR},
-      pass_word = #{passWord,jdbcType=VARCHAR},
-      hospital_id = #{hospitalId,jdbcType=BIGINT},
-      hospital_name = #{hospitalName,jdbcType=VARCHAR},
-      doctor_name = #{doctorName,jdbcType=VARCHAR},
-      sfz_num = #{sfzNum,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      tou_img = #{touImg,jdbcType=VARCHAR},
-      zz_img = #{zzImg,jdbcType=VARCHAR},
-      read_report_num = #{readReportNum,jdbcType=INTEGER},
-      diagnosis_num = #{diagnosisNum,jdbcType=INTEGER},
-      status = #{status,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      verification_code = #{verificationCode,jdbcType=VARCHAR},
-      code_send_time = #{codeSendTime,jdbcType=TIMESTAMP},
-      is_open_autoreceipt = #{isOpenAutoreceipt,jdbcType=CHAR},
-      receipt_interval = #{receiptInterval,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      audit_reason = #{auditReason,jdbcType=VARCHAR}
+    pass_word = #{passWord,jdbcType=VARCHAR},
+    doctor_name = #{doctorName,jdbcType=VARCHAR},
+    sfz_num = #{sfzNum,jdbcType=VARCHAR},
+    hospital_id = #{hospitalId,jdbcType=BIGINT},
+    hospital_name = #{hospitalName,jdbcType=VARCHAR},
+    department_num = #{departmentNum,jdbcType=VARCHAR},
+    department_name = #{departmentName,jdbcType=VARCHAR},
+    cures = #{cures,jdbcType=VARCHAR},
+    sex = #{sex,jdbcType=VARCHAR},
+    age = #{age,jdbcType=INTEGER},
+    title = #{title,jdbcType=VARCHAR},
+    position = #{position,jdbcType=VARCHAR},
+    tou_img = #{touImg,jdbcType=VARCHAR},
+    zz_img = #{zzImg,jdbcType=VARCHAR},
+    zz_num = #{zzNum,jdbcType=VARCHAR},
+    zc_img = #{zcImg,jdbcType=VARCHAR},
+    zc_num = #{zcNum,jdbcType=VARCHAR},
+    education = #{education,jdbcType=VARCHAR},
+    read_report_num = #{readReportNum,jdbcType=INTEGER},
+    diagnosis_num = #{diagnosisNum,jdbcType=INTEGER},
+    status = #{status,jdbcType=VARCHAR},
+    type = #{type,jdbcType=VARCHAR},
+    verification_code = #{verificationCode,jdbcType=VARCHAR},
+    code_send_time = #{codeSendTime,jdbcType=TIMESTAMP},
+    is_open_autoreceipt = #{isOpenAutoreceipt,jdbcType=CHAR},
+    receipt_interval = #{receiptInterval,jdbcType=INTEGER},
+    last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+    audit_reason = #{auditReason,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <select id="selectByType" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
     from app_c_doctor
     where 1=1
     <if test="type != '' and type != null">

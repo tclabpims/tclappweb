@@ -22,7 +22,7 @@ public class HospitalServiceImpl implements HospitalService {
 		return hospitalDao.selectByPrimaryKey(id);
 	}
 
-	public List<HospitalModel> selectByType(String type) {
+	public List<HospitalModelWithBLOBs> selectByType(String type) {
 		Map map=new HashMap<String,String>();
 		map.put("type",type);
 		return hospitalDao.selectByType(map);

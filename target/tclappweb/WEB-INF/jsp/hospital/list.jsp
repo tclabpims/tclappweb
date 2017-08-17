@@ -41,17 +41,25 @@
 
                 &nbsp;&nbsp;&nbsp;
                 <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addHospital()">新增</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="layui-btn layui-btn-small" onclick="exportExcel()">导出Excel</button>
             </form>
         </div>
         <table class="sui-table table-bordered" style="margin-top:20px;">
             <thead>
             <tr>
                 <th class="center left-con" width="8%">编号</th>
-                <th class="center left-con" width="18%">医院名称</th>
-                <th class="center left-con" width="32%">主图</th>
-                <th class="center left-con" width="10%">地址</th>
-                <th class="center left-con" width="10%">电话</th>
-                <th class="center left-con" width="30%">操作</th>
+                <th class="center left-con" width="15%">医院名称</th>
+                <th class="center left-con" width="12%">主图</th>
+                <th class="center left-con" width="30%">地址</th>
+                <th class="center left-con" width="15%">电话</th>
+                <th class="center left-con" width="20%">操作</th>
             </tr>
             </thead>
             <tbody id="all_task0">
@@ -62,7 +70,7 @@
                 <tr>
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.name}</td>
-                    <td class="center left-con"><img src="<%@include file="../../constants.jsp"%>${item.picUrl}" height="50px" width="50px"/></td>
+                    <td class="center left-con"><img src="<%@include file="../../constants.jsp"%>${item.picUrl}" style="width: 50px;height:30px"/></td>
                     <td class="center left-con">${item.address}</td>
                     <td class="center left-con">${item.telphone}</td>
                     <td class="center left-con">

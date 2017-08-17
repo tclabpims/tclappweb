@@ -31,7 +31,7 @@ public class PackageController {
 	@Autowired
 	private PackageService packageService;
 
-	private static final int PAGE_SIZE = 5;
+	private static final int PAGE_SIZE = 6;
 
 	@RequestMapping("listPage")
 	public String listPage(ModelMap map, HttpServletRequest request, String pageNo){
@@ -219,12 +219,18 @@ public class PackageController {
 		return map;
 	}
 
+	/**
+	 * 导出Excel表格
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
 	public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<PackageModelWithBLOBs> package_list = null;
 		//标题行
-		String title[] = {"套餐名称", "价格到分", "报告时间说明", "报告时间说明", "物价编码", "已使用数量", "套餐状态",
+		String title[] = {"套餐编号", "套餐名称", "价格到分", "报告时间说明", "报告时间说明", "物价编码", "已使用数量", "套餐状态",
 				"使用人群", "注意事项", "检验项目说明", "检验分类", "疾病分类", "采集分类", "相关问题及免责条款"};
 		StringBuilder tempPath = new StringBuilder();
 		SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
@@ -245,6 +251,7 @@ public class PackageController {
 			package_list = packageService.selectList(new HashMap<String, Object>());
 			for (int i=0; i<package_list.size(); i++) {
 				int j=0;
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getId() != null ? Long.toString(package_list.get(i).getId()) : ""));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getName()));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getPrice() != null ? Long.toString(package_list.get(i).getPrice()) : ""));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getReportTime()));

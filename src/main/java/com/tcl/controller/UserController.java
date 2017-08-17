@@ -1,0 +1,210 @@
+package com.tcl.controller;
+
+import com.tcl.model.UserModel;
+import com.tcl.service.UserService;
+import com.tcl.utils.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by LiuQi on 2017/8/16.
+ */
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    private static final int PAGE_SIZE = 8;
+
+    @RequestMapping("/list")
+    public String userList(ModelMap map, String pageNo) {
+        Map<String, Object> mapInfo = new HashMap<String, Object>();
+        mapInfo.put("pageNo", pageNo);
+        Map<String, Object> result_map = getData(mapInfo);
+        map.put("pageNo", result_map.get("pageNo"));
+        map.put("totalPage", result_map.get("totalPage"));
+        map.put("list", result_map.get("list"));
+        return "user/list";
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public String queryPackageDetails(ModelMap map, UserModel userModel, String pageNo, String createTimeStart, String createTimeEnd) {
+        Map<String, Object> mapInfo = new HashMap<String, Object>();
+        mapInfo.put("pageNo", pageNo);
+        mapInfo.put("userName", userModel.getUserName().trim());
+        mapInfo.put("name", userModel.getName().trim());
+        mapInfo.put("status", userModel.getStatus().trim());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date create_time_start = null;
+        Date create_time_end = null;
+        try{
+            create_time_start = dateFormat.parse(createTimeStart.trim());
+            create_time_end = dateFormat.parse(createTimeEnd.trim());
+        }catch (Exception e) {
+            e.getStackTrace();
+        }
+        mapInfo.put("create_time_start", create_time_start);
+        mapInfo.put("createTimeEnd", create_time_end);
+        Map<String, Object> result_map =  getData(mapInfo);
+        map.put("userName", userModel.getUserName().trim());
+        map.put("name", userModel.getName().trim());
+        map.put("status", userModel.getStatus().trim());
+        map.put("createTimeStart", createTimeStart.trim());
+        map.put("createTimeEnd", createTimeEnd.trim());
+        map.put("pageNo", result_map.get("pageNo"));
+        map.put("totalPage", result_map.get("totalPage"));
+        map.put("list", result_map.get("list"));
+        map.put("query_flag", true);
+        return "user/list";
+    }
+
+    /**
+     * 增加用户
+     * @param userModel
+     * @return
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> addUser(UserModel userModel, String birthStr) {
+        userModel.setPassWord(StringUtil.MD5(userModel.getPassWord()));
+        if(birthStr != "") {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date birthday = dateFormat.parse(birthStr.trim());
+                userModel.setBirthday(birthday);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        userModel.setCreateTime(new Date());
+        int result = userService.addUser(userModel);
+        Map<String, String> map = new HashMap<String, String>();
+        if(result > 0) {
+            map.put("msg", "success");
+        } else {
+            map.put("msg", "error");
+        }
+        return map;
+    }
+
+    /**
+     * 通过id删除用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> deleteById(String id){
+        //对接收到的字符串参数进行基本的处理与判断
+        id = id.trim();
+        Pattern p = Pattern.compile("^[0-9]+$");
+        Matcher matcher = p.matcher(id);
+        int result;
+        Map<String, String> map = new HashMap<String, String>();
+        if(matcher.matches()) {
+            result = userService.deleteById(Long.parseLong(id));
+            if(result > 0) {
+                //返回1表示删除成功
+                map.put("msg", "1");
+            } else {
+                //返回2表示删除失败
+                map.put("msg", "2");
+            }
+        } else {
+            //返回3表示参数有误
+            map.put("msg", "3");
+        }
+        return map;
+    }
+
+    /**
+     * 通过id查找用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value="/acquire", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, UserModel> selectById(String id) {
+        //对接收到的字符串参数进行基本的处理与判断
+        id = id.trim();
+        Pattern p = Pattern.compile("^[0-9]+$");
+        Matcher matcher = p.matcher(id);
+        Map<String, UserModel> map = new HashMap<String, UserModel>();
+        if (matcher.matches()) {
+            map.put("user", userService.selectById(Long.parseLong(id)));
+        } else {
+            UserModel userModel = new UserModel();
+            userModel.setUserName("paramIsError");
+            map.put("user", userModel);
+        }
+        return map;
+    }
+
+    /**
+     * 更新用户信息
+     * @param userModel
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> updateById(UserModel userModel) {
+        userModel.setPassWord(StringUtil.MD5(userModel.getPassWord()));
+        userModel.setModifyTime(new Date());
+        int result = userService.updateById(userModel);
+        Map<String, String> map = new HashMap<String, String>();
+        if(result > 0) {
+            map.put("msg", "success");
+        } else {
+            map.put("msg", "error");
+        }
+        return map;
+    }
+
+    private Map<String, Object> getData(Map<String, Object> mapInfo) {
+        int page_no;
+        boolean isEmpty = false;
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (mapInfo.get("pageNo") == null || mapInfo.get("pageNo") == "") {
+            page_no = 1;
+        }
+        else {
+            page_no = Integer.parseInt(((String)mapInfo.get("pageNo")).trim());
+            if (page_no < 1) {
+                page_no = 1;
+            }
+        }
+        List<UserModel> package_list = userService.selectList(mapInfo);
+        int total_page = (package_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        if (total_page < 1) {
+            total_page = 1;
+            isEmpty = true;
+        }
+        if(page_no > total_page) {
+            page_no = total_page;
+        }
+        map.put("pageNo", page_no);
+        map.put("totalPage", total_page);
+        if(!isEmpty) {
+            mapInfo.put("start_num", (page_no - 1) * PAGE_SIZE);
+            mapInfo.put("pageSize", PAGE_SIZE);
+            List<UserModel> userModels = userService.selectList(mapInfo);
+            map.put("list", userModels);
+        }else {
+            map.put("list",new ArrayList<UserModel>());
+        }
+        return map;
+    }
+}

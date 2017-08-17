@@ -4,6 +4,10 @@ import com.tcl.model.DoctorModel;
 import com.tcl.model.HospitalModel;
 import com.tcl.model.HospitalModelWithBLOBs;
 import com.tcl.service.HospitalService;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +49,7 @@ public class HospitalController {
 				page_no = 1;
 			}
 		}
-		List<HospitalModel> hospitals_all = hospitalService.selectByType(type.trim());
+		List<HospitalModelWithBLOBs> hospitals_all = hospitalService.selectByType(type.trim());
 		int totalPage = (hospitals_all.size() + PAGE_SIZE - 1) / PAGE_SIZE;
 		if(totalPage < 1) {
 			totalPage = 1;
@@ -72,8 +76,8 @@ public class HospitalController {
 	 */
 	@RequestMapping("listHospitals")
 	@ResponseBody
-	public Map<String, List<HospitalModel>> listHospitals() {
-		Map<String, List<HospitalModel>> map = new HashMap<String, List<HospitalModel>>();
+	public Map<String, List<HospitalModelWithBLOBs>> listHospitals() {
+		Map<String, List<HospitalModelWithBLOBs>> map = new HashMap<String, List<HospitalModelWithBLOBs>>();
 		map.put("hospitals", hospitalService.selectByType(""));
 		return map;
 	}
@@ -207,5 +211,62 @@ public class HospitalController {
 			map.put("msg", "error");
 		}
 		return map;
+	}
+
+	/**
+	 * 导出Excel表格
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
+	public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<HospitalModelWithBLOBs> hospital_list = null;
+		//标题行
+		String title[] = {"医院Id", "医院名称", "医院地址", "医院电话", "经度", "纬度", "交通路线",
+				"支付宝付款账户", "微信付款账户", "详情介绍", "检验项目说明", "特色优势"};
+		StringBuilder tempPath = new StringBuilder();
+		SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
+		tempPath.append(fileNameFormat.format(new Date()));
+		tempPath.append(".").append("xls");
+		String filename = tempPath.toString();
+		try {
+			response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+			response.setHeader("Content-Disposition", "attachment;filename=" + new String((filename).getBytes(), "utf-8"));
+			OutputStream os = response.getOutputStream();
+			WritableWorkbook book = Workbook.createWorkbook(os);
+			WritableSheet sheet = book.createSheet("套餐信息", 0);
+			//写入标题
+			for (int i = 0; i < title.length; i++) {
+				sheet.addCell(new Label(i, 0, title[i]));
+			}
+			hospital_list = hospitalService.selectByType("");
+			for (int i = 0; i < hospital_list.size(); i++) {
+				int j = 0;
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getId() != null ? Long.toString(hospital_list.get(i).getId()) : ""));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getName()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getAddress()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getTelphone()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getLongitude()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getLatitude()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getRoute()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getAlipayPayAccount()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getWeixinPayAccount()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getDetails()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getProjectDesc()));
+				sheet.addCell(new Label(j++, i + 1, hospital_list.get(i).getSpecialist()));
+			}
+			//写入数据
+			book.write();
+			//关闭文件
+			book.close();
+			os.flush();
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -1,9 +1,13 @@
 package com.tcl.controller;
 
-import com.sun.media.sound.ModelDirector;
 import com.tcl.model.DoctorModel;
 import com.tcl.service.DoctorService;
+import com.tcl.utils.StringUtil;
 import com.tcl.utils.JMessageUtils;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -276,6 +277,7 @@ public class DoctorController {
         doctorModel.setDiagnosisNum(0);
         doctorModel.setIsOpenAutoreceipt("NO");
         doctorModel.setReceiptInterval(0);
+        doctorModel.setPassWord(StringUtil.MD5(doctorModel.getPassWord()));
         int result = doctorService.addADoctor(doctorModel);
         Map<String, String> map = new HashMap<String, String>();
         if(result > 0) {
@@ -284,5 +286,94 @@ public class DoctorController {
             map.put("msg", "error");
         }
         return map;
+    }
+
+    /**
+     * 导出Excel表格
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
+    public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<DoctorModel> doctor_list = null;
+        //标题行
+        String title[] = {"医生Id", "用户名", "医生姓名", "身份证号码","医院id", "医院名称", "科室编号", "科室名称", "性别", "年龄",
+                "职称", "从业资格证号码", "职称号码", "学历", "职位", "解读报告次数", "服务次数", "状态", "岗位", "验证码", "验证码发送时间",
+                "是否开启自动接单", "自动接单间隔（分钟）", "最后一次登录时间", "创建时间", "修改时间","审核原因", "介绍"};
+        StringBuilder tempPath = new StringBuilder();
+        SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
+        tempPath.append(fileNameFormat.format(new Date()));
+        tempPath.append(".").append("xls");
+        String filename = tempPath.toString();
+        try {
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
+            OutputStream os = response.getOutputStream();
+            WritableWorkbook book = Workbook.createWorkbook(os);
+            WritableSheet sheet = book.createSheet("套餐信息", 0);
+            //写入标题
+            for (int i=0; i<title.length; i++) {
+                sheet.addCell(new Label(i, 0, title[i]));
+            }
+            doctor_list = doctorService.selectByType("");
+            for (int i=0; i<doctor_list.size(); i++) {
+                int j=0;
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getId() != null ? Long.toString(doctor_list.get(i).getId()) : ""));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getUserName()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getDoctorName()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getSfzNum()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getHospitalId() != null ? Long.toString(doctor_list.get(i).getHospitalId()) : ""));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getHospitalName()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getDepartmentNum()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getDepartmentName()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getSex()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getAge() != null ? Long.toString(doctor_list.get(i).getAge()) : ""));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getTitle()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getZzNum()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getZcNum()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getEducation()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getPosition()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getReadReportNum() != null ? Long.toString(doctor_list.get(i).getReadReportNum()) : ""));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getDiagnosisNum() != null ? Long.toString(doctor_list.get(i).getDiagnosisNum()) : ""));
+                if (doctor_list.get(i).getStatus().equals("0")) {
+                    sheet.addCell(new Label(j++, i+1, "初始化"));
+                } else if (doctor_list.get(i).getStatus().equals("1")) {
+                    sheet.addCell(new Label(j++, i+1, "可用"));
+                } else if (doctor_list.get(i).getStatus().equals("2")) {
+                    sheet.addCell(new Label(j++, i+1, "待审核"));
+                } else {
+                    sheet.addCell(new Label(j++, i+1, "停用"));
+                }
+                if (doctor_list.get(i).getStatus().equals("1")) {
+                    sheet.addCell(new Label(j++, i+1, "医生"));
+                } else if (doctor_list.get(i).getStatus().equals("2")) {
+                    sheet.addCell(new Label(j++, i+1, "护士"));
+                } else {
+                    sheet.addCell(new Label(j++, i+1, "暂无"));
+                }
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getVerificationCode()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getCodeSendTime() != null ? StringUtil.getFormatDate(doctor_list.get(i).getCodeSendTime()) : ""));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getIsOpenAutoreceipt()));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getReceiptInterval() != null ? Integer.toString(doctor_list.get(i).getReceiptInterval()) : ""));
+                sheet.addCell(new Label(j++, i+1, doctor_list.get(i).getLastLoginTime() != null ? StringUtil.getFormatDate(doctor_list.get(i).getLastLoginTime()) : ""));
+                sheet.addCell(new Label(j++, i + 1, doctor_list.get(i).getCreateTime() != null ? StringUtil.getFormatDate(doctor_list.get(i).getCreateTime()) : ""));
+                sheet.addCell(new Label(j++, i + 1, doctor_list.get(i).getModifyTime() != null ? StringUtil.getFormatDate(doctor_list.get(i).getModifyTime()) : ""));
+                sheet.addCell(new Label(j++, i + 1, doctor_list.get(i).getAuditReason()));
+                System.out.println("introduce: " + doctor_list.get(i).getIntroduce());
+                sheet.addCell(new Label(j++, i + 1, doctor_list.get(i).getIntroduce()));
+            }
+            //写入数据
+            book.write();
+            //关闭文件
+            book.close();
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

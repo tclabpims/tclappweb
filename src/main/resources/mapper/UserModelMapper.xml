@@ -167,7 +167,7 @@
       <if test="codeSendTime != null" >
         code_send_time = #{codeSendTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="touImg != null" >
+      <if test="touImg != null and touImg != ''" >
         tou_img = #{touImg,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
@@ -196,4 +196,29 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from app_c_user
+    where 1=1
+    <if test="userName != null and userName != ''">
+      and user_name = #{userName, jdbcType=VARCHAR}
+    </if>
+    <if test="name != null and name != ''">
+      and name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      and status = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="create_time_start != null">
+      AND create_time &gt;= #{create_time_start, jdbcType=TIMESTAMP}
+    </if>
+    <if test="create_time_end != null">
+      AND create_time &lt;= #{create_time_end, jdbcType=TIMESTAMP}
+    </if>
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>

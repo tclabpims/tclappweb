@@ -11,7 +11,7 @@ import java.util.List;
 public interface HospitalService {
     HospitalModelWithBLOBs selectById(Long id);
 
-    List<HospitalModel> selectByType(String type);
+    List<HospitalModelWithBLOBs> selectByType(String type);
 
     List<HospitalModel> selectByPageInfo(String type, int page_no, int pageSize);
 

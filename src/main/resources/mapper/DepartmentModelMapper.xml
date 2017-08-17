@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.DepartmentModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.DepartmentModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="department_num" property="departmentNum" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_number" property="departmentNumber" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modift_time" property="modiftTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, department_num, department_name, department_number, create_time, modift_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_c_department
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_department
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.DepartmentModel" >
+    insert into app_c_department (id, department_num, department_name, 
+      department_number, create_time, modift_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{departmentNum,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, 
+      #{departmentNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modiftTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.DepartmentModel" >
+    insert into app_c_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="departmentNum != null" >
+        department_num,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="departmentNumber != null" >
+        department_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modiftTime != null" >
+        modift_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="departmentNum != null" >
+        #{departmentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNumber != null" >
+        #{departmentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modiftTime != null" >
+        #{modiftTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.DepartmentModel" >
+    update app_c_department
+    <set >
+      <if test="departmentNum != null" >
+        department_num = #{departmentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNumber != null" >
+        department_number = #{departmentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modiftTime != null" >
+        modift_time = #{modiftTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.DepartmentModel" >
+    update app_c_department
+    set department_num = #{departmentNum,jdbcType=VARCHAR},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      department_number = #{departmentNumber,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modift_time = #{modiftTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_c_department
+    where 1 = 1
+  </select>
+</mapper>

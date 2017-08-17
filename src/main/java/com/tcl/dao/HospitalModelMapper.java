@@ -21,7 +21,7 @@ public interface HospitalModelMapper {
 
     int updateByPrimaryKey(HospitalModel record);
 
-    List<HospitalModel> selectByType(Map map);
+    List<HospitalModelWithBLOBs> selectByType(Map map);
 
     List<HospitalModel> selectByPageInfo(Map<String, Object> map);
 

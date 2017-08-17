@@ -9,13 +9,19 @@ public class DoctorModel {
 
     private String passWord;
 
+    private String doctorName;
+
+    private String sfzNum;
+
     private Long hospitalId;
 
     private String hospitalName;
 
-    private String doctorName;
+    private String departmentNum;
 
-    private String sfzNum;
+    private String departmentName;
+
+    private String cures;
 
     private String sex;
 
@@ -23,9 +29,19 @@ public class DoctorModel {
 
     private String title;
 
+    private String position;
+
     private String touImg;
 
     private String zzImg;
+
+    private String zzNum;
+
+    private String zcImg;
+
+    private String zcNum;
+
+    private String education;
 
     private Integer readReportNum;
 
@@ -42,6 +58,8 @@ public class DoctorModel {
     private String isOpenAutoreceipt;
 
     private Integer receiptInterval;
+
+    private Date lastLoginTime;
 
     private Date createTime;
 
@@ -75,6 +93,22 @@ public class DoctorModel {
         this.passWord = passWord == null ? null : passWord.trim();
     }
 
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName == null ? null : doctorName.trim();
+    }
+
+    public String getSfzNum() {
+        return sfzNum;
+    }
+
+    public void setSfzNum(String sfzNum) {
+        this.sfzNum = sfzNum == null ? null : sfzNum.trim();
+    }
+
     public Long getHospitalId() {
         return hospitalId;
     }
@@ -91,20 +125,28 @@ public class DoctorModel {
         this.hospitalName = hospitalName == null ? null : hospitalName.trim();
     }
 
-    public String getDoctorName() {
-        return doctorName;
+    public String getDepartmentNum() {
+        return departmentNum;
     }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName == null ? null : doctorName.trim();
+    public void setDepartmentNum(String departmentNum) {
+        this.departmentNum = departmentNum == null ? null : departmentNum.trim();
     }
 
-    public String getSfzNum() {
-        return sfzNum;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setSfzNum(String sfzNum) {
-        this.sfzNum = sfzNum == null ? null : sfzNum.trim();
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName == null ? null : departmentName.trim();
+    }
+
+    public String getCures() {
+        return cures;
+    }
+
+    public void setCures(String cures) {
+        this.cures = cures == null ? null : cures.trim();
     }
 
     public String getSex() {
@@ -131,6 +173,14 @@ public class DoctorModel {
         this.title = title == null ? null : title.trim();
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position == null ? null : position.trim();
+    }
+
     public String getTouImg() {
         return touImg;
     }
@@ -145,6 +195,38 @@ public class DoctorModel {
 
     public void setZzImg(String zzImg) {
         this.zzImg = zzImg == null ? null : zzImg.trim();
+    }
+
+    public String getZzNum() {
+        return zzNum;
+    }
+
+    public void setZzNum(String zzNum) {
+        this.zzNum = zzNum == null ? null : zzNum.trim();
+    }
+
+    public String getZcImg() {
+        return zcImg;
+    }
+
+    public void setZcImg(String zcImg) {
+        this.zcImg = zcImg == null ? null : zcImg.trim();
+    }
+
+    public String getZcNum() {
+        return zcNum;
+    }
+
+    public void setZcNum(String zcNum) {
+        this.zcNum = zcNum == null ? null : zcNum.trim();
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education == null ? null : education.trim();
     }
 
     public Integer getReadReportNum() {
@@ -209,6 +291,14 @@ public class DoctorModel {
 
     public void setReceiptInterval(Integer receiptInterval) {
         this.receiptInterval = receiptInterval;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
     public Date getCreateTime() {

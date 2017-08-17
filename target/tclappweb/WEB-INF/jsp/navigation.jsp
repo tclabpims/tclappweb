@@ -14,7 +14,7 @@
                 <ul style="display: none;" id="divmenu1" class="sub-menu">
                   <li><a id="sub1" href="/packageDetails/list.do">检验细项</a></li>
                   <li><a id="sub2" href="/package/listPage.do">套餐列表</a></li>
-                  <li><a id="sub3" href="#">采集手册</a></li>
+                  <%--<li><a id="sub3" href="#">采集手册</a></li>--%>
                 </ul>
               </li>
              <li class="active">
@@ -30,12 +30,24 @@
                 </ul>
               </li>
                <li class="active">
-              	<a id="menu4" href="#" class="adbj4 ad" data-spm-anchor-id="0.0.0.0">医生管理</a>
-                <ul style="display: none;" id="divmenu4" class="sub-menu">
-                  <li><a id="sub41" href="/doctor/list.do?type=">医生列表</a></li>
+              	<a id="menu5" href="#" class="adbj5 ad" data-spm-anchor-id="0.0.0.0">医生管理</a>
+                <ul id="divmenu5" class="sub-menu" style="display: none;">
+                  <li><a id="sub511" href="/doctor/list.do?type=">医生列表</a></li>
                   <%--<li><a id="sub42" href="/doctor/add.do">增加医生</a></li>--%>
                 </ul>
               </li>
+              <li class="active">
+                <a id="menu6" href="#" class="adbj6 ad" data-spm-anchor-id="0.0.0.0">用户管理</a>
+                  <ul id="divmenu6" class="sub-menu" style="display: none;">
+                    <li><a id="sub61" href="/user/list.do">用户列表</a></li>
+                  </ul>
+              </li>
+             <%--<li class="active">
+                 <a id="menu6" href="#" class="adbj6 ad" data-spm-anchor-id="0.0.0.0">订单管理</a>
+                 <ul id="divmenu6" class="sub-menu" style="display: none;">
+                     <li><a id="sub61" href="#">订单列表</a></li>
+                 </ul>
+             </li>--%>
          </ul>
 	</div>
 

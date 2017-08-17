@@ -86,11 +86,17 @@ function ItemEdit(id) {
             content:$("#infoEdit"),
             btn:['提交', '取消'],
             yes: function(index, layero) {
+                //获取当前采集点
                 var obj = document.getElementById("hospital_Id");
                 var selected_index = obj.selectedIndex;
-                $("#hospitalName").val(obj.options[selected_index].text);
+                $("#hospitalName").val(obj.options[selected_index].text); department_num_edit
+                //获取当前科室
+                var obj = document.getElementById("department_num_edit");
+                var selected_index = obj.selectedIndex;
+                $("#departmentName_edit").val(obj.options[selected_index].text);
                 $("#touimg_edit_").val(tou_img_edit_path);
                 $("#zzImg_edit_").val(zzImg_edit_path);
+                $("#zcImg_edit_id_").val(zcImg_edit_path);
                 $.ajax({
                     url: "update.do",
                     type: "POST",
@@ -129,10 +135,15 @@ function ItemEdit(id) {
         $("#id").val(doctor.id);
         $("#userName").val(doctor.userName);
         $("#hospital_Id option[value='"+doctor.hospitalId+"']").attr("selected", 'selected');
+        $("#department_num_edit option[value='"+doctor.departmentNum+"']").attr("selected", 'selected');
         $("#doctorName").val(doctor.doctorName);
         $("#age").val(doctor.age);
-
+        $("#sfzNum_edit").val(doctor.sfzNum);
+        $("#zzNum_edit").val(doctor.zzNum);
+        $("#zcNum_edit").val(doctor.zcNum);
+        $("#position_edit").val(doctor.position);
         $("#title option[value='"+doctor.title+"']").attr("selected", 'selected');
+        $("#education_edit option[value='"+doctor.education+"']").attr("selected", 'selected');
         $("#readReportNum").val(doctor.readReportNum);
         $("#diagnosisNum").val(doctor.diagnosisNum);
         $("#introduce").val(doctor.introduce);
@@ -199,6 +210,46 @@ function uploadZZImgEdit() {
                     var layer = layui.layer;
                     if(data.txt != null || data.txt != "") {
                         zzImg_edit_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+
+/**
+ * 编辑时上传职称证书图片
+ */
+var zcImg_edit_path;
+function uploadZCImgEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#zcImg_edit_id")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#zcImg_edit_id")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        zcImg_edit_path = data.txt;
                         layer.msg("上传成功", {
                             time: 1000,
                             offset: "160px"
@@ -304,17 +355,23 @@ function ItemDetail(id) {
         });
         var doctor_table = document.getElementById("doctor_table");
         doctor_table.rows[0].cells[1].innerHTML = doctor.doctorName;
-        doctor_table.rows[0].cells[3].innerHTML = doctor.hospitalName;
-        doctor_table.rows[1].cells[1].innerHTML = doctor.sex;
+        doctor_table.rows[0].cells[3].innerHTML = doctor.sex;
+        doctor_table.rows[1].cells[1].innerHTML = doctor.hospitalName;
         doctor_table.rows[1].cells[3].innerHTML = doctor.age;
+        doctor_table.rows[2].cells[1].innerHTML = doctor.title;
         if(doctor.type == "1") {
-            doctor_table.rows[2].cells[1].innerHTML = "医生";
+            doctor_table.rows[2].cells[3].innerHTML = "医生";
         } else if(doctor.type == "2") {
-            doctor_table.rows[2].cells[1].innerHTML = "护士";
+            doctor_table.rows[2].cells[3].innerHTML = "护士";
         }
-        doctor_table.rows[2].cells[3].innerHTML = doctor.title;
-        doctor_table.rows[3].cells[1].innerHTML = doctor.sfzNum;
-        doctor_table.rows[4].cells[1].innerHTML = doctor.introduce;
+        doctor_table.rows[3].cells[1].innerHTML = doctor.education;
+        doctor_table.rows[3].cells[3].innerHTML = doctor.departmentName;
+        doctor_table.rows[4].cells[1].innerHTML = doctor.sfzNum;
+        doctor_table.rows[5].cells[1].innerHTML = doctor.zzNum;
+        doctor_table.rows[5].cells[3].innerHTML = doctor.zcNum;
+        doctor_table.rows[6].cells[1].innerHTML = doctor.createTime;
+        doctor_table.rows[6].cells[3].innerHTML = doctor.modifyTime;
+        doctor_table.rows[7].cells[1].innerHTML = doctor.introduce;
         $("#doctor_picture").attr("src", $("#doctor_picture")[0].title + doctor.touImg);
     })
 }
@@ -335,8 +392,14 @@ function addDoctor() {
                 var obj = document.getElementById("hospital_name_select");
                 var selected_index = obj.selectedIndex;
                 $("#hospital_name").val(obj.options[selected_index].text);
+                //确定当前选定的科室
+                var obj2 = document.getElementById("department_num_add");
+                var selected_index = obj2.selectedIndex;
+                $("#departmentName_add").val(obj2.options[selected_index].text);
                 $("#touimg_id_").val(tou_img_path);
                 $("#zzImg_id_").val(zzImg_path);
+                $("#zcImg_id_").val(zcImg_path);
+
                 $.ajax({
                     url: "add.do",
                     type: "POST",
@@ -368,34 +431,6 @@ function addDoctor() {
         form.render();
     });
 }
-
-function requireHospitals() {
-    layui.use('form', function() {
-        var form = layui.form();
-        $.ajax({
-            url: "/hospital/listHospitals.do",
-            type: "POST",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var hospitals = data.hospitals;
-                var obj1 = document.getElementById("hospital_name_select");
-                var obj2 = document.getElementById("query_hospital_id");
-                var obj3 = document.getElementById("hospital_Id");
-                for(i=0; i<hospitals.length; i++) {
-                    obj1.options.add(new Option(hospitals[i].name, hospitals[i].id));
-                    obj2.options.add(new Option(hospitals[i].name, hospitals[i].id));
-                    obj3.options.add(new Option(hospitals[i].name, hospitals[i].id));
-                }
-            },
-            error: function(er) {
-                console.log(er);
-            }
-        });
-    });
-}
-requireHospitals();
-
 /**
  * 上传头像照片
  */
@@ -475,6 +510,105 @@ function uploadZZImg() {
 }
 
 /**
+ * 上传职称证书图片
+ */
+var zcImg_path;
+function uploadZCImg() {
+    var formData = new FormData();
+    formData.append('file',$("#zcImg_id")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#zcImg_id")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        zcImg_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+/**
+ * 获取医院
+ */
+function requireHospitals() {
+    layui.use('form', function() {
+        var form = layui.form();
+        $.ajax({
+            url: "/hospital/listHospitals.do",
+            type: "POST",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var hospitals = data.hospitals;
+                var obj1 = document.getElementById("hospital_name_select");
+                var obj2 = document.getElementById("query_hospital_id");
+                var obj3 = document.getElementById("hospital_Id");
+                for(i=0; i<hospitals.length; i++) {
+                    obj1.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                    obj2.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                    obj3.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                }
+            },
+            error: function(er) {
+                console.log(er);
+            }
+        });
+    });
+}
+requireHospitals();
+
+/**
+ * 获取科室
+ */
+function requireDepartments() {
+    layui.use('form', function() {
+        var form = layui.form();
+        $.ajax({
+            url: "/department/acquireAllDeparment.do",
+            type: "POST",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var all_departments = data.all_departments;
+                var obj1 = document.getElementById("department_num_add");
+                var obj2 = document.getElementById("department_num_edit");
+                //var obj3 = document.getElementById("hospital_Id");
+                for(i=0; i<all_departments.length; i++) {
+                    obj1.options.add(new Option(all_departments[i].departmentName, all_departments[i].departmentNum));
+                    obj2.options.add(new Option(all_departments[i].departmentName, all_departments[i].departmentNum));
+                    //obj3.options.add(new Option(hospitals[i].name, hospitals[i].id));
+                }
+            },
+            error: function(er) {
+                console.log(er);
+            }
+        });
+    });
+}
+requireDepartments();
+
+/**
  * 显示年月日
  */
 layui.use('laydate', function(){
@@ -505,6 +639,32 @@ layui.use('laydate', function(){
         laydate(end);
     }
 });
+
+function getRootPath(){
+    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath=window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8083
+    var localhostPaht=curWwwPath.substring(0,pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    return(localhostPaht+projectName);
+}
+
+/*导出Excel表格*/
+function exportExcel() {
+    $(document).ready(function() {
+        var temp_form = document.createElement("form");
+        temp_form.action = getRootPath() + "/exportexcel.do";
+        temp_form.method = "post";
+        temp_form.style.display = "none";
+        document.body.appendChild(temp_form);
+        temp_form.submit();
+    })
+}
+
 /*
 function doctor_query() {
     var query_info = {

@@ -34,7 +34,7 @@
               <input id="query_userName" name="userName" type="text" class="input_text_style" />
 
               &nbsp;&nbsp;&nbsp;
-              <label class="label_Style">医院:</label>&nbsp;&nbsp;&nbsp;
+              <label class="label_Style">采集点:</label>&nbsp;&nbsp;&nbsp;
               <select id="query_hospital_id" name="hospitalId" lay-verify="" class="select_style" />
               <option value=""></option>
               </select>
@@ -47,8 +47,10 @@
               <label class="label_Style">职称:</label>&nbsp;&nbsp;&nbsp;
               <select id="query_title" name="title" lay-verify="" class="select_style" />
               <option value=""></option>
-              <option value="主任医师">主任医师</option>
-              <option value="副主任医师">副主任医师</option>
+              <option value="住院医师（初级）">住院医师（初级）</option>
+              <option value="主治医师（中级）">主治医师（中级）</option>
+              <option value="副主任医师（副高）">副主任医师（副高）</option>
+              <option value="主任医师（正高）">主任医师（正高）</option>
               </select>
 
               &nbsp;&nbsp;&nbsp;
@@ -62,7 +64,7 @@
               </select>
 
               <br/><br/>&nbsp;&nbsp;&nbsp;
-              <label class="label_Style">类型:</label>&nbsp;&nbsp;&nbsp;
+              <label class="label_Style">岗位:</label>&nbsp;&nbsp;&nbsp;
               <select id="query_type" name="type" lay-verify="" class="select_style" >
                   <option value=""></option>
                   <option value="1">医生</option>
@@ -80,9 +82,13 @@
 
               &nbsp;&nbsp;&nbsp;
               <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询"/>
-
               &nbsp;&nbsp;&nbsp;
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addDoctor()">新增</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="button" class="layui-btn layui-btn-small" onclick="exportExcel()">导出Excel</button>
             </form>
           </div>
           <table class="sui-table table-bordered" style="margin-top:20px;">
@@ -90,7 +96,7 @@
                 <tr>
                     <th class="center left-con" width="8%">编号</th>
                     <th class="center left-con" width="12%">用户名</th>
-                    <th class="center left-con" width="12%">医院</th>
+                    <th class="center left-con" width="12%">采集点</th>
                     <th class="center left-con" width="10%">姓名</th>
                     <th class="center left-con" width="10%">职称</th>
                     <th class="center left-con" width="8%">解读次数</th>
@@ -191,34 +197,44 @@
       <br/><form id="doctorInfo" class="layui-form" method="post" action="">
       <%--用户名--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">用户名</label>
+          <label class="layui-form-label" style="width: 100px">用户名</label>
           <div class="layui-input-block">
               <input type="hidden" id="id" name="id">
               <input type="text"  id="userName" name="userName"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+              class="layui-input" style="width: 260px">
           </div>
       </div>
       <%--医院名称--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">医院名称</label>
-          <div class="layui-input-block" style="width: 220px">
+          <label class="layui-form-label" style="width: 100px">采集点</label>
+          <div class="layui-input-inline" style="width: 260px">
               <input type="hidden" id="hospitalName" name="hospitalName"/>
               <select id="hospital_Id" name="hospitalId" lay-verify="">
                   <option value=""></option>
               </select>
           </div>
       </div>
+       <%--科室--%>
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">科室</label>
+          <div class="layui-input-inline" style="width: 260px">
+              <input type="hidden" id="departmentName_edit" name="departmentName"/>
+              <select id="department_num_edit" name="departmentNum" lay-verify="">
+                  <option value=""></option>
+              </select>
+          </div>
+      </div>
       <%--医生姓名--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">医生姓名</label>
+          <label class="layui-form-label" style="width: 100px">医生姓名</label>
           <div class="layui-input-block">
               <input type="text" id="doctorName" name="doctorName"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+              class="layui-input" style="width: 260px">
           </div>
       </div>
       <%--性别--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">性别</label>
+          <label class="layui-form-label" style="width: 100px">性别</label>
           <div class="layui-input-block">
               <input type="radio" name="sex" value="男" title="男">
               <input type="radio" name="sex" value="女" title="女">
@@ -226,61 +242,109 @@
       </div>
       <%--年龄--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">年龄</label>
+          <label class="layui-form-label" style="width: 100px">年龄</label>
           <div class="layui-input-block">
               <input type="text" id="age" name="age"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+              class="layui-input" style="width: 260px">
+          </div>
+      </div>
+      <%--身份证号--%>
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">身份证号</label>
+          <div class="layui-input-block">
+              <input type="text" id="sfzNum_edit" name="sfzNum"  required lay-verify="required" autocomplete="off"
+                     class="layui-input" style="width: 260px">
           </div>
       </div>
       <%--职称--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">职称</label>
-          <div class="layui-input-block" style="width: 220px">
+          <label class="layui-form-label" style="width: 100px">职称</label>
+          <div class="layui-input-inline" style="width: 260px">
               <select id="title" name="title" lay-verify="">
                   <option value=""></option>
-                  <option value="主任医师">主任医师</option>
-                  <option value="副主任医师">副主任医师</option>
+                  <option value="住院医师（初级）">住院医师（初级）</option>
+                  <option value="主治医师（中级）">主治医师（中级）</option>
+                  <option value="副主任医师（副高）">副主任医师（副高）</option>
+                  <option value="主任医师（正高）">主任医师（正高）</option>
               </select>
           </div>
       </div>
       <%--医生头像--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">头像</label>
+          <label class="layui-form-label" style="width: 100px">头像</label>
           <div class="layui-input-block">
               <input type="file" id="touimg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
               <input type="hidden" id="touimg_edit_" name="touImg" />
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadTouImgEdit()">上传</button>
           </div>
       </div>
+        <%--从业执照号--%>
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">从业执照号</label>
+          <div class="layui-input-block">
+              <input type="text" id="zzNum_edit" name="zzNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
       <%--从业执照图片--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">从业执照图片</label>
+          <label class="layui-form-label" style="width: 100px">从业执照图片</label>
           <div class="layui-input-block">
               <input type="file" id="zzImg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
               <input type="hidden" id="zzImg_edit_" name="zzImg"/>
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadZZImgEdit()">上传</button>
           </div>
       </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">职称证书号</label>
+          <div class="layui-input-block">
+              <input type="text" id="zcNum_edit" name="zcNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">职称证书图片</label>
+          <div class="layui-input-block">
+              <input type="file" id="zcImg_edit_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
+              <input type="hidden" id="zcImg_edit_id_" name="zcImg"/>
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadZCImgEdit()">上传</button>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">学历</label>
+          <div class="layui-input-inline" style="width: 260px">
+              <select id="education_edit" name="education" lay-verify="">
+                  <option value=""></option>
+                  <option value="中专">中专</option>
+                  <option value="大专">大专</option>
+                  <option value="本科">本科</option>
+                  <option value="硕士研究生">硕士研究生</option>
+                  <option value="博士研究生">博士研究生</option>
+                  <option value="院士">院士</option>
+              </select>
+          </div>
+      </div>
       <%--解读报告次数--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">解读次数</label>
+          <label class="layui-form-label" style="width: 100px">解读次数</label>
           <div class="layui-input-block">
               <input type="text" id="readReportNum" name="readReportNum"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+              class="layui-input" style="width: 260px">
           </div>
       </div>
       <%--诊断次数--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">诊断次数</label>
+          <label class="layui-form-label" style="width: 100px">诊断次数</label>
           <div class="layui-input-block">
               <input type="text" id="diagnosisNum" name="diagnosisNum"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 220px">
+              class="layui-input" style="width: 260px">
               </div>
           </div>
       <%--医生类型--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">医生类型</label>
-          <div class="layui-input-block" style="width: 260px">
+          <label class="layui-form-label" style="width: 100px">岗位</label>
+          <div class="layui-input-inline" style="width: 260px">
               <select id="doctor_type" name="type" lay-verify="required">
                   <option value=""></option>
                   <option value="1">医生</option>
@@ -288,9 +352,16 @@
               </select>
           </div>
       </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">职位</label>
+          <div class="layui-input-block">
+              <input type="text" id="position_edit" name="position" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
       <%--医生介绍--%>
       <div class="layui-form-item">
-          <label class="layui-form-label">医生介绍</label>
+          <label class="layui-form-label" style="width: 100px">医生介绍</label>
           <div class="layui-input-block">
               <textarea id="introduce" name="introduce" class="layui-textarea"  style="width: 320px"></textarea>
           </div>
@@ -327,34 +398,52 @@
       <table id="doctor_table" class="layui-table" lay-even lay-skin="nob">
         <colgroup align="left" span="4">
             <col width="15%">
-            <col width="19%">
-            <col width="16%">
-            <col width="27%">
-            <col width="23%">
+            <col width="25%">
+            <col width="10%">
+            <col width="15%">
+            <col width="35%">
         </colgroup>
         <tbody>
             <tr>
                 <td align="center">姓名</td>
                 <td align="center"></td>
+                <td align="center">性别</td>
+                <td align="center"></td>
+                <td rowspan="5"><img id="doctor_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 168px;height: 184px"></td>
+            </tr>
+            <tr>
                 <td align="center">医院名称</td>
                 <td align="center"></td>
-                <td rowspan="4"><img id="doctor_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 138px;height: 150px"></td>
-            </tr>
-            <tr>
-                <td align="center">性别</td>
-                <td id="doctor_name2" align="center"></td>
                 <td align="center">年龄</td>
-                <td id="hospital2" align="center"></td>
+                <td align="center"></td>
             </tr>
             <tr>
-                <td align="center">类型</td>
-                <td id="doctor_name3" align="center"></td>
                 <td align="center">职称</td>
-                <td id="hospital3" align="center"></td>
+                <td align="center"></td>
+                <td align="center">岗位</td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td align="center">学历</td>
+                <td align="center"></td>
+                <td align="center">科室</td>
+                <td align="center"></td>
             </tr>
             <tr>
                 <td align="center">身份证号</td>
                 <td id="sfzNumber" colspan="3"></td>
+            </tr>
+            <tr>
+                <td align="center">从业执照号</td>
+                <td colspan="2"></td>
+                <td align="center">职称号码</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="center">创建时间</td>
+                <td colspan="2"></td>
+                <td align="center">修改时间</td>
+                <td></td>
             </tr>
             <tr>
                 <td valign="top" align="center" style="height: 400px">医生简介</td>
@@ -368,22 +457,22 @@
   <div id="add_doctor" style="display: none;">
     <br/><form id="add_doctor_form" class="layui-form" action="">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
+            <label class="layui-form-label" style="width: 100px">用户名</label>
             <div class="layui-input-block">
                 <input type="text" name="userName" required lay-verify="required" class="layui-input" style="width: 260px"/>
             </div>
         </div>
 
        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
+            <label class="layui-form-label" style="width: 100px">密码</label>
             <div class="layui-input-inline">
                 <input type="password" name="passWord" required lay-verify="required" class="layui-input" style="width: 260px"/>
             </div>
        </div>
 
        <div class="layui-form-item">
-            <label class="layui-form-label">医院名称</label>
-            <div class="layui-input-block" style="width: 260px">
+            <label class="layui-form-label" style="width: 100px">采集点</label>
+            <div class="layui-input-inline" style="width: 260px">
                 <input type="hidden" id="hospital_name" name="hospitalName"/>
                 <select id="hospital_name_select" name="hospitalId" lay-verify="">
                     <option value=""></option>
@@ -391,22 +480,32 @@
             </div>
        </div>
 
-       <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">科室</label>
+          <div class="layui-input-inline" style="width: 260px">
+              <input type="hidden" id="departmentName_add" name="departmentName"/>
+              <select id="department_num_add" name="departmentNum" lay-verify="">
+                  <option value=""></option>
+              </select>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">姓名</label>
             <div class="layui-input-block">
                 <input type="text" name="doctorName" required lay-verify="required" class="layui-input" style="width: 260px"/>
             </div>
        </div>
 
        <div class="layui-form-item">
-            <label class="layui-form-label">身份证号</label>
+            <label class="layui-form-label" style="width: 100px">身份证号</label>
             <div class="layui-input-block">
                 <input type="text" name="sfzNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
             </div>
        </div>
 
        <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
+            <label class="layui-form-label" style="width: 100px">性别</label>
             <div class="layui-input-block" style="width: 260px">
                 <input type="radio" name="sex" value="男" title="男">
                 <input type="radio" name="sex" value="女" title="女">
@@ -414,25 +513,27 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">年龄</label>
+          <label class="layui-form-label" style="width: 100px">年龄</label>
           <div class="layui-input-block">
               <input type="text" name="age" required lay-verify="required" class="layui-input" style="width: 260px"/>
           </div>
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">职称</label>
-          <div class="layui-input-block" style="width: 260px">
+          <label class="layui-form-label" style="width: 100px">职称</label>
+          <div class="layui-input-inline" style="width: 260px">
               <select name="title" lay-verify="">
                   <option value=""></option>
-                  <option value="主任医师">主任医师</option>
-                  <option value="副主任医师">副主任医师</option>
+                  <option value="住院医师（初级）">住院医师（初级）</option>
+                  <option value="主治医师（中级）">主治医师（中级）</option>
+                  <option value="副主任医师（副高）">副主任医师（副高）</option>
+                  <option value="主任医师（正高）">主任医师（正高）</option>
               </select>
           </div>
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">头像</label>
+          <label class="layui-form-label" style="width: 100px">头像</label>
           <div class="layui-input-block">
               <input type="file" id="touimg_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
               <input type="hidden" id="touimg_id_" name="touImg" />
@@ -441,7 +542,14 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">从业执照图片</label>
+          <label class="layui-form-label" style="width: 100px">从业执照号</label>
+          <div class="layui-input-block">
+              <input type="text" name="zzNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">从业执照图片</label>
           <div class="layui-input-block">
               <input type="file" id="zzImg_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
               <input type="hidden" id="zzImg_id_" name="zzImg"/>
@@ -450,8 +558,39 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">状态</label>
-          <div class="layui-input-block" style="width: 260px">
+          <label class="layui-form-label" style="width: 100px">职称证书号</label>
+          <div class="layui-input-block">
+              <input type="text" name="zcNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">职称证书图片</label>
+          <div class="layui-input-block">
+              <input type="file" id="zcImg_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
+              <input type="hidden" id="zcImg_id_" name="zcImg"/>
+              <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="uploadZCImg()">上传</button>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">学历</label>
+          <div class="layui-input-inline" style="width: 260px">
+              <select name="education" lay-verify="">
+                  <option value=""></option>
+                  <option value="中专">中专</option>
+                  <option value="大专">大专</option>
+                  <option value="本科">本科</option>
+                  <option value="硕士研究生">硕士研究生</option>
+                  <option value="博士研究生">博士研究生</option>
+                  <option value="院士">院士</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">状态</label>
+          <div class="layui-input-inline" style="width: 260px">
               <select name="status" lay-verify="">
                   <option value=""></option>
                   <option value="0">初始化</option>
@@ -463,8 +602,8 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">类型</label>
-          <div class="layui-input-block" style="width: 260px">
+          <label class="layui-form-label" style="width: 100px">岗位</label>
+          <div class="layui-input-inline" style="width: 260px">
               <select name="type" lay-verify="">
                   <option value=""></option>
                   <option value="1">医生</option>
@@ -474,7 +613,14 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label">介绍</label>
+          <label class="layui-form-label" style="width: 100px">职位</label>
+          <div class="layui-input-block">
+              <input type="text" name="position" required lay-verify="required" class="layui-input" style="width: 260px"/>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <label class="layui-form-label" style="width: 100px">介绍</label>
           <div class="layui-input-block">
               <textarea name="introduce" class="layui-textarea" style="width: 320px"></textarea>
           </div>

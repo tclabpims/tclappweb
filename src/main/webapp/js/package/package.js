@@ -134,7 +134,7 @@ function uploadPic() {
         }
     });
 }
-$("document").ready(function(){
+/*$("document").ready(function(){
     $("#name_add").click(function () {
         layui.use(['layer', 'form'], function() {
             var layer = layui.layer;
@@ -152,7 +152,7 @@ $("document").ready(function(){
             form.render();
         })
     })
-})
+})*/
 
 function getRootPath(){
     //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
@@ -350,7 +350,11 @@ function ItemDetail(id) {
         }
         package_table.rows[3].cells[1].innerHTML = package.reportTime;
         package_table.rows[4].cells[1].innerHTML = package.wjCode;
-        package_table.rows[4].cells[3].innerHTML = package.saleNum + " 次";
+        if(package.saleNum == null) {
+            package_table.rows[4].cells[3].innerHTML = "0 次";
+        }else {
+            package_table.rows[4].cells[3].innerHTML = package.saleNum + " 次";
+        }
         package_table.rows[5].cells[1].innerHTML = package.useCrowd;
         package_table.rows[6].cells[1].innerHTML = package.testType;
         package_table.rows[7].cells[1].innerHTML = package.diseaseType;
