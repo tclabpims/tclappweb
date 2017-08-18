@@ -205,14 +205,6 @@
                 </div>
             </div>
 
-            <%--详情介绍--%>
-            <div class="layui-form-item">
-                <label class="layui-form-label">详情介绍</label>
-                <div class="layui-input-block">
-                    <textarea name="details" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
-                </div>
-            </div>
-
             <%--检验项目说明--%>
             <div class="layui-form-item">
                 <label class="layui-form-label">检验说明</label>
@@ -226,6 +218,21 @@
                 <label class="layui-form-label">特色优势</label>
                 <div class="layui-input-block">
                     <textarea name="specialist" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--交通路线--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">交通路线</label>
+                <div class="layui-input-block">
+                    <textarea name="route" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+            <%--详情介绍--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详情介绍</label>
+                <div class="layui-input-block">
+                    <textarea name="details" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
                 </div>
             </div>
         </form>
@@ -310,14 +317,6 @@
                 </div>
             </div>
 
-            <%--详情介绍--%>
-            <div class="layui-form-item">
-                <label class="layui-form-label">详情介绍</label>
-                <div class="layui-input-block">
-                    <textarea id="edit_details" name="details" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
-                </div>
-            </div>
-
             <%--检验项目说明--%>
             <div class="layui-form-item">
                 <label class="layui-form-label">检验说明</label>
@@ -331,6 +330,22 @@
                 <label class="layui-form-label">特色优势</label>
                 <div class="layui-input-block">
                     <textarea id="edit_specialist" name="specialist" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--交通路线--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">交通路线</label>
+                <div class="layui-input-block">
+                    <textarea id="edit_route" name="route" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+                </div>
+            </div>
+
+            <%--详情介绍--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详情介绍</label>
+                <div class="layui-input-block">
+                    <textarea id="edit_details" name="details" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
                 </div>
             </div>
         </form>
@@ -348,38 +363,42 @@
             </colgroup>
             <tbody>
             <tr>
-                <td align="center">医院名称</td>
-                <td align="center"></td>
-                <td rowspan="5"><img id="hospital_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
+                <td align="left">医院名称</td>
+                <td align="left"></td>
+                <td rowspan="4"><img id="hospital_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
                                      style="width: 260px;height: 160px"></td>
             </tr>
             <tr>
-                <td align="center">电话</td>
-                <td align="center"></td>
+                <td align="left">电话</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">经度</td>
-                <td align="center"></td>
+                <td align="left">经度</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">纬度</td>
-                <td align="center"></td>
+                <td align="left">纬度</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">地址</td>
-                <td align="center"></td>
+                <td align="left">地址</td>
+                <td colspan="2" align="left"></td>
             </tr>
             <tr>
-                <td valign="top" align="center" style="height: 150px">详情介绍</td>
-                <td colspan="2" style="height: 150px" valign="top"></td>
-            </tr>
-            <tr>
-                <td valign="top" align="center" style="height: 90px">检验项目说明</td>
-                <td colspan="2" style="height: 90px" valign="top"></td>
-            </tr>
-            <tr>
-                <td valign="top" align="center" style="height: 80px">特色优势</td>
+                <td valign="top" align="left" style="height: 80px">检验项目说明</td>
                 <td colspan="2" style="height: 80px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 80px">特色优势</td>
+                <td colspan="2" style="height: 80px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 80px">交通路线</td>
+                <td colspan="2" style="height: 80px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 100px">详情介绍</td>
+                <td colspan="2" style="height: 100px" valign="top"></td>
             </tr>
             </tbody>
         </table>

@@ -227,6 +227,7 @@ function ItemEdit(id) {
         $("#edit_alipayPayAccount").val(hospital.alipayPayAccount);
         $("#edit_weixinPayAccount").val(hospital.weixinPayAccount);
         $("#edit_details").val(hospital.details);
+        $("#edit_route").val(hospital.route);
         $("#edit_projectDesc").val(hospital.projectDesc);
         $("#edit_specialist").val(hospital.specialist);
         $("#id_form").val(hospital.id);
@@ -329,9 +330,10 @@ function ItemDetail(id) {
         hospital_table.rows[2].cells[1].innerHTML = hospital.longitude;
         hospital_table.rows[3].cells[1].innerHTML = hospital.latitude;
         hospital_table.rows[4].cells[1].innerHTML = hospital.address;
-        hospital_table.rows[5].cells[1].innerHTML = hospital.details;
-        hospital_table.rows[6].cells[1].innerHTML = hospital.projectDesc;
-        hospital_table.rows[7].cells[1].innerHTML = hospital.specialist;
+        hospital_table.rows[5].cells[1].innerHTML = hospital.projectDesc;
+        hospital_table.rows[6].cells[1].innerHTML = hospital.specialist;
+        hospital_table.rows[7].cells[1].innerHTML = hospital.route;
+        hospital_table.rows[8].cells[1].innerHTML = hospital.details;
         $("#hospital_picture").attr("src", $("#hospital_picture")[0].title + hospital.picUrl);
     })
 }

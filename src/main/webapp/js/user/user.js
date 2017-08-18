@@ -223,24 +223,24 @@ function ItemDetail(id) {
             title: "基本信息",
             offset: '120px',
             skin: 'layui-layer-rim',
-            area: ['490px', '440px'],
+            area: ['460px', '480px'],
             content: $("#detail_info")
         });
         var user_table = document.getElementById("user_table");
         user_table.rows[0].cells[1].innerHTML = user.userName;
         user_table.rows[1].cells[1].innerHTML = user.name;
-        user_table.rows[1].cells[3].innerHTML = user.sex;
+        user_table.rows[2].cells[1].innerHTML = user.sex;
         if(user.status == "1") {
-            user_table.rows[2].cells[1].innerHTML = "可用";
+            user_table.rows[3].cells[1].innerHTML = "可用";
         } else if(user.status == "2") {
-            user_table.rows[2].cells[1].innerHTML = "不可用";
+            user_table.rows[3].cells[1].innerHTML = "不可用";
         }
 
-        user_table.rows[3].cells[1].innerHTML = user.sfzNum;
-        user_table.rows[4].cells[1].innerHTML = new Date(user.birthday).format("yyyy-MM-dd");
-        user_table.rows[5].cells[1].innerHTML = new Date(user.createTime).format("yyyy-MM-dd hh:mm:ss");
-        user_table.rows[6].cells[1].innerHTML = new Date(user.modifyTime).format("yyyy-MM-dd hh:mm:ss");
-        user_table.rows[7].cells[1].innerHTML = user.address;
+        user_table.rows[4].cells[1].innerHTML = user.sfzNum;
+        user_table.rows[5].cells[1].innerHTML = new Date(user.birthday).format("yyyy-MM-dd");
+        user_table.rows[6].cells[1].innerHTML = new Date(user.createTime).format("yyyy-MM-dd hh:mm:ss");
+        user_table.rows[7].cells[1].innerHTML = new Date(user.modifyTime).format("yyyy-MM-dd hh:mm:ss");
+        user_table.rows[8].cells[1].innerHTML = user.address;
         $("#user_touImg").attr("src", $("#user_touImg")[0].title + user.touImg);
     })
 }
@@ -360,4 +360,28 @@ layui.use('laydate', function(){
     }
 });
 
+function getRootPath(){
+    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath=window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8083
+    var localhostPaht=curWwwPath.substring(0,pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    return(localhostPaht+projectName);
+}
+
+/*导出Excel表格*/
+function exportExcel() {
+    $(document).ready(function() {
+        var temp_form = document.createElement("form");
+        temp_form.action = getRootPath() + "/exportexcel.do";
+        temp_form.method = "post";
+        temp_form.style.display = "none";
+        document.body.appendChild(temp_form);
+        temp_form.submit();
+    })
+}
 

@@ -95,8 +95,12 @@ function ItemEdit(id) {
                 var selected_index = obj.selectedIndex;
                 $("#departmentName_edit").val(obj.options[selected_index].text);
                 $("#touimg_edit_").val(tou_img_edit_path);
-                $("#zzImg_edit_").val(zzImg_edit_path);
-                $("#zcImg_edit_id_").val(zcImg_edit_path);
+                if(zzImg_edit_path != null && zzImg_edit_path != '' && zzImg_edit_path != undefined) {
+                    $("#zzImg_edit_").val("http://183.247.179.221:9099" + zzImg_edit_path);
+                }
+                if(zcImg_edit_path != null && zcImg_edit_path != '' && zcImg_edit_path != undefined) {
+                    $("#zcImg_edit_id_").val("http://183.247.179.221:9099" + zcImg_edit_path);
+                }
                 $.ajax({
                     url: "update.do",
                     type: "POST",
@@ -369,10 +373,12 @@ function ItemDetail(id) {
         doctor_table.rows[4].cells[1].innerHTML = doctor.sfzNum;
         doctor_table.rows[5].cells[1].innerHTML = doctor.zzNum;
         doctor_table.rows[5].cells[3].innerHTML = doctor.zcNum;
-        doctor_table.rows[6].cells[1].innerHTML = doctor.createTime;
-        doctor_table.rows[6].cells[3].innerHTML = doctor.modifyTime;
-        doctor_table.rows[7].cells[1].innerHTML = doctor.introduce;
+        doctor_table.rows[6].cells[1].innerHTML = new Date(doctor.createTime).format("yyyy-MM-dd hh:mm:ss");
+        doctor_table.rows[6].cells[3].innerHTML = new Date(doctor.modifyTime).format("yyyy-MM-dd hh:mm:ss");
+        doctor_table.rows[8].cells[1].innerHTML = doctor.introduce;
         $("#doctor_picture").attr("src", $("#doctor_picture")[0].title + doctor.touImg);
+        $("#doctor_zzImg").attr("src", doctor.zzImg);
+        $("#doctor_zcImg").attr("src", doctor.zcImg);
     })
 }
 
@@ -397,9 +403,12 @@ function addDoctor() {
                 var selected_index = obj2.selectedIndex;
                 $("#departmentName_add").val(obj2.options[selected_index].text);
                 $("#touimg_id_").val(tou_img_path);
-                $("#zzImg_id_").val(zzImg_path);
-                $("#zcImg_id_").val(zcImg_path);
-
+                if(zzImg_path != null && zzImg_path != '' && zzImg_path != undefined) {
+                    $("#zzImg_id_").val("http://183.247.179.221:9099" + zzImg_path);
+                }
+                if(zcImg_path != null && zcImg_path != '' && zcImg_path != undefined) {
+                    $("#zcImg_id_").val("http://183.247.179.221:9099" + zcImg_path);
+                }
                 $.ajax({
                     url: "add.do",
                     type: "POST",
@@ -663,6 +672,29 @@ function exportExcel() {
         document.body.appendChild(temp_form);
         temp_form.submit();
     })
+}
+
+/*修改时间的格式*/
+Date.prototype.format = function(format) {
+    var date = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds()
+    };
+    if (/(y+)/i.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in date) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+        }
+    }
+    return format;
 }
 
 /*

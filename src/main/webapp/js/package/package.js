@@ -63,6 +63,9 @@ function addPackage(id) {
             btn: ['增加', '取消'],
             yes: function (index, layero) {
                 $("#picUrl_add_").val(packageImg_path);
+                if(packageDetailImg_path != null && packageDetailImg_path != '' && packageDetailImg_path != undefined) {
+                    $("#detailImg_add_").val("http://183.247.179.221:9099" + packageDetailImg_path);
+                }
                 $.ajax({
                     url: "add.do",
                     type: "POST",
@@ -116,6 +119,42 @@ function uploadPic() {
                     var layer = layui.layer;
                     if(data.txt != null || data.txt != "") {
                         packageImg_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+var packageDetailImg_path;
+function uploadDetailImg() {
+    var formData = new FormData();
+    formData.append('file',$("#detailImg_add")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#detailImg_add")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        packageDetailImg_path = data.txt;
                         layer.msg("上传成功", {
                             time: 1000,
                             offset: "160px"
@@ -216,6 +255,9 @@ function ItemEdit(id) {
             btn: ['提交', '取消'],
             yes: function(index, layero) {
                 $("#picUrl_edit_").val(packageImg_edit_path);
+                if(packageDetailImg_edit_path != null && packageDetailImg_edit_path != '' && packageDetailImg_edit_path != undefined) {
+                    $("#detailImg_edit_").val("http://183.247.179.221:9099" + packageDetailImg_edit_path);
+                }
                 $.ajax({
                     url: "update.do",
                     type: "POST",
@@ -253,6 +295,7 @@ function ItemEdit(id) {
         $("#edit_useCrowd").val(package.useCrowd);
         $("#edit_price").val(package.price);
         $("#edit_reportTime").val(package.reportTime);
+        $("#edit_reportTimeDesc").val(package.reportTimeDesc);
         $("#edit_wjCode").val(package.wjCode);
         $("#edit_saleNum").val(package.saleNum);
         $("#edit_status option[value='"+package.status+"']").attr("selected", 'selected');
@@ -303,6 +346,43 @@ function uploadPicEdit() {
         }
     });
 }
+/*修改套餐详情图片*/
+var packageDetailImg_edit_path;
+function uploadDetailImgEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#detailImg_edit")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#detailImg_edit")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            if(data.txt != null || data.txt != "") {
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    if(data.txt != null || data.txt != "") {
+                        packageDetailImg_edit_path = data.txt;
+                        layer.msg("上传成功", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }else {
+                        layer.msg("上传失败", {
+                            time: 1000,
+                            offset: "160px"
+                        })
+                    }
+                });
+            }
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
 
 /*套餐详情*/
 function ItemDetail(id) {
@@ -335,7 +415,7 @@ function ItemDetail(id) {
             type: 1,
             title: "详细信息",
             skin: 'layui-layer-rim',
-            area: ['600px', '580px'],
+            area: ['600px', '680px'],
             content: $("#detail_package")
         });
         var package_table = document.getElementById("detail_package_table");
@@ -349,19 +429,22 @@ function ItemDetail(id) {
             package_table.rows[2].cells[1].innerHTML = "已下线";
         }
         package_table.rows[3].cells[1].innerHTML = package.reportTime;
-        package_table.rows[4].cells[1].innerHTML = package.wjCode;
+        package_table.rows[4].cells[1].innerHTML = package.reportTimeDesc;
         if(package.saleNum == null) {
-            package_table.rows[4].cells[3].innerHTML = "0 次";
+            package_table.rows[5].cells[1].innerHTML = "0 次";
         }else {
-            package_table.rows[4].cells[3].innerHTML = package.saleNum + " 次";
+            package_table.rows[5].cells[1].innerHTML = package.saleNum + " 次";
         }
-        package_table.rows[5].cells[1].innerHTML = package.useCrowd;
-        package_table.rows[6].cells[1].innerHTML = package.testType;
-        package_table.rows[7].cells[1].innerHTML = package.diseaseType;
-        package_table.rows[8].cells[1].innerHTML = package.takeType;
-        package_table.rows[9].cells[1].innerHTML = package.needAttention;
-        package_table.rows[10].cells[1].innerHTML = package.projectDesc;
-        package_table.rows[11].cells[1].innerHTML = package.clause;
+        package_table.rows[6].cells[1].innerHTML = package.wjCode;
+        package_table.rows[7].cells[1].innerHTML = package.testType;
+        package_table.rows[8].cells[1].innerHTML = package.useCrowd;
+
+        package_table.rows[9].cells[1].innerHTML = package.diseaseType;
+        package_table.rows[10].cells[1].innerHTML = package.takeType;
+        package_table.rows[11].cells[1].innerHTML = package.needAttention;
+        package_table.rows[12].cells[1].innerHTML = package.projectDesc;
+        package_table.rows[13].cells[1].innerHTML = package.clause;
         $("#package_picture").attr("src", $("#package_picture")[0].title + package.picUrl);
+        $("#packageDetailImg").attr("src", package.detailImg);
     })
 }

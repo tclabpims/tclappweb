@@ -247,47 +247,47 @@
   <div id="detail_info" style="display: none">
       <table id="user_table" class="layui-table" lay-even lay-skin="nob">
         <colgroup align="left" span="4">
-            <col width="25%">
-            <col width="18%">
-            <col width="15%">
-            <col width="8%">
-            <col width="34%">
+            <col width="20%">
+            <col width="45%">
+            <col width="35%">
         </colgroup>
         <tbody>
             <tr>
-                <td align="center">用户名</td>
-                <td align="left" colspan="3"></td>
-                <td rowspan="5"><img id="user_touImg" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 146px;height: 176px"></td>
+                <td align="left">用户名</td>
+                <td align="left"></td>
+                <td rowspan="4"><img id="user_touImg" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 136px;height: 148px"></td>
             </tr>
             <tr>
-                <td align="center">姓名</td>
-                <td align="center"></td>
-                <td align="center">性别</td>
-                <td id="hospital2" align="center"></td>
+                <td align="left">姓名</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">状态</td>
-                <td id="doctor_name2" align="center"></td>
+                <td align="left">性别</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">身份证号</td>
-                <td id="sfzNumber" colspan="3"></td>
+                <td align="left">状态</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">生日</td>
-                <td id="modifyTime" colspan="4"></td>
+                <td align="left">身份证号</td>
+                <td id="sfzNumber" colspan="2"></td>
             </tr>
             <tr>
-                <td align="center">创建日期</td>
-                <td id="birthday" colspan="4"></td>
+                <td align="left">生日</td>
+                <td id="modifyTime" colspan="2"></td>
             </tr>
             <tr>
-                <td align="center">修改日期</td>
-                <td id="createTime" colspan="4"></td>
+                <td align="left">创建日期</td>
+                <td id="birthday" colspan="2"></td>
             </tr>
             <tr>
-                <td valign="top" align="center">地址</td>
-                <td id="address" colspan="4" style="height: 50px"></td>
+                <td align="left">修改日期</td>
+                <td id="createTime" colspan="2"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left">地址</td>
+                <td id="address" valign="top" colspan="2" style="height: 50px"></td>
             </tr>
             </tbody>
       </table>

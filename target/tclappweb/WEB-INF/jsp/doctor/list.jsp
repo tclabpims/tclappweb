@@ -95,15 +95,15 @@
               <thead>
                 <tr>
                     <th class="center left-con" width="8%">编号</th>
-                    <th class="center left-con" width="12%">用户名</th>
-                    <th class="center left-con" width="12%">采集点</th>
+                    <th class="center left-con" width="14%">用户名</th>
+                    <th class="center left-con" width="14%">采集点</th>
                     <th class="center left-con" width="10%">姓名</th>
-                    <th class="center left-con" width="10%">职称</th>
-                    <th class="center left-con" width="8%">解读次数</th>
-                    <th class="center left-con" width="8%">服务次数</th>
+                    <%--<th class="center left-con" width="10%">职称</th>--%>
+                    <th class="center left-con" width="10%">解读次数</th>
+                    <th class="center left-con" width="10%">服务次数</th>
                     <th class="center left-con" width="8%">状态</th>
-                    <th class="center left-con" width="8%">类型</th>
-                    <th class="center left-con" width="16%">操作</th>
+                    <th class="center left-con" width="8%">岗位</th>
+                    <th class="center left-con" width="18%">操作</th>
                 </tr>
               </thead>
               <tbody id="all_task0">
@@ -116,7 +116,7 @@
                         <td class="center left-con">${item.userName}</td>
                         <td class="center left-con">${item.hospitalName}</td>
                         <td class="center left-con">${item.doctorName}</td>
-                        <td class="center left-con">${item.title}</td>
+                        <%--<td class="center left-con">${item.title}</td>--%>
                         <td class="center left-con">${item.readReportNum}</td>
                         <td class="center left-con">${item.diagnosisNum}</td>
                         <td class="center left-con">
@@ -405,49 +405,55 @@
         </colgroup>
         <tbody>
             <tr>
-                <td align="center">姓名</td>
-                <td align="center"></td>
-                <td align="center">性别</td>
-                <td align="center"></td>
-                <td rowspan="5"><img id="doctor_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 168px;height: 184px"></td>
+                <td align="left">姓名</td>
+                <td align="left"></td>
+                <td align="left">性别</td>
+                <td align="left"></td>
+                <td rowspan="5"><img id="doctor_picture" alt="头像" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 168px;height: 184px"></td>
             </tr>
             <tr>
-                <td align="center">医院名称</td>
-                <td align="center"></td>
-                <td align="center">年龄</td>
-                <td align="center"></td>
+                <td align="left">医院名称</td>
+                <td align="left"></td>
+                <td align="left">年龄</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">职称</td>
-                <td align="center"></td>
-                <td align="center">岗位</td>
-                <td align="center"></td>
+                <td align="left">职称</td>
+                <td align="left"></td>
+                <td align="left">岗位</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">学历</td>
-                <td align="center"></td>
-                <td align="center">科室</td>
-                <td align="center"></td>
+                <td align="left">学历</td>
+                <td align="left"></td>
+                <td align="left">科室</td>
+                <td align="left"></td>
             </tr>
             <tr>
-                <td align="center">身份证号</td>
+                <td align="left">身份证号</td>
                 <td id="sfzNumber" colspan="3"></td>
             </tr>
             <tr>
-                <td align="center">从业执照号</td>
+                <td align="left">执业证书编码</td>
                 <td colspan="2"></td>
-                <td align="center">职称号码</td>
+                <td align="left">职称号码</td>
                 <td></td>
             </tr>
             <tr>
-                <td align="center">创建时间</td>
+                <td align="left">创建时间</td>
                 <td colspan="2"></td>
-                <td align="center">修改时间</td>
+                <td align="left">修改时间</td>
                 <td></td>
             </tr>
             <tr>
-                <td valign="top" align="center" style="height: 400px">医生简介</td>
-                <td id="doctorIntroduce" colspan="4" style="height: 400px" valign="top"></td>
+                <td>执业证书</td>
+                <td colspan="2" style="height: 200px"><img id="doctor_zzImg" alt="执业证书" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 168px;height: 184px"></td>
+                <td>职称证书</td>
+                <td style="height: 200px"><img id="doctor_zcImg" alt="职称证书" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>" style="width: 168px;height: 184px"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="center" style="height: 80px">医生简介</td>
+                <td id="doctorIntroduce" colspan="4" style="height: 80px" valign="top"></td>
             </tr>
         </tbody>
       </table>

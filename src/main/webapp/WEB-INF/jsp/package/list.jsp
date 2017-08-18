@@ -157,60 +157,90 @@
     <br/><form id="add_package_form" action="" class="layui-form">
     <%--套餐名称--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">套餐名称</label>
+        <label class="layui-form-label" style="width: 100px">套餐名称</label>
         <div class="layui-input-block">
             <input type="text" id="name_add" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--使用人群---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">使用人群</label>
+        <label class="layui-form-label" style="width: 100px">使用人群</label>
         <div class="layui-input-block">
             <input type="text" name="useCrowd" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--价格---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">价格</label>
-            <div class="layui-input-block">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 100px">价格</label>
+            <div class="layui-input-inline">
                 <input type="text" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
             </div>
+        </div>
+        <div class="layui-inline">
+            <span>&nbsp;&nbsp;元</span>
+        </div>
+    </div>
+    <%--报告时间---%>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 100px">报告时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="reportTime" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <span>&nbsp;&nbsp;小时</span>
+        </div>
     </div>
     <%--报告时间说明---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">报告时间</label>
+        <label class="layui-form-label" style="width: 100px">报告时间说明</label>
         <div class="layui-input-block">
-            <input type="text" name="reportTime" required lay-verify="required" class="layui-input" style="width: 260px">
+            <input type="text" name="reportTimeDesc" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--物价编号---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">物价编号</label>
+        <label class="layui-form-label" style="width: 100px">物价编号</label>
         <div class="layui-input-block">
             <input type="text" name="wjCode" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--使用数量---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">使用数量</label>
-        <div class="layui-input-block">
-            <input type="text" name="saleNum" required lay-verify="required" class="layui-input" style="width: 260px">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 100px">使用数量</label>
+            <div class="layui-input-inline">
+                <input type="text" name="saleNum" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <span>&nbsp;&nbsp;次</span>
         </div>
     </div>
     <%--套餐图片--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">套餐图片</label>
+        <label class="layui-form-label" style="width: 100px">套餐图片</label>
         <div class="layui-input-block">
             <input type="file" id="picUrl_add" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
             <input type="hidden" id="picUrl_add_" name="picUrl" />
             <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPic()">
         </div>
     </div>
-
+    <%--套餐详情图片--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">套餐详情图片</label>
+        <div class="layui-input-block">
+            <input type="file" id="detailImg_add" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+            <input type="hidden" id="detailImg_add_" name="detailImg" />
+            <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadDetailImg()">
+        </div>
+    </div>
     <%--套餐状态--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">套餐状态</label>
-        <div class="layui-input-block" style="width: 260px">
+        <label class="layui-form-label" style="width: 100px">套餐状态</label>
+        <div class="layui-input-inline" style="width: 260px">
             <select name="status" lay-verify="">
                 <option value=""></option>
                 <option value="0">未发布</option>
@@ -222,7 +252,7 @@
 
     <%--检验分类---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">检验分类</label>
+        <label class="layui-form-label" style="width: 100px">检验分类</label>
         <div class="layui-input-block">
             <input type="text" name="testType" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
@@ -230,7 +260,7 @@
 
     <%--疾病分类---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">疾病分类</label>
+        <label class="layui-form-label" style="width: 100px">疾病分类</label>
         <div class="layui-input-block">
             <input type="text" name="diseaseType" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
@@ -238,7 +268,7 @@
 
     <%--采集分类---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">采集分类</label>
+        <label class="layui-form-label" style="width: 100px">采集分类</label>
         <div class="layui-input-block">
             <input type="text" name="takeType" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
@@ -246,21 +276,21 @@
 
     <%--注意事项--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">注意事项</label>
+        <label class="layui-form-label" style="width: 100px">注意事项</label>
         <div class="layui-input-block">
             <textarea name="needAttention" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
     </div>
     <%--检验项目说明--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">项目说明</label>
+        <label class="layui-form-label" style="width: 100px">项目说明</label>
         <div class="layui-input-block">
             <textarea name="projectDesc" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
     </div>
     <%--相关问题及免责条款--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">相关问题及免责条款</label>
+        <label class="layui-form-label" style="width: 100px">相关问题及免责条款</label>
         <div class="layui-input-block">
             <textarea name="clause" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
@@ -297,7 +327,7 @@
     <br/><form id="edit_package_form" action="" class="layui-form">
     <%--套餐名称--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">套餐名称</label>
+        <label class="layui-form-label" style="width: 100px">套餐名称</label>
         <div class="layui-input-block">
             <input type="hidden" id="edit_id" name="id">
             <input type="text" id="edit_name" name="name" required lay-verify="required" class="layui-input" style="width: 260px">
@@ -305,53 +335,84 @@
     </div>
     <%--使用人群---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">使用人群</label>
+        <label class="layui-form-label" style="width: 100px">使用人群</label>
         <div class="layui-input-block">
             <input type="text" id="edit_useCrowd" name="useCrowd" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--价格---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">价格</label>
-        <div class="layui-input-block">
-            <input type="text" id="edit_price" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 100px">价格</label>
+            <div class="layui-input-inline">
+                <input type="text" id="edit_price" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <span>&nbsp;&nbsp;元</span>
         </div>
     </div>
-    <%--报告时间说明---%>
+    <%--报告时间--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">报告时间</label>
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 100px">报告时间</label>
+            <div class="layui-input-inline">
+                <input type="text" id="edit_reportTime" name="reportTime" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <span>&nbsp;&nbsp;小时</span>
+        </div>
+    </div>
+    <%--报告时间说明--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">报告时间说明</label>
         <div class="layui-input-block">
-            <input type="text" id="edit_reportTime" name="reportTime" required lay-verify="required" class="layui-input" style="width: 260px">
+            <input type="text" id="edit_reportTimeDesc" name="reportTimeDesc" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--物价编号---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">物价编号</label>
+        <label class="layui-form-label" style="width: 100px">物价编号</label>
         <div class="layui-input-block">
             <input type="text" id="edit_wjCode" name="wjCode" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--使用数量---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">使用数量</label>
-        <div class="layui-input-block">
-            <input type="text" id="edit_saleNum" name="saleNum" required lay-verify="required" class="layui-input" style="width: 260px">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 100px">使用数量</label>
+            <div class="layui-input-inline">
+                <input type="text" id="edit_saleNum" name="saleNum" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <span>&nbsp;&nbsp;次</span>
         </div>
     </div>
     <%--套餐图片--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">套餐图片</label>
+        <label class="layui-form-label" style="width: 100px">套餐图片</label>
         <div class="layui-input-block">
             <input type="file" id="picUrl_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
             <input type="hidden" id="picUrl_edit_" name="picUrl" />
             <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadPicEdit()">
         </div>
     </div>
+    <%--套餐详情图片--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">套餐详情图片</label>
+        <div class="layui-input-block">
+            <input type="file" id="detailImg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+            <input type="hidden" id="detailImg_edit_" name="detailImg" />
+            <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadDetailImgEdit()">
+        </div>
+    </div>
 
     <%--套餐状态--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">套餐状态</label>
-        <div class="layui-input-block" style="width: 260px">
+        <label class="layui-form-label" style="width: 100px">套餐状态</label>
+        <div class="layui-input-inline" style="width: 260px">
             <select id="edit_status" name="status" lay-verify="">
                 <option value=""></option>
                 <option value="0">未发布</option>
@@ -363,7 +424,7 @@
 
     <%--检验分类---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">检验分类</label>
+        <label class="layui-form-label" style="width: 100px">检验分类</label>
         <div class="layui-input-block">
             <input type="text" id="edit_testType" name="testType" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
@@ -371,7 +432,7 @@
 
     <%--疾病分类---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">疾病分类</label>
+        <label class="layui-form-label" style="width: 100px">疾病分类</label>
         <div class="layui-input-block">
             <input type="text" id="edit_diseaseType" name="diseaseType" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
@@ -379,7 +440,7 @@
 
     <%--采集分类---%>
     <div class="layui-form-item">
-        <label class="layui-form-label">采集分类</label>
+        <label class="layui-form-label" style="width: 100px">采集分类</label>
         <div class="layui-input-block">
             <input type="text" id="edit_takeType" name="takeType" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
@@ -387,21 +448,21 @@
 
     <%--注意事项--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">注意事项</label>
+        <label class="layui-form-label" style="width: 100px">注意事项</label>
         <div class="layui-input-block">
             <textarea id="edit_needAttention" name="needAttention" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
     </div>
     <%--检验项目说明--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">项目说明</label>
+        <label class="layui-form-label" style="width: 100px">项目说明</label>
         <div class="layui-input-block">
             <textarea id="edit_projectDesc" name="projectDesc" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
     </div>
     <%--相关问题及免责条款--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">相关问题及免责条款</label>
+        <label class="layui-form-label" style="width: 100px">相关问题及免责条款</label>
         <div class="layui-input-block">
             <textarea id="edit_clause" name="clause" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
@@ -416,63 +477,74 @@
         <colgroup align="left" span="4">
             <col width="20%">
             <col width="30%">
-            <col width="20%">
-            <col width="30%">
+            <col width="5%">
+            <col width="45%">
             <%--<col width="27%">
             <col width="23%">--%>
         </colgroup>
         <tbody>
         <tr>
-            <td align="center">套餐名称</td>
-            <td align="center"></td>
-            <td rowspan="4" colspan="2"><img id="package_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
-                                 style="width: 260px;height: 140px"></td>
+            <td align="left">套餐名称</td>
+            <td align="left"></td>
+            <td rowspan="4">套餐主图</td>
+            <td rowspan="4"><img id="package_picture" alt="套餐主图" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
+                                 style="width: 220px;height: 140px"></td>
         </tr>
         <tr>
-            <td align="center">价格</td>
-            <td align="center"></td>
+            <td align="left">价格</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">套餐状态</td>
-            <td align="center"></td>
+            <td align="left">套餐状态</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">报告时间说明</td>
-            <td align="center"></td>
+            <td align="left">报告时间</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">物价编码</td>
-            <td align="center"></td>
-            <td align="center">已使用数量</td>
-            <td align="center"></td>
+            <td align="left">报告时间说明</td>
+            <td align="left"></td>
+            <td align="left" rowspan="4">套餐详情图</td>
+            <td rowspan="4">
+                <img alt="套餐详情图" id="packageDetailImg" style="width: 220px;height: 140px">
+            </td>
         </tr>
         <tr>
-            <td align="center">使用人群</td>
-            <td align="center" colspan="3"></td>
+            <td align="left">已使用数量</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">检验分类</td>
-            <td align="center" colspan="3"></td>
+            <td align="left">物价编码</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">疾病分类</td>
-            <td align="center" colspan="3"></td>
+            <td align="left">检验分类</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">采集分类</td>
-            <td align="center" colspan="3"></td>
+            <td align="left">使用人群</td>
+            <td align="left" colspan="3"></td>
         </tr>
         <tr>
-            <td valign="top" align="center" style="height: 120px">注意事项</td>
-            <td colspan="3" style="height: 120px" valign="top"></td>
+            <td align="left">疾病分类</td>
+            <td align="left" colspan="3"></td>
         </tr>
         <tr>
-            <td valign="top" align="center" style="height: 160px">检验项目说明</td>
-            <td colspan="3" style="height: 160px" valign="top"></td>
+            <td align="left">采集分类</td>
+            <td align="left" colspan="3"></td>
         </tr>
         <tr>
-            <td valign="top" align="center" style="height: 160px">相关问题及免责条款</td>
-            <td colspan="3" style="height: 160px" valign="top"></td>
+            <td valign="top" align="left" style="height: 50px">注意事项</td>
+            <td colspan="3" style="height: 50px" valign="top"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">检验项目说明</td>
+            <td colspan="3" style="height: 50px" valign="top"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">相关问题及免责条款</td>
+            <td colspan="3" style="height: 50px" valign="top"></td>
         </tr>
         </tbody>
     </table>

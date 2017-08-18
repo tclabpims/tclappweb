@@ -59,8 +59,8 @@
                 <th class="center left-con" width="18%">his名称</th>
                 <th class="center left-con" width="10%">his价格到分</th>
                 <th class="center left-con" width="21%">套餐名称</th>
-                <th class="center left-con" width="21%">项目名称</th>
-                <th class="center left-con" width="10%">价格</th>
+                <th class="center left-con" width="31%">项目名称</th>
+                <%--<th class="center left-con" width="10%">价格</th>--%>
                 <th class="center left-con" width="30%">操作</th>
             </tr>
             </thead>
@@ -75,7 +75,7 @@
                     <td class="center left-con">${item.hisPrice}</td>
                     <td class="center left-con">${item.packageModel.name}</td>
                     <td class="center left-con">${item.name}</td>
-                    <td class="center left-con">${item.price}</td>
+                    <%--<td class="center left-con">${item.price}</td>--%>
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;

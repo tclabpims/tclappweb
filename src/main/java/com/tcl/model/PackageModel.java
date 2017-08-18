@@ -19,6 +19,8 @@ public class PackageModel {
 
     private String picUrl;
 
+    private String detailImg;
+
     private String status;
 
     private String testType;
@@ -97,6 +99,14 @@ public class PackageModel {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public String getDetailImg() {
+        return detailImg;
+    }
+
+    public void setDetailImg(String detailImg) {
+        this.detailImg = detailImg == null ? null : detailImg.trim();
     }
 
     public String getStatus() {

@@ -59,7 +59,7 @@ public class PackageDetailsController {
      * @param pageNo
      * @return
      */
-    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    @RequestMapping(value = "/query")
     public String queryPackageDetails(ModelMap map, String hisName, String packageName, String name, String pageNo) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
@@ -166,6 +166,12 @@ public class PackageDetailsController {
         return map;
     }
 
+    /**
+     * 导出Excel功能
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
     public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();

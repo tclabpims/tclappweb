@@ -299,34 +299,34 @@
         </colgroup>
         <tbody>
         <tr>
-            <td align="center">广告标题</td>
-            <td align="center"></td>
+            <td align="left">广告标题</td>
+            <td align="left"></td>
             <td rowspan="5"><img id="newspaper_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
                                  style="width: 260px;height: 180px"></td>
         </tr>
         <tr>
-            <td align="center">广告类型</td>
-            <td align="center"></td>
+            <td align="left">广告类型</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">广告状态</td>
-            <td align="center"></td>
+            <td align="left">广告状态</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">创建人</td>
-            <td align="center"></td>
+            <td align="left">创建人</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center">创建时间</td>
-            <td align="center"></td>
+            <td align="left">创建时间</td>
+            <td align="left"></td>
         </tr>
         <tr>
-            <td align="center" align="center">内容链接</td>
+            <td align="left">内容链接</td>
             <td colspan="2"></td>
         </tr>
         <tr>
-            <td valign="top" align="center" style="height: 240px">广告描述</td>
-            <td colspan="2" style="height: 240px" valign="top"></td>
+            <td valign="top" align="left" style="height: 240px">广告描述</td>
+            <td colspan="2" valign="top" style="height: 240px"></td>
         </tr>
         </tbody>
     </table>

@@ -3,6 +3,10 @@ package com.tcl.controller;
 import com.tcl.model.UserModel;
 import com.tcl.service.UserService;
 import com.tcl.utils.StringUtil;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -206,5 +213,66 @@ public class UserController {
             map.put("list",new ArrayList<UserModel>());
         }
         return map;
+    }
+    /**
+     * 导出Excel功能
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
+    public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<UserModel> user_list = null;
+        //标题行
+        String title[] = {"用户Id", "用户名", "姓名", "性别", "状态", "身份证号", "生日", "地址", "验证码", "验证码发送时间", "创建时间", "修改时间"};
+        StringBuilder tempPath = new StringBuilder();
+        SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
+        tempPath.append(fileNameFormat.format(new Date()));
+        tempPath.append(".").append("xls");
+        String filename = tempPath.toString();
+        try {
+            response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
+            OutputStream os = response.getOutputStream();
+            WritableWorkbook book = Workbook.createWorkbook(os);
+            WritableSheet sheet = book.createSheet("套餐信息", 0);
+            //写入标题
+            for (int i=0; i<title.length; i++) {
+                sheet.addCell(new Label(i, 0, title[i]));
+            }
+            user_list = userService.selectList(new HashMap<String, Object>());
+            for (int i=0; i<user_list.size(); i++) {
+                int j=0;
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getId() != null ? Long.toString(user_list.get(i).getId()) : ""));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getUserName()));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getName()));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getSex()));
+                if (user_list.get(i).getStatus().equals("1")) {
+                    sheet.addCell(new Label(j++, i + 1, "可用"));
+                } else if (user_list.get(i).getStatus().equals("2")) {
+                    sheet.addCell(new Label(j++, i + 1, "不可用"));
+                } else {
+                    sheet.addCell(new Label(j++, i + 1, "暂无"));
+                }
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getSfzNum()));
+                sheet.addCell(new Label(j++, i + 1, user_list.get(i).getBirthday() != null ? StringUtil.getFormatDate(user_list.get(i).getBirthday()) : ""));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getAddress()));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getVerificationCode()));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getCodeSendTime() != null ? StringUtil.getFormatDate(user_list.get(i).getCodeSendTime()) : ""));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getCreateTime() != null ? StringUtil.getFormatDate(user_list.get(i).getCreateTime()) : ""));
+                sheet.addCell(new Label(j++, i+1, user_list.get(i).getModifyTime() != null ? StringUtil.getFormatDate(user_list.get(i).getModifyTime()) : ""));
+            }
+            //写入数据
+            book.write();
+            //关闭文件
+            book.close();
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
