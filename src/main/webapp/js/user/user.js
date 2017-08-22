@@ -174,7 +174,7 @@ function uploadTouImgEdit() {
         success:function(data){
             layui.use('layer', function() {
                 var layer = layui.layer;
-                if(data.txt != null || data.txt != "") {
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
                     tou_img_edit_path = data.txt;
                     layer.msg("上传成功", {
                         time: 1000,
@@ -235,11 +235,10 @@ function ItemDetail(id) {
         } else if(user.status == "2") {
             user_table.rows[3].cells[1].innerHTML = "不可用";
         }
-
         user_table.rows[4].cells[1].innerHTML = user.sfzNum;
-        user_table.rows[5].cells[1].innerHTML = new Date(user.birthday).format("yyyy-MM-dd");
-        user_table.rows[6].cells[1].innerHTML = new Date(user.createTime).format("yyyy-MM-dd hh:mm:ss");
-        user_table.rows[7].cells[1].innerHTML = new Date(user.modifyTime).format("yyyy-MM-dd hh:mm:ss");
+        user_table.rows[5].cells[1].innerHTML = user.birthday != null ? new Date(user.birthday).format("yyyy-MM-dd") : "";
+        user_table.rows[6].cells[1].innerHTML = user.createTime != null ? new Date(user.createTime).format("yyyy-MM-dd hh:mm:ss") : "";
+        user_table.rows[7].cells[1].innerHTML = user.modifyTime != null ? new Date(user.modifyTime).format("yyyy-MM-dd hh:mm:ss") : "";
         user_table.rows[8].cells[1].innerHTML = user.address;
         $("#user_touImg").attr("src", $("#user_touImg")[0].title + user.touImg);
     })
@@ -308,7 +307,7 @@ function uploadTouImg() {
         success:function(data){
             layui.use('layer', function() {
                 var layer = layui.layer;
-                if(data.txt != null || data.txt != "") {
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
                     tou_img_path = data.txt;
                     layer.msg("上传成功", {
                         time: 1000,
@@ -385,3 +384,64 @@ function exportExcel() {
     })
 }
 
+/*导入Excel表格中的数据*/
+function importExcel() {
+    $(document).ready(function() {
+        if($("#selectedExcelFile")[0].files[0] == undefined) {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.msg('请选择文件', {
+                    time: 1000,
+                    offset: '160px'
+                })
+            })
+            return;
+        }
+        if($("#selectedExcelFile").val().lastIndexOf(".xls") < 0) {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.msg('只能上传Excel文件', {
+                    time: 1000,
+                    offset: '160px'
+                })
+                setTimeout(function() {
+                    location.reload();
+                }, 1000)
+            })
+            return;
+        }
+        var formData = new FormData();
+        formData.append("excelFile", $("#selectedExcelFile")[0].files[0]);
+        $.ajax({
+            type: "post",
+            url: "excelImport.do",
+            async: false,
+            contentType: false,    //这个一定要写
+            processData: false, //这个也一定要写，不然会报错
+            data:formData,
+            dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+            success:function(data){
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    layer.msg(data.msg, {
+                        time: 1000,
+                        offset: '160px'
+                    })
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000)
+                });
+            },
+            error:function(er){
+                console.log(er);
+            }
+        });
+    })
+}
+
+/*var temp_form = document.createElement("form");
+ temp_form.action = getRootPath() + "/exportexcel.do";
+ temp_form.method = "post";
+ temp_form.style.display = "none";
+ document.body.appendChild(temp_form);
+ temp_form.submit();*/

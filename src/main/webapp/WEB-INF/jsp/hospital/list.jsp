@@ -155,6 +155,16 @@
                 </div>
             </div>
 
+            <%--医院大图--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院大图</label>
+                <div class="layui-input-block">
+                    <input type="file" id="bigImg_add" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+                    <input type="hidden" id="bigImg_add_" name="bigImg"/>
+                    <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadBigImg()">
+                </div>
+            </div>
+
             <%--医院电话--%>
             <div class="layui-form-item">
                 <label class="layui-form-label">医院电话</label>
@@ -163,31 +173,31 @@
                 </div>
             </div>
 
-                <%--医院经度--%>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">医院经度</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="longitude" required lay-verify="required" class="layui-input" style="width: 200px">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
+            <%--医院经度--%>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">医院经度</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="longitude" required lay-verify="required" class="layui-input" style="width: 200px">
                     </div>
                 </div>
+                <div class="layui-inline">
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
+                </div>
+            </div>
 
-                <%--医院纬度--%>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">医院纬度</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="latitude" required lay-verify="required" class="layui-input" style="width: 200px">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
+            <%--医院纬度--%>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">医院纬度</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="latitude" required lay-verify="required" class="layui-input" style="width: 200px">
                     </div>
                 </div>
+                <div class="layui-inline">
+                    <input type="button" class="layui-btn layui-btn-radius layui-btn-small" value="获取" onclick="getLongitudeAndLatitude()">
+                </div>
+            </div>
 
             <%--支付宝付款账户--%>
             <div class="layui-form-item">
@@ -206,12 +216,12 @@
             </div>
 
             <%--检验项目说明--%>
-            <div class="layui-form-item">
+            <%--<div class="layui-form-item">
                 <label class="layui-form-label">检验说明</label>
                 <div class="layui-input-block">
                     <textarea name="projectDesc" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
                 </div>
-            </div>
+            </div>--%>
 
             <%--特色优势--%>
             <div class="layui-form-item">
@@ -267,6 +277,16 @@
                 </div>
             </div>
 
+            <%--医院大图--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医院大图</label>
+                <div class="layui-input-block">
+                    <input type="file" id="bigImg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+                    <input type="hidden" id="bigImg_edit_" name="bigImg"/>
+                    <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadBigImgEdit()">
+                </div>
+            </div>
+
             <%--医院电话--%>
             <div class="layui-form-item">
                 <label class="layui-form-label">医院电话</label>
@@ -318,12 +338,12 @@
             </div>
 
             <%--检验项目说明--%>
-            <div class="layui-form-item">
+            <%--<div class="layui-form-item">
                 <label class="layui-form-label">检验说明</label>
                 <div class="layui-input-block">
                     <textarea id="edit_projectDesc" name="projectDesc" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
                 </div>
-            </div>
+            </div>--%>
 
             <%--特色优势--%>
             <div class="layui-form-item">
@@ -365,7 +385,7 @@
             <tr>
                 <td align="left">医院名称</td>
                 <td align="left"></td>
-                <td rowspan="4"><img id="hospital_picture" alt="照片" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
+                <td rowspan="4"><img id="hospital_picture" alt="医院主图" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
                                      style="width: 260px;height: 160px"></td>
             </tr>
             <tr>
@@ -384,10 +404,10 @@
                 <td align="left">地址</td>
                 <td colspan="2" align="left"></td>
             </tr>
-            <tr>
+            <%--<tr>
                 <td valign="top" align="left" style="height: 80px">检验项目说明</td>
                 <td colspan="2" style="height: 80px" valign="top"></td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td valign="top" align="left" style="height: 80px">特色优势</td>
                 <td colspan="2" style="height: 80px" valign="top"></td>
@@ -399,6 +419,11 @@
             <tr>
                 <td valign="top" align="left" style="height: 100px">详情介绍</td>
                 <td colspan="2" style="height: 100px" valign="top"></td>
+            </tr>
+            <tr>
+                <td>医院大图</td>
+                <td colspan="2"><img id="hospital_bigImg" alt="医院大图" title="<%@include file="../../ImgUrl/acquireUrl.jsp"%>"
+                                     style="width: 460px;height: 160px"></td>
             </tr>
             </tbody>
         </table>

@@ -4,8 +4,11 @@ package com.tcl.service.impl;
 import com.tcl.dao.DoctorModelMapper;
 import com.tcl.model.DoctorModel;
 import com.tcl.service.DoctorService;
+import com.tcl.utils.excel.ReadExcel;
+import com.tcl.utils.excel.impl.ReadDoctorExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -137,5 +140,22 @@ public class DoctorServiceImpl implements DoctorService{
         map.put("start_num", start_num);
         map.put("page_size", page_size);
         return doctorDao.queryPageDoctorByInfo(map);
+    }
+
+    public String importExcelFile(MultipartFile excelFile) {
+        String result = "";
+        //创建处理Excel的类
+        ReadExcel readExcel = new ReadDoctorExcel();
+        List<DoctorModel> doctorList = readExcel.getExcelInfo(excelFile);
+        if (doctorList != null && !doctorList.isEmpty()) {
+            //userDao.batchInsert(userLists);
+            for (int i=0; i<doctorList.size(); i++) {
+                doctorDao.insert(doctorList.get(i));
+            }
+            result = "导入成功";
+        } else {
+            result = "导入失败";
+        }
+        return result;
     }
 }

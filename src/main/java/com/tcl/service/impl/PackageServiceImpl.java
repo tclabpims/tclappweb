@@ -4,8 +4,11 @@ import com.tcl.dao.PackageModelMapper;
 import com.tcl.model.PackageModel;
 import com.tcl.model.PackageModelWithBLOBs;
 import com.tcl.service.PackageService;
+import com.tcl.utils.excel.ReadExcel;
+import com.tcl.utils.excel.impl.ReadPackageExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -47,5 +50,22 @@ public class PackageServiceImpl implements PackageService {
 
 	public int updateById(PackageModelWithBLOBs packageMode) {
 		return packageDao.updateByPrimaryKeySelective(packageMode);
+	}
+
+	public String importExcelFile(MultipartFile excelFile) {
+		String result = "";
+		//创建处理Excel的类
+		ReadExcel readExcel = new ReadPackageExcel();
+		List<PackageModelWithBLOBs> packageList = readExcel.getExcelInfo(excelFile);
+		if (packageList != null && !packageList.isEmpty()) {
+			//userDao.batchInsert(userLists);
+			for (int i=0; i<packageList.size(); i++) {
+				packageDao.insert(packageList.get(i));
+			}
+			result = "导入成功";
+		} else {
+			result = "导入失败";
+		}
+		return result;
 	}
 }

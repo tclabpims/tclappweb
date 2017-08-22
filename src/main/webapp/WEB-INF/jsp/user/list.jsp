@@ -66,13 +66,15 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询"/>
               &nbsp;&nbsp;&nbsp;
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addUser()">新增</button>
+              &nbsp;&nbsp;&nbsp;
+              <div class="layui-input-inline">
+                <input type="file" class="input_text_style" style="width: 120px" id="selectedExcelFile" name="excelFile">
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <button type="button" class="layui-btn layui-btn-small" onclick="importExcel()">Excel导入</button>
               &nbsp;&nbsp;&nbsp;
               <button type="button" class="layui-btn layui-btn-small" onclick="exportExcel()">导出Excel</button>
             </form>
@@ -101,7 +103,10 @@
                         <td class="center left-con">${item.name}</td>
                         <td class="center left-con">${item.sfzNum}</td>
                         <td class="center left-con">${item.sex}</td>
-                        <td class="center left-con">${item.status}</td>
+                        <td class="center left-con">
+                            <c:if test="${item.status == '1'}">可用</c:if>
+                            <c:if test="${item.status == '2'}">不可用</c:if>
+                        </td>
                         <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                         <td class="center left-con">
                             <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}')">删除</a></span>&nbsp;&nbsp;
@@ -119,7 +124,7 @@
                       第${pageNo}页&nbsp;&nbsp;
                       <c:choose>
                           <c:when test="${pageNo > 1}">
-                            <a href="${pageContext.request.contextPath}/doctor/query.do?pageNo=${pageNo - 1}&userName=${userName_}&name=${name}&status=${status}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">
+                            <a href="${pageContext.request.contextPath}/user/query.do?pageNo=${pageNo - 1}&userName=${userName_}&name=${name}&status=${status}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">
                             上一页</a>&nbsp;&nbsp;
                           </c:when>
                             <c:otherwise>
@@ -128,7 +133,7 @@
                       </c:choose>
                       <c:choose>
                         <c:when test="${pageNo < totalPage}">
-                            <a href="${pageContext.request.contextPath}/doctor/query.do?pageNo=${pageNo + 1}&userName=${userName_}&name=${name}&status=${status}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">
+                            <a href="${pageContext.request.contextPath}/user/query.do?pageNo=${pageNo + 1}&userName=${userName_}&name=${name}&status=${status}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">
                             下一页</a>&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
@@ -143,7 +148,7 @@
                       第${pageNo}页&nbsp;&nbsp;
                       <c:choose>
                         <c:when  test="${pageNo > 1}">
-                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo - 1}">上一页</a>&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/user/list.do?pageNo=${pageNo - 1}">上一页</a>&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
                             <a href="#">上一页</a>&nbsp;&nbsp;
@@ -151,7 +156,7 @@
                       </c:choose>
                       <c:choose>
                         <c:when test="${pageNo < totalPage}">
-                            <a href="${pageContext.request.contextPath}/doctor/list.do?pageNo=${pageNo + 1}">下一页</a>&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/user/list.do?pageNo=${pageNo + 1}">下一页</a>&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
                             <a href="#">下一页</a>&nbsp;&nbsp;
@@ -224,10 +229,8 @@
           <div class="layui-input-block" style="width: 260px">
               <select id="edit_status" name="status" lay-verify="">
                   <option value=""></option>
-                  <option value="0">初始化</option>
                   <option value="1">可用</option>
-                  <option value="2">待审核</option>
-                  <option value="3">停用</option>
+                  <option value="2">不可用</option>
               </select>
           </div>
       </div>

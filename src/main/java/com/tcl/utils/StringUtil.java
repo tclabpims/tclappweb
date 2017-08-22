@@ -1,6 +1,7 @@
 package com.tcl.utils;
 
 import java.security.MessageDigest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,6 +13,34 @@ public class StringUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String datetime = sdf.format(date);
         return datetime;
+    }
+
+    /**
+     * 自定义时间格式
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String getFormatDate(Date date, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String birthday = sdf.format(date);
+        return birthday;
+    }
+
+    /**
+     * 将字符串时间改为Date时间
+     * @param time
+     * @return
+     */
+    public static Date getDate(String time, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date date = null;
+        try {
+            date = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     /**

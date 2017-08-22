@@ -255,3 +255,58 @@ function exportExcel() {
     })
 }
 
+/*导入Excel表格中的数据*/
+function importExcel() {
+    $(document).ready(function() {
+        if($("#selectedExcelFile")[0].files[0] == undefined) {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.msg('请选择文件', {
+                    time: 1000,
+                    offset: '160px'
+                })
+            })
+            return;
+        }
+        if($("#selectedExcelFile").val().lastIndexOf(".xls") < 0) {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.msg('只能上传Excel文件', {
+                    time: 1000,
+                    offset: '160px'
+                })
+                setTimeout(function() {
+                    location.reload();
+                }, 1000)
+            })
+            return;
+        }
+        var formData = new FormData();
+        formData.append("excelFile", $("#selectedExcelFile")[0].files[0]);
+        $.ajax({
+            type: "post",
+            url: "excelImport.do",
+            async: false,
+            contentType: false,    //这个一定要写
+            processData: false, //这个也一定要写，不然会报错
+            data:formData,
+            dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+            success:function(data){
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    layer.msg(data.msg, {
+                        time: 1000,
+                        offset: '160px'
+                    })
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000)
+                });
+            },
+            error:function(er){
+                console.log(er);
+            }
+        });
+    })
+}
+

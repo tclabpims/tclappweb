@@ -173,7 +173,7 @@ function uploadTouImgEdit() {
         success:function(data){
             layui.use('layer', function() {
                 var layer = layui.layer;
-                if(data.txt != null || data.txt != "") {
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
                     tou_img_edit_path = data.txt;
                     layer.msg("上传成功", {
                         time: 1000,
@@ -209,23 +209,21 @@ function uploadZZImgEdit() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        zzImg_edit_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    zzImg_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -249,23 +247,21 @@ function uploadZCImgEdit() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        zcImg_edit_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    zcImg_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -374,12 +370,34 @@ function ItemDetail(id) {
         doctor_table.rows[5].cells[1].innerHTML = doctor.zzNum;
         doctor_table.rows[5].cells[3].innerHTML = doctor.zcNum;
         doctor_table.rows[6].cells[1].innerHTML = new Date(doctor.createTime).format("yyyy-MM-dd hh:mm:ss");
-        doctor_table.rows[6].cells[3].innerHTML = new Date(doctor.modifyTime).format("yyyy-MM-dd hh:mm:ss");
+        doctor_table.rows[6].cells[3].innerHTML = doctor.modifyTime != null ? new Date(doctor.modifyTime).format("yyyy-MM-dd hh:mm:ss") : "";
         doctor_table.rows[8].cells[1].innerHTML = doctor.introduce;
         $("#doctor_picture").attr("src", $("#doctor_picture")[0].title + doctor.touImg);
         $("#doctor_zzImg").attr("src", doctor.zzImg);
         $("#doctor_zcImg").attr("src", doctor.zcImg);
     })
+}
+/*修改时间的格式*/
+Date.prototype.format = function(format) {
+    var date = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds()
+    };
+    if (/(y+)/i.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in date) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+        }
+    }
+    return format;
 }
 
 /*添加医生*/
@@ -458,7 +476,7 @@ function uploadTouImg() {
         success:function(data){
             layui.use('layer', function() {
                 var layer = layui.layer;
-                if(data.txt != null || data.txt != "") {
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
                     tou_img_path = data.txt;
                     layer.msg("上传成功", {
                         time: 1000,
@@ -494,23 +512,21 @@ function uploadZZImg() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        zzImg_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    zzImg_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -534,23 +550,21 @@ function uploadZCImg() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        zcImg_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    zcImg_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -674,27 +688,59 @@ function exportExcel() {
     })
 }
 
-/*修改时间的格式*/
-Date.prototype.format = function(format) {
-    var date = {
-        "M+": this.getMonth() + 1,
-        "d+": this.getDate(),
-        "h+": this.getHours(),
-        "m+": this.getMinutes(),
-        "s+": this.getSeconds(),
-        "q+": Math.floor((this.getMonth() + 3) / 3),
-        "S+": this.getMilliseconds()
-    };
-    if (/(y+)/i.test(format)) {
-        format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
-    }
-    for (var k in date) {
-        if (new RegExp("(" + k + ")").test(format)) {
-            format = format.replace(RegExp.$1, RegExp.$1.length == 1
-                ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+/*导入Excel表格中的数据*/
+function importExcel() {
+    $(document).ready(function() {
+        if($("#selectedExcelFile")[0].files[0] == undefined) {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.msg('请选择文件', {
+                    time: 1000,
+                    offset: '160px'
+                })
+            })
+            return;
         }
-    }
-    return format;
+        if($("#selectedExcelFile").val().lastIndexOf(".xls") < 0) {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.msg('只能上传Excel文件', {
+                    time: 1000,
+                    offset: '160px'
+                })
+                setTimeout(function() {
+                    location.reload();
+                }, 1000)
+            })
+            return;
+        }
+        var formData = new FormData();
+        formData.append("excelFile", $("#selectedExcelFile")[0].files[0]);
+        $.ajax({
+            type: "post",
+            url: "excelImport.do",
+            async: false,
+            contentType: false,    //这个一定要写
+            processData: false, //这个也一定要写，不然会报错
+            data:formData,
+            dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+            success:function(data){
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    layer.msg(data.msg, {
+                        time: 1000,
+                        offset: '160px'
+                    })
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000)
+                });
+            },
+            error:function(er){
+                console.log(er);
+            }
+        });
+    })
 }
 
 /*

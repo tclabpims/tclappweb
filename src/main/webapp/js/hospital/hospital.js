@@ -17,6 +17,7 @@ function addHospital(){
             btn: ['增加', '取消'],
             yes: function(index, layero) {
                 $("#picUrl_add_").val(hospitalImg_path);
+                $("#bigImg_add_").val(hospitalBigImg_path);
                 $.ajax({
                     url: "add.do",
                     type: "POST",
@@ -68,23 +69,57 @@ function uploadPic() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        hospitalImg_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    hospitalImg_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+
+/*上传医院大图*/
+var hospitalBigImg_path;
+function uploadBigImg() {
+    var formData = new FormData();
+    formData.append('file',$("#bigImg_add")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#bigImg_add")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    hospitalBigImg_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -186,6 +221,7 @@ function ItemEdit(id) {
             btn: ['提交', '取消'],
             yes: function(index, layero) {
                 $("#edit_picUrl_").val(hospitalImg_edit_path);
+                $("#bigImg_edit_").val(hospitalBigImg_edit_path);
                 $.ajax({
                     url: "update.do",
                     type: "POST",
@@ -247,23 +283,57 @@ function uploadPicEdit() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        hospitalImg_edit_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    hospitalImg_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
+}
+
+/*编辑时上传医院大图*/
+var hospitalBigImg_edit_path;
+function uploadBigImgEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#bigImg_edit")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#bigImg_edit")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    hospitalBigImg_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -330,11 +400,12 @@ function ItemDetail(id) {
         hospital_table.rows[2].cells[1].innerHTML = hospital.longitude;
         hospital_table.rows[3].cells[1].innerHTML = hospital.latitude;
         hospital_table.rows[4].cells[1].innerHTML = hospital.address;
-        hospital_table.rows[5].cells[1].innerHTML = hospital.projectDesc;
-        hospital_table.rows[6].cells[1].innerHTML = hospital.specialist;
-        hospital_table.rows[7].cells[1].innerHTML = hospital.route;
-        hospital_table.rows[8].cells[1].innerHTML = hospital.details;
+        /*hospital_table.rows[5].cells[1].innerHTML = hospital.projectDesc;*/
+        hospital_table.rows[5].cells[1].innerHTML = hospital.specialist;
+        hospital_table.rows[6].cells[1].innerHTML = hospital.route;
+        hospital_table.rows[7].cells[1].innerHTML = hospital.details;
         $("#hospital_picture").attr("src", $("#hospital_picture")[0].title + hospital.picUrl);
+        $("#hospital_bigImg").attr("src", $("#hospital_bigImg")[0].title + hospital.bigImg);
     })
 }
 

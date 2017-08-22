@@ -9,11 +9,9 @@ public class HospitalModel {
 
     private String picUrl;
 
+    private String bigImg;
+
     private String telphone;
-
-    private String longitude;
-
-    private String latitude;
 
     private String route;
 
@@ -22,6 +20,10 @@ public class HospitalModel {
     private String weixinPayAccount;
 
     private String distance;
+
+    private String latitude;
+
+    private String longitude;
 
     public Long getId() {
         return id;
@@ -55,28 +57,20 @@ public class HospitalModel {
         this.picUrl = picUrl == null ? null : picUrl.trim();
     }
 
+    public String getBigImg() {
+        return bigImg;
+    }
+
+    public void setBigImg(String bigImg) {
+        this.bigImg = bigImg == null ? null : bigImg.trim();
+    }
+
     public String getTelphone() {
         return telphone;
     }
 
     public void setTelphone(String telphone) {
         this.telphone = telphone == null ? null : telphone.trim();
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude == null ? null : longitude.trim();
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude == null ? null : latitude.trim();
     }
 
     public String getRoute() {
@@ -109,5 +103,21 @@ public class HospitalModel {
 
     public void setDistance(String distance) {
         this.distance = distance == null ? null : distance.trim();
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude == null ? null : latitude.trim();
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude == null ? null : longitude.trim();
     }
 }

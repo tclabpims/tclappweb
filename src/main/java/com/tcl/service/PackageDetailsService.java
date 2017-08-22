@@ -2,6 +2,7 @@ package com.tcl.service;
 
 import com.tcl.model.PackageDetailsModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,6 @@ public interface PackageDetailsService {
     int updateById(PackageDetailsModel packageDetailsModel);
 
     int deleteById(long id);
+
+    String importExcelFile(MultipartFile excelFile);
 }

@@ -18,9 +18,9 @@
                 </ul>
               </li>
              <li class="active">
-                 <a id="menu2" href="#" class="adbj2 ad" data-spm-anchor-id="0.0.0.0">医院管理</a>
+                 <a id="menu2" href="#" class="adbj2 ad" data-spm-anchor-id="0.0.0.0">采集点管理</a>
                  <ul id="divmenu2" class="sub-menu" style="display: none;">
-                     <li><a id="sub21" href="/hospital/list.do?type=">医院列表</a></li>
+                     <li><a id="sub21" href="/hospital/list.do?type=">采集点列表</a></li>
                  </ul>
              </li>
                <li class="active">

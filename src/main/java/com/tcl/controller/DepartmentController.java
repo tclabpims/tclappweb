@@ -36,7 +36,6 @@ public class DepartmentController {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         List<DepartmentModel> all_departments = departmentService.selectList(mapInfo);
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println("num: " + all_departments.size());
         map.put("all_departments", all_departments);
         return map;
     }

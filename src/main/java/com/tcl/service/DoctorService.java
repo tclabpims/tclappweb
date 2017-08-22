@@ -1,6 +1,7 @@
 package com.tcl.service;
 
 import com.tcl.model.DoctorModel;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -83,4 +84,6 @@ public interface DoctorService {
      */
     List<DoctorModel> queryByInfoPgae(String userName, Long hospitalId, String doctorName, String title,
                                   String status, String type, Date create_time_start, Date create_time_end, int page_no, int page_size);
+
+    String importExcelFile(MultipartFile excelFile);
 }

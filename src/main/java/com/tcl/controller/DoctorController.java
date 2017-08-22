@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -376,4 +377,20 @@ public class DoctorController {
         }
         return null;
     }
+
+    /**
+     * excel数据的导入
+     * @param excelFile
+     * @return
+     */
+    @RequestMapping(value = "/excelImport", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String , String> importExcelFile(MultipartFile excelFile) {
+        Map<String, String> map = new HashMap<String, String>();
+        String result = doctorService.importExcelFile(excelFile);
+        map.put("msg", result);
+        return map;
+    }
 }
+
+

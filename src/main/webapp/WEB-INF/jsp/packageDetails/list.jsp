@@ -45,8 +45,13 @@
 
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
                 &nbsp;&nbsp;&nbsp;<button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addPackageDetails()">增加</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                <div class="layui-input-inline">
+                    <input type="file" class="input_text_style" style="width: 120px" id="selectedExcelFile" name="excelFile">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="layui-btn layui-btn-small" onclick="importExcel()">Excel导入</button>
+                <br/><br/>&nbsp;&nbsp;&nbsp;
                 <button type="button" class="layui-btn layui-btn-small" onclick="exportExcel()">导出Excel</button>
             </form>
         </div>
@@ -56,10 +61,10 @@
             <thead>
             <tr>
                 <th class="center left-con" width="8%">编号</th>
-                <th class="center left-con" width="18%">his名称</th>
-                <th class="center left-con" width="10%">his价格到分</th>
-                <th class="center left-con" width="21%">套餐名称</th>
+                <th class="center left-con" width="28%">his名称</th>
+                <%--<th class="center left-con" width="10%">his价格到分</th>--%>
                 <th class="center left-con" width="31%">项目名称</th>
+                <th class="center left-con" width="21%">套餐名称</th>
                 <%--<th class="center left-con" width="10%">价格</th>--%>
                 <th class="center left-con" width="30%">操作</th>
             </tr>
@@ -72,9 +77,9 @@
                 <tr>
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.hisName}</td>
-                    <td class="center left-con">${item.hisPrice}</td>
-                    <td class="center left-con">${item.packageModel.name}</td>
+                    <%--<td class="center left-con">${item.hisPrice}</td>--%>
                     <td class="center left-con">${item.name}</td>
+                    <td class="center left-con">${item.packageModel.name}</td>
                     <%--<td class="center left-con">${item.price}</td>--%>
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;

@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +48,7 @@ public class UserController {
         return "user/list";
     }
 
-    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    @RequestMapping(value = "/query")
     public String queryPackageDetails(ModelMap map, UserModel userModel, String pageNo, String createTimeStart, String createTimeEnd) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
@@ -257,7 +258,7 @@ public class UserController {
                     sheet.addCell(new Label(j++, i + 1, "暂无"));
                 }
                 sheet.addCell(new Label(j++, i+1, user_list.get(i).getSfzNum()));
-                sheet.addCell(new Label(j++, i + 1, user_list.get(i).getBirthday() != null ? StringUtil.getFormatDate(user_list.get(i).getBirthday()) : ""));
+                sheet.addCell(new Label(j++, i + 1, user_list.get(i).getBirthday() != null ? StringUtil.getFormatDate(user_list.get(i).getBirthday(), "yyyy-MM-dd") : ""));
                 sheet.addCell(new Label(j++, i+1, user_list.get(i).getAddress()));
                 sheet.addCell(new Label(j++, i+1, user_list.get(i).getVerificationCode()));
                 sheet.addCell(new Label(j++, i+1, user_list.get(i).getCodeSendTime() != null ? StringUtil.getFormatDate(user_list.get(i).getCodeSendTime()) : ""));
@@ -274,5 +275,19 @@ public class UserController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * excel数据的导入
+     * @param excelFile
+     * @return
+     */
+    @RequestMapping(value = "/excelImport", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String , String> importExcelFile(MultipartFile excelFile) {
+        Map<String, String> map = new HashMap<String, String>();
+        String result = userService.importExcelFile(excelFile);
+        map.put("msg", result);
+        return map;
     }
 }

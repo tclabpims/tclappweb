@@ -2,6 +2,7 @@ package com.tcl.service;
 
 import com.tcl.model.PackageModel;
 import com.tcl.model.PackageModelWithBLOBs;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,6 @@ public interface PackageService {
     int addPackage(PackageModelWithBLOBs packageModel);
 
     int updateById(PackageModelWithBLOBs packageMode);
+
+    String importExcelFile(MultipartFile excelFile);
 }

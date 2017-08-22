@@ -84,10 +84,13 @@
               <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询"/>
               &nbsp;&nbsp;&nbsp;
               <button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addDoctor()">新增</button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;
+              <div class="layui-input-inline">
+                  <input type="file" class="input_text_style" style="width: 100px" id="selectedExcelFile" name="excelFile">
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <button type="button" class="layui-btn layui-btn-small" onclick="importExcel()">Excel导入</button>
+              &nbsp;
               <button type="button" class="layui-btn layui-btn-small" onclick="exportExcel()">导出Excel</button>
             </form>
           </div>
@@ -280,14 +283,14 @@
       </div>
         <%--从业执照号--%>
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">从业执照号</label>
+          <label class="layui-form-label" style="width: 100px">执业证书编号</label>
           <div class="layui-input-block">
               <input type="text" id="zzNum_edit" name="zzNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
           </div>
       </div>
       <%--从业执照图片--%>
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">从业执照图片</label>
+          <label class="layui-form-label" style="width: 100px">执业证书图片</label>
           <div class="layui-input-block">
               <input type="file" id="zzImg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
               <input type="hidden" id="zzImg_edit_" name="zzImg"/>
@@ -296,7 +299,7 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">职称证书号</label>
+          <label class="layui-form-label" style="width: 100px">职称证书编号</label>
           <div class="layui-input-block">
               <input type="text" id="zcNum_edit" name="zcNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
           </div>
@@ -327,20 +330,30 @@
       </div>
       <%--解读报告次数--%>
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">解读次数</label>
-          <div class="layui-input-block">
-              <input type="text" id="readReportNum" name="readReportNum"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 260px">
+          <div class="layui-inline">
+              <label class="layui-form-label" style="width: 100px">解读次数</label>
+              <div class="layui-input-inline">
+                  <input type="text" id="readReportNum" name="readReportNum"  required lay-verify="required" autocomplete="off"
+                  class="layui-input" style="width: 260px">
+              </div>
+          </div>
+          <div class="layui-inline">
+              <span>&nbsp;&nbsp;次</span>
           </div>
       </div>
       <%--诊断次数--%>
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">诊断次数</label>
-          <div class="layui-input-block">
-              <input type="text" id="diagnosisNum" name="diagnosisNum"  required lay-verify="required" autocomplete="off"
-              class="layui-input" style="width: 260px">
+          <div class="layui-inline">
+              <label class="layui-form-label" style="width: 100px">诊断次数</label>
+              <div class="layui-input-inline">
+                  <input type="text" id="diagnosisNum" name="diagnosisNum"  required lay-verify="required" autocomplete="off"
+                  class="layui-input" style="width: 260px">
               </div>
           </div>
+          <div class="layui-inline">
+              <span>&nbsp;&nbsp;次</span>
+          </div>
+      </div>
       <%--医生类型--%>
       <div class="layui-form-item">
           <label class="layui-form-label" style="width: 100px">岗位</label>
@@ -434,9 +447,9 @@
                 <td id="sfzNumber" colspan="3"></td>
             </tr>
             <tr>
-                <td align="left">执业证书编码</td>
+                <td align="left">执业证书编号</td>
                 <td colspan="2"></td>
-                <td align="left">职称号码</td>
+                <td align="left">职称证书编号</td>
                 <td></td>
             </tr>
             <tr>
@@ -548,14 +561,14 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">从业执照号</label>
+          <label class="layui-form-label" style="width: 100px">执业证书编号</label>
           <div class="layui-input-block">
               <input type="text" name="zzNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
           </div>
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">从业执照图片</label>
+          <label class="layui-form-label" style="width: 100px">执业证书图片</label>
           <div class="layui-input-block">
               <input type="file" id="zzImg_id" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>"/>
               <input type="hidden" id="zzImg_id_" name="zzImg"/>
@@ -564,7 +577,7 @@
       </div>
 
       <div class="layui-form-item">
-          <label class="layui-form-label" style="width: 100px">职称证书号</label>
+          <label class="layui-form-label" style="width: 100px">职称证书编号</label>
           <div class="layui-input-block">
               <input type="text" name="zcNum" required lay-verify="required" class="layui-input" style="width: 260px"/>
           </div>

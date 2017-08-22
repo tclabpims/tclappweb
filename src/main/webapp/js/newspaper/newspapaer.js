@@ -64,23 +64,21 @@ function uploadPic() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        newspaperImg_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    newspaperImg_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
@@ -230,23 +228,21 @@ function uploadPicEdit() {
         data:formData,
         dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
         success:function(data){
-            if(data.txt != null || data.txt != "") {
-                layui.use('layer', function() {
-                    var layer = layui.layer;
-                    if(data.txt != null || data.txt != "") {
-                        newspaperImg_edit_path = data.txt;
-                        layer.msg("上传成功", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }else {
-                        layer.msg("上传失败", {
-                            time: 1000,
-                            offset: "160px"
-                        })
-                    }
-                });
-            }
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    newspaperImg_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
         },
         error:function(er){
             console.log(er);
