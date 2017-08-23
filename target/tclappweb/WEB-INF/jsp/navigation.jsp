@@ -28,26 +28,28 @@
                 <ul id="divmenu3" class="sub-menu" style="display: none;">
                   <li><a id="sub31" href="/newspaper/list.do?type=">广告列表</a></li>
                 </ul>
-              </li>
-               <li class="active">
+             </li>
+             <li class="active">
               	<a id="menu5" href="#" class="adbj5 ad" data-spm-anchor-id="0.0.0.0">医生管理</a>
                 <ul id="divmenu5" class="sub-menu" style="display: none;">
                   <li><a id="sub511" href="/doctor/list.do?type=">医生列表</a></li>
                   <%--<li><a id="sub42" href="/doctor/add.do">增加医生</a></li>--%>
                 </ul>
               </li>
-              <li class="active">
+             <li class="active">
                 <a id="menu6" href="#" class="adbj6 ad" data-spm-anchor-id="0.0.0.0">用户管理</a>
                   <ul id="divmenu6" class="sub-menu" style="display: none;">
                     <li><a id="sub61" href="/user/list.do">用户列表</a></li>
                   </ul>
-              </li>
-             <%--<li class="active">
-                 <a id="menu6" href="#" class="adbj6 ad" data-spm-anchor-id="0.0.0.0">订单管理</a>
-                 <ul id="divmenu6" class="sub-menu" style="display: none;">
-                     <li><a id="sub61" href="#">订单列表</a></li>
+             </li>
+             <li class="active">
+                 <a id="menu7" href="#" class="adbj6 ad" data-spm-anchor-id="0.0.0.0">订单管理</a>
+                 <ul id="divmenu7" class="sub-menu" style="display: none;">
+                     <li><a id="sub71" href="/cart/list.do">购物车列表</a></li>
+                     <li><a id="sub72" href="/trade/list.do">订单列表</a></li>
+                     <li><a id="sub73" href="/order/list.do">订单子项列表</a></li>
                  </ul>
-             </li>--%>
+             </li>
          </ul>
 	</div>
 

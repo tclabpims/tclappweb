@@ -111,9 +111,9 @@ public class DoctorController {
             }
         }
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Long hospital_id;
         Date create_time_start = null;
         Date create_time_end = null;
-        Long hospital_id;
         try{
             create_time_start = dateFormat.parse(createTimeStart.trim());
             create_time_end = dateFormat.parse(createTimeEnd.trim());
