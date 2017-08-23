@@ -2,6 +2,9 @@ package com.tcl.dao;
 
 import com.tcl.model.TradeModel;
 
+import java.util.List;
+import java.util.Map;
+
 public interface TradeModelMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +17,6 @@ public interface TradeModelMapper {
     int updateByPrimaryKeySelective(TradeModel record);
 
     int updateByPrimaryKey(TradeModel record);
+
+    List<TradeModel> selectList(Map map);
 }

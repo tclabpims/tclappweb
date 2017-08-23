@@ -1,24 +1,16 @@
 package com.tcl.controller;
 
 import com.tcl.model.CartModel;
-import com.tcl.model.PackageDetailsModel;
+import com.tcl.model.TradeModel;
 import com.tcl.service.CartService;
-import com.tcl.service.PackageDetailsService;
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
+import com.tcl.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,13 +21,13 @@ import java.util.regex.Pattern;
  * Created by LiuQi on 2017/8/15.
  */
 @Controller
-@RequestMapping("/cart")
-public class CartController {
+@RequestMapping("/trade")
+public class TradeController {
 
     @Autowired
-    private CartService cartService;
+    private TradeService tradeService;
 
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 8;
 
     /**
      * 列出所有购物车数据
@@ -44,35 +36,37 @@ public class CartController {
      * @return
      */
     @RequestMapping("/list")
-    public String cartList(ModelMap map, String pageNo) {
+    public String tradeList(ModelMap map, String pageNo) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
         Map<String, Object> result_map = getData(mapInfo);
         map.put("pageNo", result_map.get("pageNo"));
         map.put("totalPage", result_map.get("totalPage"));
         map.put("list", result_map.get("list"));
-        return "cart/list";
+        return "trade/list";
     }
 
     /**
      * 通过参数查询
      * @param map
-     * @param user_username
-     * @param user_name
-     * @param package_name
+     * @param userName
+     * @param applyName
+     * @param tradeNum
+     * @param status
      * @param pageNo
      * @param createTimeStart
      * @param createTimeEnd
      * @return
      */
     @RequestMapping(value = "/query")
-    public String queryCart(ModelMap map, String user_username, String user_name, String package_name,
+    public String queryPackageDetails(ModelMap map, String userName, String applyName, String tradeNum, String status,
                                       String pageNo, String createTimeStart, String createTimeEnd) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
-        mapInfo.put("user_username", user_username.trim());
-        mapInfo.put("user_name", user_name.trim());
-        mapInfo.put("package_name", package_name.trim());
+        mapInfo.put("userName", userName.trim());
+        mapInfo.put("applyName", applyName.trim());
+        mapInfo.put("tradeNum", tradeNum.trim());
+        mapInfo.put("status", status.trim());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date create_time_start = null;
         Date create_time_end = null;
@@ -85,20 +79,21 @@ public class CartController {
         mapInfo.put("create_time_start", create_time_start);
         mapInfo.put("create_time_end", create_time_end);
         Map<String, Object> result_map =  getData(mapInfo);
-        map.put("user_username", user_username.trim());
-        map.put("user_name", user_name.trim());
-        map.put("package_name", package_name.trim());
+        map.put("userName", userName.trim());
+        map.put("applyName", applyName.trim());
+        map.put("tradeNum", tradeNum.trim());
+        map.put("status", status.trim());
         map.put("createTimeStart", createTimeStart.trim());
         map.put("createTimeEnd", createTimeEnd.trim());
         map.put("pageNo", result_map.get("pageNo"));
         map.put("totalPage", result_map.get("totalPage"));
         map.put("list", result_map.get("list"));
         map.put("query_flag", true);
-        return "cart/list";
+        return "trade/list";
     }
 
     /**
-     * 通过ID查找购物车
+     * 通过ID查找订单
      * @param id
      * @return*/
     @RequestMapping(value = "/acquire", method = RequestMethod.POST)
@@ -110,23 +105,48 @@ public class CartController {
         Matcher matcher = p.matcher(id);
         Map<String, Object> map = new HashMap<String, Object>();
         if (matcher.matches()) {
-            map.put("cart", cartService.selectById(Long.parseLong(id)));
+            map.put("trade", tradeService.selectById(Long.parseLong(id)));
         } else {
-            CartModel cartModel = new CartModel();
-            cartModel.setPackageId(-100L);
-            map.put("cart", cartModel);
+            TradeModel tradeModel = new TradeModel();
+            tradeModel.setName("paramIsError");
+            map.put("trade", tradeModel);
         }
         return map;
     }
 
     /**
-     * 更新购物车内容
-     * @param cartModel
+     * 通过ID查找订单
+     * @param id
+     * @return*/
+    @RequestMapping(value = "/acquireTrade", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectRelatedInfoById(String id) {
+        //对接收到的字符串参数进行基本的处理与判断
+        id = id.trim();
+        Pattern p = Pattern.compile("^[0-9]+$");
+        Matcher matcher = p.matcher(id);
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (matcher.matches()) {
+            Map<String, Object> mapInfo = new HashMap<String, Object>();
+            mapInfo.put("id", Long.parseLong(id));
+            System.out.println("size: " + tradeService.selectList(mapInfo).size());
+            map.put("trade", tradeService.selectList(mapInfo).get(0));
+        } else {
+            TradeModel tradeModel = new TradeModel();
+            tradeModel.setName("paramIsError");
+            map.put("trade", tradeModel);
+        }
+        return map;
+    }
+
+    /**
+     * 更新订单内容
+     * @param tradeModel
      * @return*/
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> updateById(CartModel cartModel) {
-        int result = cartService.updateById(cartModel);
+    public Map<String, String> updateById(TradeModel tradeModel) {
+        int result = tradeService.updateById(tradeModel);
         Map<String, String> map = new HashMap<String, String>();
         if (result > 0) {
             map.put("msg", "success");
@@ -150,7 +170,7 @@ public class CartController {
         int result;
         Map<String, String> map = new HashMap<String, String>();
         if(matcher.matches()) {
-            result = cartService.deleteById(Long.parseLong(id));
+            result = tradeService.deleteById(Long.parseLong(id));
             if(result > 0) {
                 //返回1表示删除成功
                 map.put("msg", "1");
@@ -178,7 +198,7 @@ public class CartController {
                 page_no = 1;
             }
         }
-        List<CartModel> cart_list = cartService.selectList(mapInfo);
+        List<TradeModel> cart_list = tradeService.selectList(mapInfo);
         int total_page = (cart_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
         if (total_page < 1) {
             total_page = 1;
@@ -192,7 +212,7 @@ public class CartController {
         if(!isEmpty) {
             mapInfo.put("start_num", (page_no - 1) * PAGE_SIZE);
             mapInfo.put("pageSize", PAGE_SIZE);
-            List<CartModel> PackageDetails = cartService.selectList(mapInfo);
+            List<TradeModel> PackageDetails = tradeService.selectList(mapInfo);
             map.put("list", PackageDetails);
         }else {
             map.put("list",new ArrayList<CartModel>());

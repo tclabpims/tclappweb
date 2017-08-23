@@ -55,6 +55,29 @@ public class TradeModel {
 
     private String doctorMsg;
 
+    private Integer needRead;
+
+    private UserModel userModel;
+
+    private ApplicantModel applicantModel;
+
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
+    public ApplicantModel getApplicantModel() {
+        return applicantModel;
+    }
+
+    public void setApplicantModel(ApplicantModel applicantModel) {
+        this.applicantModel = applicantModel;
+    }
+
     public Long getId() {
         return id;
     }
@@ -261,5 +284,13 @@ public class TradeModel {
 
     public void setDoctorMsg(String doctorMsg) {
         this.doctorMsg = doctorMsg == null ? null : doctorMsg.trim();
+    }
+
+    public Integer getNeedRead() {
+        return needRead;
+    }
+
+    public void setNeedRead(Integer needRead) {
+        this.needRead = needRead;
     }
 }

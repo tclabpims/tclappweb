@@ -1,7 +1,7 @@
 package com.tcl.service;
 
 import com.tcl.model.CartModel;
-import org.springframework.web.multipart.MultipartFile;
+import com.tcl.model.TradeModel;
 
 import java.util.List;
 import java.util.Map;
@@ -9,14 +9,14 @@ import java.util.Map;
 /**
  * Created by LiuQi on 2017/8/15.
  */
-public interface CartService {
+public interface TradeService {
 
-    List<CartModel> selectList(Map map);
+    List<TradeModel> selectList(Map map);
 
 
-    CartModel selectById(long id);
+    TradeModel selectById(long id);
 
-    int updateById(CartModel cartModel);
+    int updateById(TradeModel tradeModel);
 
     int deleteById(long id);
 

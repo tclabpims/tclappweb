@@ -1,16 +1,13 @@
 package com.tcl.service.impl;
 
 import com.tcl.dao.CartModelMapper;
-import com.tcl.dao.PackageDetailsModelMapper;
+import com.tcl.dao.TradeModelMapper;
 import com.tcl.model.CartModel;
-import com.tcl.model.PackageDetailsModel;
+import com.tcl.model.TradeModel;
 import com.tcl.service.CartService;
-import com.tcl.service.PackageDetailsService;
-import com.tcl.utils.excel.ReadExcel;
-import com.tcl.utils.excel.impl.ReadPackageDetailsExcel;
+import com.tcl.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -19,25 +16,25 @@ import java.util.Map;
  * Created by LiuQi on 2017/8/15.
  */
 @Service
-public class CartServiceImpl implements CartService{
+public class TradeServiceImpl implements TradeService{
 
     @Autowired
-    private CartModelMapper cartDao;
+    private TradeModelMapper tradeDao;
 
-    public List<CartModel> selectList(Map map) {
-        return cartDao.selectList(map);
+    public List<TradeModel> selectList(Map map) {
+        return tradeDao.selectList(map);
     }
 
-    public CartModel selectById(long id) {
-        return cartDao.selectByPrimaryKey(id);
+    public TradeModel selectById(long id) {
+        return tradeDao.selectByPrimaryKey(id);
     }
 
-    public int updateById(CartModel cartModel) {
-        return cartDao.updateByPrimaryKeySelective(cartModel);
+    public int updateById(TradeModel tradeModel) {
+        return tradeDao.updateByPrimaryKeySelective(tradeModel);
     }
 
     public int deleteById(long id) {
-        return cartDao.deleteByPrimaryKey(id);
+        return tradeDao.deleteByPrimaryKey(id);
     }
 
     /*public int addPackageDetails(PackageDetailsModel packageDetailsModel) {
