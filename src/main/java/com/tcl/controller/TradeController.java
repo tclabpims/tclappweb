@@ -115,7 +115,7 @@ public class TradeController {
     }
 
     /**
-     * 通过ID查找订单
+     * 通过ID查找订单并将关联信息也取出
      * @param id
      * @return*/
     @RequestMapping(value = "/acquireTrade", method = RequestMethod.POST)
@@ -129,7 +129,6 @@ public class TradeController {
         if (matcher.matches()) {
             Map<String, Object> mapInfo = new HashMap<String, Object>();
             mapInfo.put("id", Long.parseLong(id));
-            System.out.println("size: " + tradeService.selectList(mapInfo).size());
             map.put("trade", tradeService.selectList(mapInfo).get(0));
         } else {
             TradeModel tradeModel = new TradeModel();
@@ -146,6 +145,7 @@ public class TradeController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> updateById(TradeModel tradeModel) {
+        tradeModel.setModifyTime(new Date());
         int result = tradeService.updateById(tradeModel);
         Map<String, String> map = new HashMap<String, String>();
         if (result > 0) {
@@ -198,8 +198,8 @@ public class TradeController {
                 page_no = 1;
             }
         }
-        List<TradeModel> cart_list = tradeService.selectList(mapInfo);
-        int total_page = (cart_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        List<TradeModel> trade_list = tradeService.selectList(mapInfo);
+        int total_page = (trade_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
         if (total_page < 1) {
             total_page = 1;
             isEmpty = true;
@@ -212,10 +212,10 @@ public class TradeController {
         if(!isEmpty) {
             mapInfo.put("start_num", (page_no - 1) * PAGE_SIZE);
             mapInfo.put("pageSize", PAGE_SIZE);
-            List<TradeModel> PackageDetails = tradeService.selectList(mapInfo);
-            map.put("list", PackageDetails);
+            List<TradeModel> trades = tradeService.selectList(mapInfo);
+            map.put("list", trades);
         }else {
-            map.put("list",new ArrayList<CartModel>());
+            map.put("list",new ArrayList<TradeModel>());
         }
         return map;
     }

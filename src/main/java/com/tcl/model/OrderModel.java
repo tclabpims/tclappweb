@@ -21,7 +21,11 @@ public class OrderModel {
 
     private Date takeTime;
 
+    private Long takeDoctorId;
+
     private String reportTime;
+
+    private String reportTimeDesc;
 
     private String barcode;
 
@@ -31,9 +35,43 @@ public class OrderModel {
 
     private Date unscrambleTime;
 
+    private String unscrambleAudioUrl;
+
+    private String unscrambleAudioTime;
+
     private Date createTime;
 
     private Date modifyTime;
+
+    private UserModel userModel;
+
+    private TradeModel tradeModel;
+
+    private DoctorModel doctorModel;
+
+    public DoctorModel getDoctorModel() {
+        return doctorModel;
+    }
+
+    public void setDoctorModel(DoctorModel doctorModel) {
+        this.doctorModel = doctorModel;
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
+    public TradeModel getTradeModel() {
+        return tradeModel;
+    }
+
+    public void setTradeModel(TradeModel tradeModel) {
+        this.tradeModel = tradeModel;
+    }
 
     public Long getId() {
         return id;
@@ -107,12 +145,28 @@ public class OrderModel {
         this.takeTime = takeTime;
     }
 
+    public Long getTakeDoctorId() {
+        return takeDoctorId;
+    }
+
+    public void setTakeDoctorId(Long takeDoctorId) {
+        this.takeDoctorId = takeDoctorId;
+    }
+
     public String getReportTime() {
         return reportTime;
     }
 
     public void setReportTime(String reportTime) {
         this.reportTime = reportTime == null ? null : reportTime.trim();
+    }
+
+    public String getReportTimeDesc() {
+        return reportTimeDesc;
+    }
+
+    public void setReportTimeDesc(String reportTimeDesc) {
+        this.reportTimeDesc = reportTimeDesc == null ? null : reportTimeDesc.trim();
     }
 
     public String getBarcode() {
@@ -145,6 +199,22 @@ public class OrderModel {
 
     public void setUnscrambleTime(Date unscrambleTime) {
         this.unscrambleTime = unscrambleTime;
+    }
+
+    public String getUnscrambleAudioUrl() {
+        return unscrambleAudioUrl;
+    }
+
+    public void setUnscrambleAudioUrl(String unscrambleAudioUrl) {
+        this.unscrambleAudioUrl = unscrambleAudioUrl == null ? null : unscrambleAudioUrl.trim();
+    }
+
+    public String getUnscrambleAudioTime() {
+        return unscrambleAudioTime;
+    }
+
+    public void setUnscrambleAudioTime(String unscrambleAudioTime) {
+        this.unscrambleAudioTime = unscrambleAudioTime == null ? null : unscrambleAudioTime.trim();
     }
 
     public Date getCreateTime() {

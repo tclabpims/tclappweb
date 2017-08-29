@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/newspaper")
 public class NewspaperController {
 
-	private static final int PAGE_SIZE = 5;
+	private static final int PAGE_SIZE = 10;
 
 	@Autowired
 	private NewspaperService newspaperService;

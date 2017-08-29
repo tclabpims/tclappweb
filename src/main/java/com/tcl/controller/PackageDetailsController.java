@@ -231,8 +231,8 @@ public class PackageDetailsController {
                 page_no = 1;
             }
         }
-        List<PackageDetailsModel> package_list = packageDetailsService.selectList(mapInfo);
-        int total_page = (package_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        List<PackageDetailsModel> packageDetails_list = packageDetailsService.selectList(mapInfo);
+        int total_page = (packageDetails_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
         if (total_page < 1) {
             total_page = 1;
             isEmpty = true;

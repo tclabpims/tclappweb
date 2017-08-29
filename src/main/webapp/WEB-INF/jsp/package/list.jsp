@@ -27,7 +27,7 @@
     <%@include file="../navigation.jsp"%>
     <div class="pagemain">
         <input id="strMenuId" type="hidden" value="1"/>
-        <input id="strSubMenuId" type="hidden" value="1"/>
+        <input id="strSubMenuId" type="hidden" value="2"/>
 
         <%--查询 start--%>
         <div>

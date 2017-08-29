@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,34 +51,28 @@ public class DepartmentController {
         map.put("pageNo", result_map.get("pageNo"));
         map.put("totalPage", result_map.get("totalPage"));
         map.put("list", result_map.get("list"));
-        return "packageDetails/list";
+        return "department/list";
     }
 
     /**
-     * 通过参数查询检验细项
+     * 通过参数查询
      * @param map
-     * @param hisName
-     * @param packageName
-     * @param name
+     * @param departmentName
      * @param pageNo
      * @return
      */
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public String queryPackageDetails(ModelMap map, String hisName, String packageName, String name, String pageNo) {
+    public String queryDepartments(ModelMap map, String departmentName, String pageNo) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
-        mapInfo.put("hisName", hisName.trim());
-        mapInfo.put("packageName", packageName.trim());
-        mapInfo.put("name", name.trim());
+        mapInfo.put("departmentName", departmentName.trim());
         Map<String, Object> result_map =  getData(mapInfo);
-        map.put("hisName", hisName.trim());
-        map.put("packageName", packageName.trim());
-        map.put("name", name.trim());
+        map.put("departmentName", departmentName.trim());
         map.put("pageNo", result_map.get("pageNo"));
         map.put("totalPage", result_map.get("totalPage"));
         map.put("list", result_map.get("list"));
         map.put("query_flag", true);
-        return "packageDetails/list";
+        return "department/list";
     }
 
     /**
@@ -91,9 +82,10 @@ public class DepartmentController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> addPackageDetails(DepartmentModel departmentModel) {
+    public Map<String, String> addDepartment(DepartmentModel departmentModel) {
+        departmentModel.setCreateTime(new Date());
         Map<String, String> map = new HashMap<String, String>();
-        int result = departmentService.addPackageDetails(departmentModel);
+        int result = departmentService.addDepartment(departmentModel);
         if (result > 0) {
             map.put("msg", "success");
         }else {
@@ -116,24 +108,25 @@ public class DepartmentController {
         Matcher matcher = p.matcher(id);
         Map<String, Object> map = new HashMap<String, Object>();
         if (matcher.matches()) {
-            map.put("packageDetails", departmentService.selectById(Long.parseLong(id)));
+            map.put("department", departmentService.selectById(Long.parseLong(id)));
         } else {
-            PackageDetailsModel packageDetailsModel = new PackageDetailsModel();
-            packageDetailsModel.setName("paramIsError");
-            map.put("packageDetails", packageDetailsModel);
+            DepartmentModel departmentModel = new DepartmentModel();
+            departmentModel.setDepartmentName("paramIsError");
+            map.put("department", departmentModel);
         }
         return map;
     }
 
     /**
      * 更新套餐
-     * @param DepartmentModel
+     * @param departmentModel
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> updateById(DepartmentModel DepartmentModel) {
-        int result = departmentService.updateById(DepartmentModel);
+    public Map<String, String> updateById(DepartmentModel departmentModel) {
+        departmentModel.setModiftTime(new Date());
+        int result = departmentService.updateById(departmentModel);
         Map<String, String> map = new HashMap<String, String>();
         if (result > 0) {
             map.put("msg", "success");

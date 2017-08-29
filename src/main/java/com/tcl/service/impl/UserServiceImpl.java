@@ -46,10 +46,10 @@ public class UserServiceImpl implements UserService {
         ReadExcel readExcel = new ReadUserExcel();
         List<UserModel> userLists = readExcel.getExcelInfo(excelFile);
         if (userLists != null && !userLists.isEmpty()) {
-            //userDao.batchInsert(userLists);
-            for (int i=0; i<userLists.size(); i++) {
+            userDao.batchInsert(userLists);
+            /*for (int i=0; i<userLists.size(); i++) {
                 userDao.insert(userLists.get(i));
-            }
+            }*/
             result = "导入成功";
         } else {
             result = "导入失败";

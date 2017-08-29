@@ -223,98 +223,18 @@
   </select>
 
   <insert id="batchInsert" parameterType="java.util.List">
-    BEGIN
-    <foreach collection="list" item="item" separator=";">
-      insert into app_c_user(user_name) values(#{item.userName, jdbcType=VARCHAR})
-      <!--<trim prefix="(" suffix=")" suffixOverrides="," >
-        <if test="item.id != null" >
-          id,
-        </if>
-        <if test="item.userName != null" >
-          user_name,
-        </if>
-        <if test="item.passWord != null" >
-          pass_word,
-        </if>
-        <if test="item.name != null" >
-          name,
-        </if>
-        <if test="item.sfzNum != null" >
-          sfz_num,
-        </if>
-        <if test="item.birthday != null" >
-          birthday,
-        </if>
-        <if test="item.sex != null" >
-          sex,
-        </if>
-        <if test="item.address != null" >
-          address,
-        </if>
-        <if test="item.status != null" >
-          status,
-        </if>
-        <if test="item.verificationCode != null" >
-          verification_code,
-        </if>
-        <if test="item.codeSendTime != null" >
-          code_send_time,
-        </if>
-        <if test="item.touImg != null" >
-          tou_img,
-        </if>
-        <if test="item.createTime != null" >
-          create_time,
-        </if>
-        <if test="item.modifyTime != null" >
-          modify_time,
-        </if>
-      </trim>
-      <trim prefix="values (" suffix=")" suffixOverrides="," >
-        <if test="id != null" >
-          #{item.id,jdbcType=BIGINT},
-        </if>
-        <if test="userName != null" >
-          #{item.userName,jdbcType=VARCHAR},
-        </if>
-        <if test="passWord != null" >
-          #{item.passWord,jdbcType=VARCHAR},
-        </if>
-        <if test="name != null" >
-          #{item.name,jdbcType=VARCHAR},
-        </if>
-        <if test="sfzNum != null" >
-          #{item.sfzNum,jdbcType=VARCHAR},
-        </if>
-        <if test="birthday != null" >
-          #{item.birthday,jdbcType=DATE},
-        </if>
-        <if test="sex != null" >
-          #{item.sex,jdbcType=VARCHAR},
-        </if>
-        <if test="address != null" >
-          #{item.address,jdbcType=VARCHAR},
-        </if>
-        <if test="status != null" >
-          #{item.status,jdbcType=VARCHAR},
-        </if>
-        <if test="verificationCode != null" >
-          #{item.verificationCode,jdbcType=VARCHAR},
-        </if>
-        <if test="codeSendTime != null" >
-          #{item.codeSendTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="touImg != null" >
-          #{item.touImg,jdbcType=VARCHAR},
-        </if>
-        <if test="createTime != null" >
-          #{item.createTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="modifyTime != null" >
-          #{item.modifyTime,jdbcType=TIMESTAMP},
-        </if>
-      </trim>-->
+    insert into app_c_user(user_name, name, sex, sfz_num, birthday, address, create_time, status) VALUES
+    <foreach collection="list" item="item" separator="," close=";">
+      (
+      #{item.userName, jdbcType=VARCHAR},
+      #{item.name, jdbcType=VARCHAR},
+      #{item.sex, jdbcType=VARCHAR},
+      #{item.sfzNum, jdbcType=VARCHAR},
+      #{item.birthday, jdbcType=DATE},
+      #{item.address, jdbcType=VARCHAR},
+      #{item.createTime, jdbcType=TIMESTAMP},
+      #{item.status, jdbcType=VARCHAR}
+      )
     </foreach>
-    ;END;
   </insert>
 </mapper>

@@ -163,4 +163,17 @@
       limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </if>
   </select>
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into app_c_package_details(his_id, his_name, his_price, package_id, name, price) VALUES
+    <foreach collection="list" item="item" separator="," close=";">
+      (
+      #{item.hisId, jdbcType=BIGINT},
+      #{item.hisName, jdbcType=VARCHAR},
+      #{item.hisPrice, jdbcType=BIGINT},
+      #{item.packageId, jdbcType=BIGINT},
+      #{item.name, jdbcType=VARCHAR},
+      #{item.price, jdbcType=BIGINT}
+      )
+    </foreach>
+  </insert>
 </mapper>

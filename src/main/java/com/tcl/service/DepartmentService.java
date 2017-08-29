@@ -13,7 +13,7 @@ public interface DepartmentService {
 
     List<DepartmentModel> selectList(Map map);
 
-    int addPackageDetails(DepartmentModel departmentModel);
+    int addDepartment(DepartmentModel departmentModel);
 
     DepartmentModel selectById(long id);
 

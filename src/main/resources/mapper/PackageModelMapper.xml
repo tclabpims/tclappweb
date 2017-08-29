@@ -335,4 +335,20 @@
       limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </if>
   </select>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into app_c_package(test_type, name, use_crowd, price, need_attention, project_desc, report_time_desc, sale_num) VALUES
+    <foreach collection="list" item="item" separator="," close=";">
+      (
+      #{item.testType, jdbcType=VARCHAR},
+      #{item.name, jdbcType=VARCHAR},
+      #{item.useCrowd, jdbcType=VARCHAR},
+      #{item.price, jdbcType=BIGINT},
+      #{item.needAttention, jdbcType=VARCHAR},
+      #{item.projectDesc, jdbcType=VARCHAR},
+      #{item.reportTimeDesc, jdbcType=VARCHAR},
+      #{item.saleNum, jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
 </mapper>

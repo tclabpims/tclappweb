@@ -25,8 +25,8 @@
   <div class="nr">
     <%@include file="../navigation.jsp"%>
       <div class="pagemain">
-          <%--<input id="strMenuId" type="hidden" value="3" />
-          <input id="strSubMenuId" type="hidden" value="31" />--%>
+          <input id="strMenuId" type="hidden" value="5" />
+          <input id="strSubMenuId" type="hidden" value="511" />
           <div>
               <br/><form action="${pageContext.request.contextPath}/doctor/query.do" method="post">
               &nbsp;&nbsp;&nbsp;

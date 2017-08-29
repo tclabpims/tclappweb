@@ -287,6 +287,7 @@ public class ReadDoctorExcel implements ReadExcel{
             doctorModel.setDiagnosisNum(0);
             doctorModel.setIsOpenAutoreceipt("NO");
             doctorModel.setReceiptInterval(0);
+            doctorModel.setStatus("2");
             doctorList.add(doctorModel);
         }
         return doctorList;

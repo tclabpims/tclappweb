@@ -28,4 +28,6 @@ public interface PackageModelMapper {
     List<PackageModel> queryPackage(Map map);
 
     List<PackageModel> queryListByPage(Map map);
+
+    void batchInsert(List<PackageModelWithBLOBs> packageList);
 }

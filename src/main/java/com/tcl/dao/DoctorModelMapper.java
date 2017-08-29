@@ -28,4 +28,6 @@ public interface DoctorModelMapper {
     List<DoctorModel> queryDoctorByInfo(Map<String, Object> map);
 
     List<DoctorModel> queryPageDoctorByInfo(Map<String, Object> map);
+
+    void batchInsert(List<DoctorModel> doctorList);
 }

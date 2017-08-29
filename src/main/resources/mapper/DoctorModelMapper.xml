@@ -551,4 +551,37 @@
       limit #{start_num, jdbcType=INTEGER}, #{page_size, jdbcType=INTEGER}
     </if>
   </select>
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into app_c_doctor(user_name, doctor_name, age, sex, sfz_num,
+                             education, title, hospital_id, hospital_name,
+                             department_num, department_name, zz_num, zc_num, type, status,
+                             position, introduce, create_time, read_report_num, diagnosis_num, is_open_autoreceipt, receipt_interval) VALUES
+    <foreach collection="list" item="item" separator="," close=";">
+      (
+      #{item.userName, jdbcType=VARCHAR},
+      #{item.doctorName, jdbcType=VARCHAR},
+      #{item.age, jdbcType=INTEGER},
+      #{item.sex, jdbcType=VARCHAR},
+      #{item.sfzNum, jdbcType=VARCHAR},
+      #{item.education, jdbcType=VARCHAR},
+      #{item.title, jdbcType=VARCHAR},
+      #{item.hospitalId, jdbcType=BIGINT},
+      #{item.hospitalName, jdbcType=VARCHAR},
+      #{item.departmentNum, jdbcType=VARCHAR},
+      #{item.departmentName, jdbcType=VARCHAR},
+      #{item.zzNum, jdbcType=VARCHAR},
+      #{item.zcNum, jdbcType=VARCHAR},
+      #{item.type, jdbcType=VARCHAR},
+      #{item.status, jdbcType=VARCHAR},
+      #{item.position, jdbcType=VARCHAR},
+      #{item.introduce, jdbcType=LONGVARCHAR},
+      #{item.createTime, jdbcType=TIMESTAMP},
+      #{item.readReportNum, jdbcType=INTEGER},
+      #{item.diagnosisNum, jdbcType=INTEGER},
+      #{item.isOpenAutoreceipt, jdbcType=CHAR},
+      #{item.receiptInterval, jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
 </mapper>

@@ -19,4 +19,6 @@ public interface PackageDetailsModelMapper {
     int updateByPrimaryKey(PackageDetailsModel record);
 
     List<PackageDetailsModel> selectList(Map map);
+
+    void batchInsert(List<PackageDetailsModel> userLists);
 }

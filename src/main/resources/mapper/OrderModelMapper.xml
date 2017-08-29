@@ -11,22 +11,42 @@
     <result column="price" property="price" jdbcType="BIGINT" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="take_time" property="takeTime" jdbcType="TIMESTAMP" />
+    <result column="take_doctor_id" property="takeDoctorId" jdbcType="BIGINT" />
     <result column="report_time" property="reportTime" jdbcType="VARCHAR" />
+    <result column="report_time_desc" property="reportTimeDesc" jdbcType="VARCHAR" />
     <result column="barcode" property="barcode" jdbcType="VARCHAR" />
     <result column="report_url" property="reportUrl" jdbcType="VARCHAR" />
     <result column="report_accept_time" property="reportAcceptTime" jdbcType="VARCHAR" />
     <result column="unscramble_time" property="unscrambleTime" jdbcType="TIMESTAMP" />
+    <result column="unscramble_audio_url" property="unscrambleAudioUrl" jdbcType="VARCHAR" />
+    <result column="unscramble_audio_time" property="unscrambleAudioTime" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <collection property="userModel" javaType="com.tcl.model.UserModel">
+      <id column="u_id" property="id" jdbcType="BIGINT" />
+      <result column="u_user_name" property="userName" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="tradeModel" javaType="com.tcl.model.TradeModel">
+      <id column="t_id" property="id" jdbcType="BIGINT" />
+      <result column="t_trade_num" property="tradeNum" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="doctorModel" javaType="com.tcl.model.DoctorModel">
+      <id column="d_id" property="id" jdbcType="BIGINT" />
+      <result column="d_doctor_name" property="doctorName" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.OrderModelWithBLOBs" extends="BaseResultMap" >
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
     <result column="unscramble_content" property="unscrambleContent" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="RelatedResultMapWithBLOBs" type="com.tcl.model.OrderModelWithBLOBs" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="unscramble_content" property="unscrambleContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, trade_id, package_id, package_name, package_num, price, status, take_time, 
-    report_time, barcode, report_url, report_accept_time, unscramble_time, create_time, 
-    modify_time
+    take_doctor_id, report_time, report_time_desc, barcode, report_url, report_accept_time, 
+    unscramble_time, unscramble_audio_url, unscramble_audio_time, create_time, modify_time
   </sql>
   <sql id="Blob_Column_List" >
     remark, unscramble_content
@@ -47,17 +67,19 @@
     insert into app_c_order (id, user_id, trade_id, 
       package_id, package_name, package_num, 
       price, status, take_time, 
-      report_time, barcode, report_url, 
-      report_accept_time, unscramble_time, create_time, 
-      modify_time, remark, unscramble_content
-      )
+      take_doctor_id, report_time, report_time_desc, 
+      barcode, report_url, report_accept_time, 
+      unscramble_time, unscramble_audio_url, unscramble_audio_time, 
+      create_time, modify_time, remark, 
+      unscramble_content)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{tradeId,jdbcType=BIGINT}, 
       #{packageId,jdbcType=BIGINT}, #{packageName,jdbcType=VARCHAR}, #{packageNum,jdbcType=INTEGER}, 
       #{price,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{takeTime,jdbcType=TIMESTAMP}, 
-      #{reportTime,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, #{reportUrl,jdbcType=VARCHAR}, 
-      #{reportAcceptTime,jdbcType=VARCHAR}, #{unscrambleTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}, #{unscrambleContent,jdbcType=LONGVARCHAR}
-      )
+      #{takeDoctorId,jdbcType=BIGINT}, #{reportTime,jdbcType=VARCHAR}, #{reportTimeDesc,jdbcType=VARCHAR}, 
+      #{barcode,jdbcType=VARCHAR}, #{reportUrl,jdbcType=VARCHAR}, #{reportAcceptTime,jdbcType=VARCHAR}, 
+      #{unscrambleTime,jdbcType=TIMESTAMP}, #{unscrambleAudioUrl,jdbcType=VARCHAR}, #{unscrambleAudioTime,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}, 
+      #{unscrambleContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.OrderModelWithBLOBs" >
     insert into app_c_order
@@ -89,8 +111,14 @@
       <if test="takeTime != null" >
         take_time,
       </if>
+      <if test="takeDoctorId != null" >
+        take_doctor_id,
+      </if>
       <if test="reportTime != null" >
         report_time,
+      </if>
+      <if test="reportTimeDesc != null" >
+        report_time_desc,
       </if>
       <if test="barcode != null" >
         barcode,
@@ -103,6 +131,12 @@
       </if>
       <if test="unscrambleTime != null" >
         unscramble_time,
+      </if>
+      <if test="unscrambleAudioUrl != null" >
+        unscramble_audio_url,
+      </if>
+      <if test="unscrambleAudioTime != null" >
+        unscramble_audio_time,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -145,8 +179,14 @@
       <if test="takeTime != null" >
         #{takeTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="takeDoctorId != null" >
+        #{takeDoctorId,jdbcType=BIGINT},
+      </if>
       <if test="reportTime != null" >
         #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTimeDesc != null" >
+        #{reportTimeDesc,jdbcType=VARCHAR},
       </if>
       <if test="barcode != null" >
         #{barcode,jdbcType=VARCHAR},
@@ -159,6 +199,12 @@
       </if>
       <if test="unscrambleTime != null" >
         #{unscrambleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unscrambleAudioUrl != null" >
+        #{unscrambleAudioUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="unscrambleAudioTime != null" >
+        #{unscrambleAudioTime,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -201,8 +247,14 @@
       <if test="takeTime != null" >
         take_time = #{takeTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="takeDoctorId != null" >
+        take_doctor_id = #{takeDoctorId,jdbcType=BIGINT},
+      </if>
       <if test="reportTime != null" >
         report_time = #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTimeDesc != null" >
+        report_time_desc = #{reportTimeDesc,jdbcType=VARCHAR},
       </if>
       <if test="barcode != null" >
         barcode = #{barcode,jdbcType=VARCHAR},
@@ -215,6 +267,12 @@
       </if>
       <if test="unscrambleTime != null" >
         unscramble_time = #{unscrambleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unscrambleAudioUrl != null" >
+        unscramble_audio_url = #{unscrambleAudioUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="unscrambleAudioTime != null" >
+        unscramble_audio_time = #{unscrambleAudioTime,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -241,11 +299,15 @@
       price = #{price,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
       take_time = #{takeTime,jdbcType=TIMESTAMP},
+      take_doctor_id = #{takeDoctorId,jdbcType=BIGINT},
       report_time = #{reportTime,jdbcType=VARCHAR},
+      report_time_desc = #{reportTimeDesc,jdbcType=VARCHAR},
       barcode = #{barcode,jdbcType=VARCHAR},
       report_url = #{reportUrl,jdbcType=VARCHAR},
       report_accept_time = #{reportAcceptTime,jdbcType=VARCHAR},
       unscramble_time = #{unscrambleTime,jdbcType=TIMESTAMP},
+      unscramble_audio_url = #{unscrambleAudioUrl,jdbcType=VARCHAR},
+      unscramble_audio_time = #{unscrambleAudioTime,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=LONGVARCHAR},
@@ -262,13 +324,57 @@
       price = #{price,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
       take_time = #{takeTime,jdbcType=TIMESTAMP},
+      take_doctor_id = #{takeDoctorId,jdbcType=BIGINT},
       report_time = #{reportTime,jdbcType=VARCHAR},
+      report_time_desc = #{reportTimeDesc,jdbcType=VARCHAR},
       barcode = #{barcode,jdbcType=VARCHAR},
       report_url = #{reportUrl,jdbcType=VARCHAR},
       report_accept_time = #{reportAcceptTime,jdbcType=VARCHAR},
       unscramble_time = #{unscrambleTime,jdbcType=TIMESTAMP},
+      unscramble_audio_url = #{unscrambleAudioUrl,jdbcType=VARCHAR},
+      unscramble_audio_time = #{unscrambleAudioTime,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectList" parameterType="java.util.Map" resultMap="RelatedResultMapWithBLOBs">
+    select o.id, o.user_id, trade_id, package_id, package_name, package_num, o.price, o.status, take_time,
+    take_doctor_id, report_time, report_time_desc, barcode, report_url, report_accept_time,
+    unscramble_time, unscramble_audio_url, unscramble_audio_time, o.create_time, o.modify_time,
+    remark, unscramble_content,
+    u.user_name u_user_name,
+    t.trade_num t_trade_num,
+    d.doctor_name d_doctor_name
+    from (app_c_order o LEFT JOIN app_c_user u ON o.user_id = u.id)
+    LEFT JOIN app_c_trade t ON o.trade_id = t.id
+    LEFT JOIN app_c_doctor d on o.take_doctor_id = d.id
+    where 1 = 1
+    <if test="id != null">
+      and o.id = #{id, jdbcType=BIGINT}
+    </if>
+    <if test="userName != null and userName != ''">
+      and u.user_name = #{userName, jdbcType = VARCHAR}
+    </if>
+    <if test="tradeNum != null and tradeNum != ''">
+      and t.trade_num = #{tradeNum, jdbcType=VARCHAR}
+    </if>
+    <if test="packageName != null and packageName != ''">
+      and o.package_name = #{packageName, jdbcType=VARCHAR }
+    </if>
+    <if test="status != null and status != ''">
+      and o.status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="barcode != null and barcode != ''">
+      and o.barcode = #{barcode, jdbcType=VARCHAR}
+    </if>
+    <if test="create_time_start != null">
+      AND t.create_time &gt;= #{create_time_start, jdbcType=TIMESTAMP}
+    </if>
+    <if test="create_time_end != null">
+      AND t.create_time &lt;= #{create_time_end, jdbcType=TIMESTAMP}
+    </if>
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>

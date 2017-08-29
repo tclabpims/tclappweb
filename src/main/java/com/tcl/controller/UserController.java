@@ -194,8 +194,8 @@ public class UserController {
                 page_no = 1;
             }
         }
-        List<UserModel> package_list = userService.selectList(mapInfo);
-        int total_page = (package_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        List<UserModel> user_list = userService.selectList(mapInfo);
+        int total_page = (user_list.size() + PAGE_SIZE - 1) / PAGE_SIZE;
         if (total_page < 1) {
             total_page = 1;
             isEmpty = true;

@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService{
         return departmentDao.selectList(map);
     }
 
-    public int addPackageDetails(DepartmentModel departmentModel) {
+    public int addDepartment(DepartmentModel departmentModel) {
         return departmentDao.insertSelective(departmentModel);
     }
 

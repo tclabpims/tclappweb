@@ -148,10 +148,10 @@ public class DoctorServiceImpl implements DoctorService{
         ReadExcel readExcel = new ReadDoctorExcel();
         List<DoctorModel> doctorList = readExcel.getExcelInfo(excelFile);
         if (doctorList != null && !doctorList.isEmpty()) {
-            //userDao.batchInsert(userLists);
-            for (int i=0; i<doctorList.size(); i++) {
+            doctorDao.batchInsert(doctorList);
+            /*for (int i=0; i<doctorList.size(); i++) {
                 doctorDao.insert(doctorList.get(i));
-            }
+            }*/
             result = "导入成功";
         } else {
             result = "导入失败";

@@ -58,10 +58,10 @@ public class PackageServiceImpl implements PackageService {
 		ReadExcel readExcel = new ReadPackageExcel();
 		List<PackageModelWithBLOBs> packageList = readExcel.getExcelInfo(excelFile);
 		if (packageList != null && !packageList.isEmpty()) {
-			//userDao.batchInsert(userLists);
-			for (int i=0; i<packageList.size(); i++) {
+			packageDao.batchInsert(packageList);
+			/*for (int i=0; i<packageList.size(); i++) {
 				packageDao.insert(packageList.get(i));
-			}
+			}*/
 			result = "导入成功";
 		} else {
 			result = "导入失败";
