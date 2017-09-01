@@ -107,7 +107,7 @@
                         <c:if test="${item.status == 5}">已报告</c:if>
                         <c:if test="${item.status == 6}">已解读</c:if>
                     </td>
-                    <td class="center left-con">${item.price}</td>
+                    <td class="center left-con"><fmt:formatNumber type="number" value="${item.price / 100}" pattern="#0.00" maxFractionDigits="2"/></td>
                     <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                     <td class="center left-con"><fmt:formatDate value="${item.payTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                     <%--<td class="center left-con">${item.price}</td>--%>
@@ -220,7 +220,7 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 120px">订单价格到分</label>
             <div class="layui-input-inline">
-                <input type="text" id="price_edit" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+                <input type="text" id="price_edit" name="price_" required lay-verify="required" class="layui-input" style="width: 260px">
             </div>
         </div>
         <div class="layui-inline">

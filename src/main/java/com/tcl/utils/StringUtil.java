@@ -1,6 +1,8 @@
 package com.tcl.utils;
 
+import java.math.BigDecimal;
 import java.security.MessageDigest;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +12,10 @@ import java.util.Date;
  */
 public class StringUtil {
     public static String getFormatDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String datetime = sdf.format(date);
         return datetime;
     }
@@ -22,6 +27,9 @@ public class StringUtil {
      * @return
      */
     public static String getFormatDate(Date date, String format) {
+        if (date == null) {
+            return null;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         String birthday = sdf.format(date);
         return birthday;
@@ -79,5 +87,20 @@ public class StringUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    //对价格的处理
+    public static Long priceProcess(String price_str) {
+        if (price_str == null || price_str.trim() == "") {
+            return null;
+        } else {
+            return (long)(Arith.mul(Double.parseDouble(price_str.trim()), 100));
+        }
+    }
+
+    //价格转换成字符串
+    public static String priceToString(Long price) {
+        double priced = Arith.div(((double) ((long) price)), 100, 2);
+        return new DecimalFormat("0.00").format(priced);
     }
 }

@@ -50,7 +50,7 @@ function ItemDele(id) {
     })
 }
 
-/*编辑购物车内容*/
+/*编辑订单内容*/
 function ItemEdit(id) {
     var trade;
     $.ajax({
@@ -122,9 +122,8 @@ function ItemEdit(id) {
         $("#userId_edit").val(trade.userId);
         $("#applicantId_edit").val(trade.applicantId);
         $("#status_edit option[value='"+trade.status+"']").attr("selected", 'selected');
-        $("#price_edit").val(trade.price);
+        $("#price_edit").val((parseFloat(trade.price) / 100).toFixed(2));
         $("#num_edit").val(trade.num);
-        $("#price_edit").val(trade.price);
         $("#name_edit").val(trade.name);
         $("#doctorId_edit").val(trade.doctorId);
         $("#doctorName_edit").val(trade.doctorName);
@@ -211,8 +210,8 @@ function ItemDetail(id) {
         if(trade.status == "6") {
             detail_trade_table.rows[2].cells[3].innerHTML = "已解读";
         }
-        detail_trade_table.rows[3].cells[1].innerHTML = trade.price;
-        detail_trade_table.rows[3].cells[3].innerHTML = trade.num;
+        detail_trade_table.rows[3].cells[1].innerHTML = (parseFloat(trade.price) / 100).toFixed(2) + " 元";
+        detail_trade_table.rows[3].cells[3].innerHTML = trade.num + " 个";
         detail_trade_table.rows[4].cells[1].innerHTML = trade.name;
         detail_trade_table.rows[4].cells[3].innerHTML = trade.doctorName;
         detail_trade_table.rows[5].cells[1].innerHTML = trade.hospitalName;

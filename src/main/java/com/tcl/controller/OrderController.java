@@ -6,6 +6,7 @@ import com.tcl.model.OrderModelWithBLOBs;
 import com.tcl.model.TradeModel;
 import com.tcl.service.OrderService;
 import com.tcl.service.TradeService;
+import com.tcl.utils.ExcelExportUtil;
 import com.tcl.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.nio.cs.ext.GBK;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -70,7 +75,11 @@ public class OrderController {
         mapInfo.put("userName", userName.trim());
         mapInfo.put("tradeNum", tradeNum.trim());
         mapInfo.put("packageName", packageName.trim());
-        mapInfo.put("status", status.trim());
+        Integer status_ = null;
+        if (status != null && status != "") {
+            status_ = Integer.parseInt(status.trim());
+        }
+        mapInfo.put("status", status_);
         mapInfo.put("barcode", barcode.trim());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date create_time_start = null;
@@ -150,7 +159,8 @@ public class OrderController {
      * @return*/
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> updateById(OrderModelWithBLOBs orderModelWithBLOBs, String takeTimeS, String unscrambleTimeS) {
+    public Map<String, String> updateById(OrderModelWithBLOBs orderModelWithBLOBs, String takeTimeS, String unscrambleTimeS, String price_) {
+        orderModelWithBLOBs.setPrice(StringUtil.priceProcess(price_));
         orderModelWithBLOBs.setTakeTime(StringUtil.getDate(takeTimeS, "yyyy-MM-dd hh:mm:ss"));
         orderModelWithBLOBs.setUnscrambleTime(StringUtil.getDate(unscrambleTimeS, "yyyy-MM-dd hh:mm:ss"));
         orderModelWithBLOBs.setModifyTime(new Date());
@@ -234,50 +244,14 @@ public class OrderController {
      * @param response
      * @return
      */
-    /*@RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
-    public String exportExcel(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
+    public String exportExcel(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         Map<String, Object> map = new HashMap<String, Object>();
-        List<PackageDetailsModel> packageDetails_list = null;
-        //标题行
-        String title[] = {"检验项目编号", "his项目编号", "his项目名称", "his价格到分", "套餐编号", "项目名称", "price"};
-        StringBuilder tempPath = new StringBuilder();
-        SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
-        tempPath.append(fileNameFormat.format(new Date()));
-        tempPath.append(".").append("xls");
-        String filename = tempPath.toString();
-        try {
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
-            response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
-            OutputStream os = response.getOutputStream();
-            WritableWorkbook book = Workbook.createWorkbook(os);
-            WritableSheet sheet = book.createSheet("套餐信息", 0);
-            //写入标题
-            for (int i=0; i<title.length; i++) {
-                sheet.addCell(new Label(i, 0, title[i]));
-            }
-            packageDetails_list = packageDetailsService.selectList(new HashMap<String, Object>());
-            for (int i=0; i<packageDetails_list.size(); i++) {
-                int j=0;
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getId() != null ? Long.toString(packageDetails_list.get(i).getId()) : ""));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisId()));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisName()));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisPrice() != null ? Long.toString(packageDetails_list.get(i).getHisPrice()) : ""));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getPackageId() != null ? Long.toString(packageDetails_list.get(i).getPackageId()) : ""));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getName()));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getPrice() != null ? Long.toString(packageDetails_list.get(i).getPrice()) : ""));
-            }
-            //写入数据
-            book.write();
-            //关闭文件
-            book.close();
-            os.flush();
-            os.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<OrderModelWithBLOBs> orderList = orderService.selectOrdersForExcelExport(map);
+        ExcelExportUtil.orderRecoredExport(response, orderList);
+//        System.out.println("你好，我是中国人");
         return null;
-    }*/
+    }
 
     /**
      * excel数据的导入

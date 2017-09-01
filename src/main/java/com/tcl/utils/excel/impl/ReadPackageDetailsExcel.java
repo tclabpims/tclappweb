@@ -121,11 +121,11 @@ public class ReadPackageDetailsExcel implements ReadExcel{
                         if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
                             String hisPrice_str = String.valueOf(cell.getNumericCellValue());
                             hisPrice_str = hisPrice_str.substring(0, hisPrice_str.length() - 2 > 0 ? hisPrice_str.length() - 2 : 1);
-                            hisPrice = Long.parseLong(hisPrice_str);
+                            hisPrice = StringUtil.priceProcess(hisPrice_str);
                         } else {
                             String hisPrice_str = cell.getStringCellValue();
                             if (!hisPrice_str.isEmpty() && hisPrice_str != null) {
-                                hisPrice = Long.parseLong(hisPrice_str);
+                                hisPrice = StringUtil.priceProcess(hisPrice_str);
                             }
                         }
                         packageDetailsModel.setHisPrice(hisPrice);
@@ -161,11 +161,11 @@ public class ReadPackageDetailsExcel implements ReadExcel{
                         if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
                             String price_str = String.valueOf(cell.getNumericCellValue());
                             price_str = price_str.substring(0, price_str.length() - 2 > 0 ? price_str.length() - 2 : 1);
-                            price = Long.parseLong(price_str);
+                            price = StringUtil.priceProcess(price_str);
                         } else {
                             String price_str = cell.getStringCellValue();
                             if (!price_str.isEmpty() && price_str == null ) {
-                                price = Long.parseLong(price_str);
+                                price = StringUtil.priceProcess(price_str);
                             }
                         }
                         packageDetailsModel.setPrice(price);

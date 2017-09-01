@@ -233,7 +233,7 @@ public class HospitalController {
 		String filename = tempPath.toString();
 		try {
 			response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "iso-8859-1"));
 			response.setHeader("Content-Disposition", "attachment;filename=" + new String((filename).getBytes(), "utf-8"));
 			OutputStream os = response.getOutputStream();
 			WritableWorkbook book = Workbook.createWorkbook(os);

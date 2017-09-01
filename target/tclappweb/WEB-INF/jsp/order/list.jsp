@@ -71,6 +71,16 @@
                 </div>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="layui-btn layui-btn-small" onclick="exportExcel()">导出Excel</button>
             </form>
         </div>
         <%--查询 end--%>
@@ -100,7 +110,7 @@
                     <td class="center left-con">${item.tradeModel.tradeNum}</td>
                     <td class="center left-con">${item.packageName}</td>
                     <%--<td class="center left-con">${item.packageNum}</td>--%>
-                    <td class="center left-con">${item.price}</td>
+                    <td class="center left-con"><fmt:formatNumber type="number" value="${item.price / 100}" pattern="#0.00" maxFractionDigits="2"/> </td>
                     <td class="center left-con">${item.barcode}</td>
                     <td class="center left-con">
                         <c:if test="${item.status == -2}">未确认（预约医生）</c:if>
@@ -223,7 +233,7 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 120px">套餐价格到分</label>
             <div class="layui-input-inline">
-                <input type="text" id="price_edit" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+                <input type="text" id="price_edit" name="price_" required lay-verify="required" class="layui-input" style="width: 260px">
             </div>
         </div>
         <div class="layui-inline">

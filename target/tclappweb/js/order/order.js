@@ -50,7 +50,7 @@ function ItemDele(id) {
     })
 }
 
-/*编辑购物车内容*/
+/*编辑订单子项内容*/
 function ItemEdit(id) {
     var order;
     $.ajax({
@@ -124,7 +124,7 @@ function ItemEdit(id) {
         $("#packageId_edit").val(order.packageId);
         $("#packageName_edit").val(order.packageName);
         $("#packageNum_edit").val(order.packageNum);
-        $("#price_edit").val(order.price);
+        $("#price_edit").val((parseFloat(order.price) / 100).toFixed(2));
         $("#status_edit option[value='"+order.status+"']").attr("selected", 'selected');
         $("#takeTime_edit").val(order.takeTime != null ? new Date(order.takeTime).format("yyyy-MM-dd hh:mm:ss") : "");
         $("#takeDoctorId_edit").val(order.takeDoctorId);
@@ -143,7 +143,7 @@ function ItemEdit(id) {
     })
 }
 
-/*订单详情*/
+/*订单子项详情*/
 function ItemDetail(id) {
     var order;
     $.ajax({
@@ -184,8 +184,8 @@ function ItemDetail(id) {
         detail_order_table.rows[1].cells[3].innerHTML = order.tradeModel.tradeNum;
         detail_order_table.rows[2].cells[1].innerHTML = order.packageId;
         detail_order_table.rows[2].cells[3].innerHTML = order.packageName;
-        detail_order_table.rows[3].cells[1].innerHTML = order.packageNum;
-        detail_order_table.rows[3].cells[3].innerHTML = order.price;
+        detail_order_table.rows[3].cells[1].innerHTML = order.packageNum + " 个";
+        detail_order_table.rows[3].cells[3].innerHTML = (parseFloat(order.price) / 100).toFixed(2) + " 元";
         if(order.status == "-2") {
             detail_order_table.rows[4].cells[1].innerHTML = "未确认（预约医生）";
         }
@@ -228,6 +228,31 @@ function ItemDetail(id) {
         detail_order_table.rows[10].cells[3].innerHTML = order.modifyTime != null ? new Date(order.modifyTime).format("yyyy-MM-dd hh:mm:ss") : "";
         detail_order_table.rows[11].cells[1].innerHTML = order.unscrambleContent;
         detail_order_table.rows[12].cells[1].innerHTML = order.remark;
+    })
+}
+
+function getRootPath(){
+    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath=window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8083
+    var localhostPaht=curWwwPath.substring(0,pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    return(localhostPaht+projectName);
+}
+
+/*导出Excel表格*/
+function exportExcel() {
+    $(document).ready(function() {
+        var temp_form = document.createElement("form");
+        temp_form.action = getRootPath() + "/exportexcel.do";
+        temp_form.method = "post";
+        temp_form.style.display = "none";
+        document.body.appendChild(temp_form);
+        temp_form.submit();
     })
 }
 

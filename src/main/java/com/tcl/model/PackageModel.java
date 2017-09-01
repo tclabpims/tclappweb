@@ -5,6 +5,10 @@ public class PackageModel {
 
     private String name;
 
+    private String hisId;
+
+    private String hisName;
+
     private String useCrowd;
 
     private Long price;
@@ -43,6 +47,22 @@ public class PackageModel {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getHisId() {
+        return hisId;
+    }
+
+    public void setHisId(String hisId) {
+        this.hisId = hisId == null ? null : hisId.trim();
+    }
+
+    public String getHisName() {
+        return hisName;
+    }
+
+    public void setHisName(String hisName) {
+        this.hisName = hisName == null ? null : hisName.trim();
     }
 
     public String getUseCrowd() {

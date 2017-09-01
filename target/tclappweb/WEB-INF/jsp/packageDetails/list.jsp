@@ -164,7 +164,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">his价格到分</label>
             <div class="layui-input-block">
-                <input type="text" name="hisPrice" required lay-verify="required" class="layui-input" style="width: 260px">
+                <input type="text" name="hisPrice_" required lay-verify="required" class="layui-input" style="width: 260px">
             </div>
     </div>
     <%--报告时间说明---%>
@@ -190,7 +190,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">项目价格</label>
         <div class="layui-input-block">
-            <input type="text" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+            <input type="text" name="price_" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
 </form>
@@ -224,7 +224,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">his价格到分</label>
         <div class="layui-input-block">
-            <input type="text" id="hisPrice_edit" name="hisPrice" required lay-verify="required" class="layui-input" style="width: 260px">
+            <input type="text" id="hisPrice_edit" name="hisPrice_" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
     <%--报告时间说明---%>
@@ -250,7 +250,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">项目价格</label>
         <div class="layui-input-block">
-            <input type="text" id="price_edit" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+            <input type="text" id="price_edit" name="price_" required lay-verify="required" class="layui-input" style="width: 260px">
         </div>
     </div>
 </form>

@@ -132,7 +132,7 @@
 
   <select id="selectList" parameterType="java.util.Map" resultMap="RelatedResultMap">
     select
-    a.id, his_id, his_name, his_price, package_id, a.name, a.price, b.id b_id, b.name b_name
+    a.id, a.his_id, a.his_name, his_price, package_id, a.name, a.price, b.id b_id, b.name b_name
     from app_c_package_details a LEFT JOIN app_c_package b ON a.package_id = b.id
     where 1=1
     <if test="id != null">

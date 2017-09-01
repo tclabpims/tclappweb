@@ -4,6 +4,7 @@ import com.tcl.model.PackageDetailsModel;
 import com.tcl.model.PackageModel;
 import com.tcl.model.PackageModelWithBLOBs;
 import com.tcl.service.PackageService;
+import com.tcl.utils.StringUtil;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -90,10 +91,10 @@ public class PackageController {
 		System.out.println("status: " + status);
 		m.put("wjCode", wjCode.trim());
 		if(min_price != null && min_price != "") {
-			m.put("min_price", Long.parseLong(min_price.trim()));
+			m.put("min_price", StringUtil.priceProcess(min_price));
 		}
 		if(max_price != null && max_price != "") {
-			m.put("max_price", Long.parseLong(max_price.trim()));
+			m.put("max_price", StringUtil.priceProcess(max_price));
 		}
 		if(min_saleNum != null && min_saleNum != "") {
 			m.put("min_saleNum", Long.parseLong(min_saleNum.trim()));
@@ -168,7 +169,8 @@ public class PackageController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addPackage(PackageModelWithBLOBs packageModel) {
+	public Map<String, String> addPackage(PackageModelWithBLOBs packageModel, String price_str) {
+		packageModel.setPrice(StringUtil.priceProcess(price_str));
 		Map<String, String> map = new HashMap<String, String>();
 		int result = packageService.addPackage(packageModel);
 		if (result > 0) {
@@ -209,7 +211,8 @@ public class PackageController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> updateById(PackageModelWithBLOBs packageModel) {
+	public Map<String, String> updateById(PackageModelWithBLOBs packageModel, String price_str) {
+		packageModel.setPrice(StringUtil.priceProcess(price_str));
 		int result = packageService.updateById(packageModel);
 		Map<String, String> map = new HashMap<String, String>();
 		if (result > 0) {
@@ -240,7 +243,7 @@ public class PackageController {
 		String filename = tempPath.toString();
 		try {
 			response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "iso-8859-1"));
 			response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
 			OutputStream os = response.getOutputStream();
 			WritableWorkbook book = Workbook.createWorkbook(os);
@@ -254,7 +257,7 @@ public class PackageController {
 				int j=0;
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getId() != null ? Long.toString(package_list.get(i).getId()) : ""));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getName()));
-				sheet.addCell(new Label(j++, i+1, package_list.get(i).getPrice() != null ? Long.toString(package_list.get(i).getPrice()) : ""));
+				sheet.addCell(new Label(j++, i+1, package_list.get(i).getPrice() != null ? StringUtil.priceToString(package_list.get(i).getPrice()) : ""));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getReportTime()));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getReportTimeDesc()));
 				sheet.addCell(new Label(j++, i+1, package_list.get(i).getWjCode()));

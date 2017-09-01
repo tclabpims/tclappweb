@@ -29,17 +29,33 @@
     <collection property="tradeModel" javaType="com.tcl.model.TradeModel">
       <id column="t_id" property="id" jdbcType="BIGINT" />
       <result column="t_trade_num" property="tradeNum" jdbcType="VARCHAR" />
+      <result column="t_hospital_id" property="hospitalId" jdbcType="BIGINT" />
+      <result column="t_hospital_name" property="hospitalName" jdbcType="VARCHAR" />
+      <result column="t_yz_department_name" property="yzDepartmentName" jdbcType="VARCHAR" />
+      <result column="t_yz_doctor_name" property="yzDoctorName" jdbcType="VARCHAR" />
+      <result column="t_yz_time" property="yzTime" jdbcType="VARCHAR" />
+      <result column="t_hospital_id" property="hospitalId" jdbcType="BIGINT" />
     </collection>
     <collection property="doctorModel" javaType="com.tcl.model.DoctorModel">
       <id column="d_id" property="id" jdbcType="BIGINT" />
       <result column="d_doctor_name" property="doctorName" jdbcType="VARCHAR" />
     </collection>
+    <collection property="applicantModel" javaType="com.tcl.model.ApplicantModel">
+      <id column="a_id" property="id" jdbcType="BIGINT" />
+      <result column="a_apply_name" property="applyName" jdbcType="VARCHAR" />
+      <result column="a_sex" property="sex" jdbcType="VARCHAR" />
+      <result column="a_age" property="age" jdbcType="INTEGER" />
+    </collection>
+    <collection property="hospitalModel" javaType="com.tcl.model.HospitalModelWithBLOBs">
+      <id column="h_id" property="id" jdbcType="BIGINT" />
+    </collection>
+    <collection property="packageModel" javaType="com.tcl.model.PackageModel">
+      <id column="p_id" property="id" jdbcType="BIGINT" />
+      <result column="p_his_id" property="hisId" jdbcType="BIGINT" />
+      <result column="p_his_name" property="hisName" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.OrderModelWithBLOBs" extends="BaseResultMap" >
-    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
-    <result column="unscramble_content" property="unscrambleContent" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <resultMap id="RelatedResultMapWithBLOBs" type="com.tcl.model.OrderModelWithBLOBs" extends="BaseResultMap" >
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
     <result column="unscramble_content" property="unscrambleContent" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -337,7 +353,7 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectList" parameterType="java.util.Map" resultMap="RelatedResultMapWithBLOBs">
+  <select id="selectList" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select o.id, o.user_id, trade_id, package_id, package_name, package_num, o.price, o.status, take_time,
     take_doctor_id, report_time, report_time_desc, barcode, report_url, report_accept_time,
     unscramble_time, unscramble_audio_url, unscramble_audio_time, o.create_time, o.modify_time,
@@ -362,7 +378,7 @@
       and o.package_name = #{packageName, jdbcType=VARCHAR }
     </if>
     <if test="status != null and status != ''">
-      and o.status = #{status, jdbcType=VARCHAR}
+      and o.status = #{status, jdbcType=INTEGER}
     </if>
     <if test="barcode != null and barcode != ''">
       and o.barcode = #{barcode, jdbcType=VARCHAR}
@@ -376,5 +392,26 @@
     <if test="start_num != null and pageSize != null">
       limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
     </if>
+  </select>
+
+  <select id="selectOrdersForExcelExport" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select o.id, o.barcode, a.apply_name a_apply_name, a.id a_id, o.trade_id, a.sex a_sex, a.age a_age,
+    t.yz_department_name t_yz_department_name, p.his_id p_his_id, p.his_name p_his_name, t.yz_doctor_name t_yz_doctor_name,
+    t.yz_time t_yz_time, d.doctor_name d_doctor_name, o.take_time, t.hospital_id t_hospital_id, t.trade_num t_trade_num, o.price
+    from (app_c_order o LEFT JOIN app_c_trade t on o.trade_id = t.id)
+    LEFT JOIN app_c_applicant a on a.id = t.applicant_id
+    LEFT JOIN app_c_doctor d on o.take_doctor_id = d.id
+    LEFT JOIN app_c_package p on p.id = o.package_id
+    where 1 = 1
+    <if test="id != null">
+      and o.id = #{id, jdbcType=BIGINT}
+    </if>
+  </select>
+  
+  <select id="orderWithHospitalInfoList" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select o.id, o.user_id, trade_id, package_id, package_name, package_num, o.price,
+    o.status, o.create_time, o.modify_time,
+    t.hospital_id t_hospital_id, t.hospital_name t_hospital_name
+    from app_c_order o left JOIN app_c_trade t on o.trade_id = t.id
   </select>
 </mapper>

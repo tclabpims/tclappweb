@@ -49,6 +49,36 @@ public class OrderModel {
 
     private DoctorModel doctorModel;
 
+    private ApplicantModel applicantModel;
+
+    private HospitalModelWithBLOBs hospitalModel;
+
+    private PackageModel packageModel;
+
+    public PackageModel getPackageModel() {
+        return packageModel;
+    }
+
+    public void setPackageModel(PackageModel packageModel) {
+        this.packageModel = packageModel;
+    }
+
+    public HospitalModelWithBLOBs getHospitalModel() {
+        return hospitalModel;
+    }
+
+    public void setHospitalModel(HospitalModelWithBLOBs hospitalModel) {
+        this.hospitalModel = hospitalModel;
+    }
+
+    public ApplicantModel getApplicantModel() {
+        return applicantModel;
+    }
+
+    public void setApplicantModel(ApplicantModel applicantModel) {
+        this.applicantModel = applicantModel;
+    }
+
     public DoctorModel getDoctorModel() {
         return doctorModel;
     }

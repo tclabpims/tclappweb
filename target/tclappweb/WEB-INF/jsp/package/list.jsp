@@ -80,7 +80,7 @@
                 <th class="center left-con" width="18%">套餐名称</th>
                 <th class="center left-con" width="10%">图片</th>
                 <th class="center left-con" width="32%">使用人群</th>
-                <th class="center left-con" width="10%">价格</th>
+                <th class="center left-con" width="10%">价格（元）</th>
                 <th class="center left-con" width="10%">注意事项</th>
                 <th class="center left-con" width="30%">操作</th>
             </tr>
@@ -95,7 +95,7 @@
                     <td class="center left-con">${item.name}</td>
                     <td class="center left-con"><img src="<%@include file="../../ImgUrl/acquireUrl.jsp"%>${item.picUrl}" style="height: 30px; width: 50px"/></td>
                     <td class="line_limit" valign="middle" style="height: 34px">${item.useCrowd}</td>
-                    <td class="center left-con">${item.price}</td>
+                    <td class="center left-con"><fmt:formatNumber type="number" value="${item.price / 100}" pattern="#0.00" maxFractionDigits="2"/></td>
                     <td class="line_limit" valign="middle" style="height: 34px">${item.needAttention}</td>
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
@@ -177,7 +177,7 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 100px">价格</label>
             <div class="layui-input-inline">
-                <input type="text" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+                <input type="text" name="price_str" required lay-verify="required" class="layui-input" style="width: 260px">
             </div>
         </div>
         <div class="layui-inline">
@@ -348,7 +348,7 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 100px">价格</label>
             <div class="layui-input-inline">
-                <input type="text" id="edit_price" name="price" required lay-verify="required" class="layui-input" style="width: 260px">
+                <input type="text" id="edit_price" name="price_str" required lay-verify="required" class="layui-input" style="width: 260px">
             </div>
         </div>
         <div class="layui-inline">

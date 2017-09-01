@@ -63,7 +63,7 @@
                 <th class="center left-con" width="14%">用户名</th>
                 <th class="center left-con" width="12%">用户姓名</th>
                 <th class="center left-con" width="18%">套餐名称</th>
-                <th class="center left-con" width="8%">数量</th>
+                <th class="center left-con" width="8%">数量（个）</th>
                 <th class="center left-con" width="15%">创建时间</th>
                 <th class="center left-con" width="15%">修改时间</th>
                 <th class="center left-con" width="10">操作</th>

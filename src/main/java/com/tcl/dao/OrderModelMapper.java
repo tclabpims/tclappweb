@@ -22,4 +22,8 @@ public interface OrderModelMapper {
     int updateByPrimaryKey(OrderModel record);
 
     List<OrderModelWithBLOBs> selectList(Map map);
+
+    List<OrderModelWithBLOBs> orderWithHospitalInfoList(Map map);
+
+    List<OrderModelWithBLOBs> selectOrdersForExcelExport(Map<String, Object> map);
 }

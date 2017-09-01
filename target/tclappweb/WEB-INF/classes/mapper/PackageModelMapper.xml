@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.tcl.model.PackageModel" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="his_id" property="hisId" jdbcType="VARCHAR" />
+    <result column="his_name" property="hisName" jdbcType="VARCHAR" />
     <result column="use_crowd" property="useCrowd" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="BIGINT" />
     <result column="report_time" property="reportTime" jdbcType="VARCHAR" />
@@ -23,8 +25,8 @@
     <result column="clause" property="clause" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, use_crowd, price, report_time, report_time_desc, wj_code, sale_num, pic_url,
-    detail_img, status, test_type, disease_type, take_type
+    id, name, his_id, his_name, use_crowd, price, report_time, report_time_desc, wj_code,
+    sale_num, pic_url, detail_img, status, test_type, disease_type, take_type
   </sql>
   <sql id="Blob_Column_List" >
     need_attention, project_desc, clause
@@ -42,18 +44,20 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.tcl.model.PackageModelWithBLOBs" >
-    insert into app_c_package (id, name, use_crowd,
-    price, report_time, report_time_desc,
-    wj_code, sale_num, pic_url,
-    detail_img, status, test_type,
-    disease_type, take_type, need_attention,
-    project_desc, clause)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{useCrowd,jdbcType=VARCHAR},
-    #{price,jdbcType=BIGINT}, #{reportTime,jdbcType=VARCHAR}, #{reportTimeDesc,jdbcType=VARCHAR},
-    #{wjCode,jdbcType=VARCHAR}, #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR},
-    #{detailImg,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR},
-    #{diseaseType,jdbcType=VARCHAR}, #{takeType,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR},
-    #{projectDesc,jdbcType=LONGVARCHAR}, #{clause,jdbcType=LONGVARCHAR})
+    insert into app_c_package (id, name, his_id,
+      his_name, use_crowd, price,
+      report_time, report_time_desc, wj_code,
+      sale_num, pic_url, detail_img,
+      status, test_type, disease_type,
+      take_type, need_attention, project_desc,
+      clause)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{hisId,jdbcType=VARCHAR},
+      #{hisName,jdbcType=VARCHAR}, #{useCrowd,jdbcType=VARCHAR}, #{price,jdbcType=BIGINT},
+      #{reportTime,jdbcType=VARCHAR}, #{reportTimeDesc,jdbcType=VARCHAR}, #{wjCode,jdbcType=VARCHAR},
+      #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{detailImg,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR}, #{diseaseType,jdbcType=VARCHAR},
+      #{takeType,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR}, #{projectDesc,jdbcType=LONGVARCHAR},
+      #{clause,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     insert into app_c_package
@@ -63,6 +67,12 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="hisId != null" >
+        his_id,
+      </if>
+      <if test="hisName != null" >
+        his_name,
       </if>
       <if test="useCrowd != null" >
         use_crowd,
@@ -117,6 +127,12 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="hisId != null" >
+        #{hisId,jdbcType=VARCHAR},
+      </if>
+      <if test="hisName != null" >
+        #{hisName,jdbcType=VARCHAR},
+      </if>
       <if test="useCrowd != null" >
         #{useCrowd,jdbcType=VARCHAR},
       </if>
@@ -170,6 +186,12 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="hisId != null" >
+        his_id = #{hisId,jdbcType=VARCHAR},
+      </if>
+      <if test="hisName != null" >
+        his_name = #{hisName,jdbcType=VARCHAR},
+      </if>
       <if test="useCrowd != null" >
         use_crowd = #{useCrowd,jdbcType=VARCHAR},
       </if>
@@ -221,6 +243,8 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     update app_c_package
     set name = #{name,jdbcType=VARCHAR},
+    his_id = #{hisId,jdbcType=VARCHAR},
+    his_name = #{hisName,jdbcType=VARCHAR},
     use_crowd = #{useCrowd,jdbcType=VARCHAR},
     price = #{price,jdbcType=BIGINT},
     report_time = #{reportTime,jdbcType=VARCHAR},
@@ -241,6 +265,8 @@
   <update id="updateByPrimaryKey" parameterType="com.tcl.model.PackageModel" >
     update app_c_package
     set name = #{name,jdbcType=VARCHAR},
+      his_id = #{hisId,jdbcType=VARCHAR},
+      his_name = #{hisName,jdbcType=VARCHAR},
       use_crowd = #{useCrowd,jdbcType=VARCHAR},
       price = #{price,jdbcType=BIGINT},
       report_time = #{reportTime,jdbcType=VARCHAR},

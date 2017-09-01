@@ -51,6 +51,13 @@
                     <li><a id="sub73" href="/order/list.do">订单子项列表</a></li>
                   </ul>
              </li>
+             <li class="active">
+                 <a id="menu8" href="#" class="adbj8 ad">财务管理</a>
+                 <ul id="divmenu8" class="sub-menu">
+                     <li><a id="sub81" href="/finaManage/hospitalFiStatistic.do">医院财务信息</a></li>
+                     <li><a id="sub82" href="/finaManage/packageSaleCondition.do">套餐销售数据</a></li>
+                 </ul>
+             </li>
          </ul>
 	</div>
 

@@ -132,11 +132,11 @@ public class ReadPackageExcel implements ReadExcel{
                         if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
                             String price_str = String.valueOf(cell.getNumericCellValue());
                             price_str = price_str.substring(0, price_str.length() - 2 > 0 ? price_str.length() - 2 : 1);
-                            price = Long.parseLong(price_str);
+                            price = StringUtil.priceProcess(price_str);
                         } else {
                             String price_str = cell.getStringCellValue();
                             if (!price_str.isEmpty() && price_str != null) {
-                                price = Long.parseLong(price_str);
+                                price = StringUtil.priceProcess(price_str);
                             }
                         }
                         packageModel.setPrice(price);

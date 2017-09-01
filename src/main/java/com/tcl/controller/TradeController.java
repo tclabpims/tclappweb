@@ -4,6 +4,7 @@ import com.tcl.model.CartModel;
 import com.tcl.model.TradeModel;
 import com.tcl.service.CartService;
 import com.tcl.service.TradeService;
+import com.tcl.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -144,7 +145,8 @@ public class TradeController {
      * @return*/
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> updateById(TradeModel tradeModel) {
+    public Map<String, String> updateById(TradeModel tradeModel, String price_) {
+        tradeModel.setPrice(StringUtil.priceProcess(price_));
         tradeModel.setModifyTime(new Date());
         int result = tradeService.updateById(tradeModel);
         Map<String, String> map = new HashMap<String, String>();

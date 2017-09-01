@@ -289,7 +289,7 @@ function ItemEdit(id) {
         });
         $("#edit_name").val(package.name);
         $("#edit_useCrowd").val(package.useCrowd);
-        $("#edit_price").val(package.price);
+        $("#edit_price").val((parseFloat(package.price) / 100).toFixed(2));
         $("#edit_reportTime").val(package.reportTime);
         $("#edit_reportTimeDesc").val(package.reportTimeDesc);
         $("#edit_wjCode").val(package.wjCode);
@@ -412,7 +412,7 @@ function ItemDetail(id) {
         });
         var package_table = document.getElementById("detail_package_table");
         package_table.rows[0].cells[1].innerHTML = package.name;
-        package_table.rows[1].cells[1].innerHTML = package.price + " 元";
+        package_table.rows[1].cells[1].innerHTML = (parseFloat(package.price) / 100).toFixed(2) + " 元";
         if(package.status == "0") {
             package_table.rows[2].cells[1].innerHTML = "未发布";
         }else if(package.status == "1") {
@@ -420,7 +420,7 @@ function ItemDetail(id) {
         }else if(package.status == "2") {
             package_table.rows[2].cells[1].innerHTML = "已下线";
         }
-        package_table.rows[3].cells[1].innerHTML = package.reportTime;
+        package_table.rows[3].cells[1].innerHTML = package.reportTime + " 小时";
         package_table.rows[4].cells[1].innerHTML = package.reportTimeDesc;
         if(package.saleNum == null) {
             package_table.rows[5].cells[1].innerHTML = "0 次";

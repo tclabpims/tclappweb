@@ -37,6 +37,10 @@ public class OrderServiceImpl implements OrderService{
         return orderDao.deleteByPrimaryKey(id);
     }
 
+    public List<OrderModelWithBLOBs> selectOrdersForExcelExport(Map<String, Object> map) {
+        return orderDao.selectOrdersForExcelExport(map);
+    }
+
     /*public int addPackageDetails(PackageDetailsModel packageDetailsModel) {
         return packageDetailsDao.insertSelective(packageDetailsModel);
     }*/

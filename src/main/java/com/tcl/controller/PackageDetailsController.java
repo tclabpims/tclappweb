@@ -2,6 +2,7 @@ package com.tcl.controller;
 
 import com.tcl.model.PackageDetailsModel;
 import com.tcl.service.PackageDetailsService;
+import com.tcl.utils.StringUtil;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -85,7 +86,9 @@ public class PackageDetailsController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> addPackageDetails(PackageDetailsModel packageDetailsModel) {
+    public Map<String, String> addPackageDetails(PackageDetailsModel packageDetailsModel, String hisPrice_, String price_) {
+        packageDetailsModel.setHisPrice(StringUtil.priceProcess(hisPrice_));
+        packageDetailsModel.setPrice(StringUtil.priceProcess(price_));
         Map<String, String> map = new HashMap<String, String>();
         int result = packageDetailsService.addPackageDetails(packageDetailsModel);
         if (result > 0) {
@@ -120,13 +123,15 @@ public class PackageDetailsController {
     }
 
     /**
-     * 更新套餐
+     * 更新检验细项
      * @param packageDetailsModel
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> updateById(PackageDetailsModel packageDetailsModel) {
+    public Map<String, String> updateById(PackageDetailsModel packageDetailsModel, String hisPrice_, String price_) {
+        packageDetailsModel.setHisPrice(StringUtil.priceProcess(hisPrice_));
+        packageDetailsModel.setPrice(StringUtil.priceProcess(price_));
         int result = packageDetailsService.updateById(packageDetailsModel);
         Map<String, String> map = new HashMap<String, String>();
         if (result > 0) {
@@ -186,7 +191,7 @@ public class PackageDetailsController {
         String filename = tempPath.toString();
         try {
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((path1).getBytes(), "iso-8859-1"));
+//			response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "iso-8859-1"));
             response.setHeader("Content-Disposition", "attachment;filename="+ new String((filename).getBytes(), "utf-8"));
             OutputStream os = response.getOutputStream();
             WritableWorkbook book = Workbook.createWorkbook(os);
@@ -201,10 +206,10 @@ public class PackageDetailsController {
                 sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getId() != null ? Long.toString(packageDetails_list.get(i).getId()) : ""));
                 sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisId()));
                 sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisName()));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisPrice() != null ? Long.toString(packageDetails_list.get(i).getHisPrice()) : ""));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getPackageId() != null ? Long.toString(packageDetails_list.get(i).getPackageId()) : ""));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getName()));
-                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getPrice() != null ? Long.toString(packageDetails_list.get(i).getPrice()) : ""));
+                sheet.addCell(new Label(j++, i+1, packageDetails_list.get(i).getHisPrice() != null ? StringUtil.priceToString(packageDetails_list.get(i).getHisPrice()) : ""));
+                sheet.addCell(new Label(j++, i + 1, packageDetails_list.get(i).getPackageId() != null ? Long.toString(packageDetails_list.get(i).getPackageId()) : ""));
+                sheet.addCell(new Label(j++, i + 1, packageDetails_list.get(i).getName()));
+                sheet.addCell(new Label(j++, i + 1, packageDetails_list.get(i).getPrice() != null ? StringUtil.priceToString(packageDetails_list.get(i).getPrice()) : ""));
             }
             //写入数据
             book.write();

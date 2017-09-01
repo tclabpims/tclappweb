@@ -20,6 +20,8 @@ public interface OrderService {
 
     int deleteById(long id);
 
+    List<OrderModelWithBLOBs> selectOrdersForExcelExport(Map<String, Object> map);
+
 //    int addCart(CartModel cartModel);
 
 //    String importExcelFile(MultipartFile excelFile);

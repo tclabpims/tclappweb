@@ -196,10 +196,10 @@ function ItemEdit(id) {
         });
         $("#hisId_edit").val(packageDetails.hisId);
         $("#hisName_edit").val(packageDetails.hisName);
-        $("#hisPrice_edit").val(packageDetails.hisPrice);
+        $("#hisPrice_edit").val((parseFloat(packageDetails.hisPrice) / 100).toFixed(2));
         $("#packageId_edit").val(packageDetails.packageId);
         $("#name_edit").val(packageDetails.name);
-        $("#price_edit").val(packageDetails.price);
+        $("#price_edit").val((parseFloat(packageDetails.price) / 100).toFixed(2));
         $("#edit_id").val(id);
         form.render();
     })
