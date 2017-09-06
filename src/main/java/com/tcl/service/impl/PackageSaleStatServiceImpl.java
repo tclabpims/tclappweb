@@ -86,7 +86,7 @@ public class PackageSaleStatServiceImpl implements PackageSaleStatService {
             long sale_amount = 0L;
             for (OrderModelWithBLOBs orderModel : order_list) {
                 String order_date = StringUtil.getFormatDate(orderModel.getCreateTime(), "yyyy-M");
-                if (orderModel.getStatus() >= 1 && order_date.equals(year_month) && orderModel.getTradeModel() != null &&
+                if (orderModel.getStatus() >= 1 && order_date.equals(year_month) &&
                         packageSaleStatModel.getPackageId() == orderModel.getPackageId() &&
                         packageSaleStatModel.getPackageName().equals(orderModel.getPackageName())) {
                     sale_number += orderModel.getPackageNum();

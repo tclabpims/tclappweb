@@ -32,6 +32,7 @@
       <result column="t_hospital_id" property="hospitalId" jdbcType="BIGINT" />
       <result column="t_hospital_name" property="hospitalName" jdbcType="VARCHAR" />
       <result column="t_yz_department_name" property="yzDepartmentName" jdbcType="VARCHAR" />
+      <result column="t_yz_doctor_id" property="yzDoctorId" jdbcType="VARCHAR" />
       <result column="t_yz_doctor_name" property="yzDoctorName" jdbcType="VARCHAR" />
       <result column="t_yz_time" property="yzTime" jdbcType="VARCHAR" />
       <result column="t_hospital_id" property="hospitalId" jdbcType="BIGINT" />
@@ -413,7 +414,8 @@
   <select id="orderWithHospitalInfoList" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select o.id, o.user_id, trade_id, package_id, package_name, package_num, o.price,
     o.status, o.create_time, o.modify_time,
-    t.hospital_id t_hospital_id, t.hospital_name t_hospital_name
+    t.hospital_id t_hospital_id, t.hospital_name t_hospital_name,
+    t.yz_doctor_id t_yz_doctor_id, t.yz_doctor_name t_yz_doctor_name
     from app_c_order o left JOIN app_c_trade t on o.trade_id = t.id
   </select>
 </mapper>
