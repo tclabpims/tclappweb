@@ -53,6 +53,7 @@
       <id column="p_id" property="id" jdbcType="BIGINT" />
       <result column="p_his_id" property="hisId" jdbcType="BIGINT" />
       <result column="p_his_name" property="hisName" jdbcType="VARCHAR" />
+      <result column="p_sample_type" property="sampleType" jdbcType="VARCHAR" />
     </collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.OrderModelWithBLOBs" extends="BaseResultMap" >
@@ -396,8 +397,9 @@
 
   <select id="selectOrdersForExcelExport" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select o.id, o.barcode, a.apply_name a_apply_name, a.id a_id, o.trade_id, a.sex a_sex, a.age a_age,
-    t.yz_department_name t_yz_department_name, p.his_id p_his_id, p.his_name p_his_name, t.yz_doctor_name t_yz_doctor_name,
-    t.yz_time t_yz_time, d.doctor_name d_doctor_name, o.take_time, t.hospital_id t_hospital_id, t.trade_num t_trade_num, o.price
+    t.yz_department_name t_yz_department_name, p.his_id p_his_id, p.his_name p_his_name, p.sample_type p_sample_type,
+    t.yz_doctor_name t_yz_doctor_name, t.yz_time t_yz_time, d.doctor_name d_doctor_name, o.take_time,
+    t.hospital_id t_hospital_id, t.trade_num t_trade_num, o.price
     from (app_c_order o LEFT JOIN app_c_trade t on o.trade_id = t.id)
     LEFT JOIN app_c_applicant a on a.id = t.applicant_id
     LEFT JOIN app_c_doctor d on o.take_doctor_id = d.id
@@ -407,7 +409,7 @@
       and o.id = #{id, jdbcType=BIGINT}
     </if>
   </select>
-  
+
   <select id="orderWithHospitalInfoList" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select o.id, o.user_id, trade_id, package_id, package_name, package_num, o.price,
     o.status, o.create_time, o.modify_time,

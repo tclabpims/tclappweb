@@ -252,7 +252,13 @@
             </select>
         </div>
     </div>
-
+    <%--样本类型--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">样本类型</label>
+        <div class="layui-input-block">
+            <input type="text" name="sampleType" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
     <%--检验分类---%>
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 100px">检验分类</label>
@@ -425,6 +431,14 @@
         </div>
     </div>
 
+    <%--样本类型--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">样本类型</label>
+        <div class="layui-input-block">
+            <input type="text" id="edit_sampleType" name="sampleType" required lay-verify="required" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+
     <%--检验分类---%>
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 100px">检验分类</label>
@@ -524,6 +538,10 @@
         <tr>
             <td align="left">检验分类</td>
             <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">样本类型</td>
+            <td align="left" colspan="3"></td>
         </tr>
         <tr>
             <td align="left">使用人群</td>

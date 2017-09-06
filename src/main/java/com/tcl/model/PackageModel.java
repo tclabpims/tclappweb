@@ -27,11 +27,21 @@ public class PackageModel {
 
     private String status;
 
+    private String sampleType;
+
     private String testType;
 
     private String diseaseType;
 
     private String takeType;
+
+    public String getSampleType() {
+        return sampleType;
+    }
+
+    public void setSampleType(String sampleType) {
+        this.sampleType = sampleType == null ? null : sampleType.trim();
+    }
 
     public Long getId() {
         return id;

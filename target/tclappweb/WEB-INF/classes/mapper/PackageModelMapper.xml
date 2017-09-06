@@ -15,6 +15,7 @@
     <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
     <result column="detail_img" property="detailImg" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="sample_type" property="sampleType" jdbcType="VARCHAR" />
     <result column="test_type" property="testType" jdbcType="VARCHAR" />
     <result column="disease_type" property="diseaseType" jdbcType="VARCHAR" />
     <result column="take_type" property="takeType" jdbcType="VARCHAR" />
@@ -26,7 +27,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, his_id, his_name, use_crowd, price, report_time, report_time_desc, wj_code,
-    sale_num, pic_url, detail_img, status, test_type, disease_type, take_type
+    sale_num, pic_url, detail_img, status, sample_type, test_type, disease_type, take_type
   </sql>
   <sql id="Blob_Column_List" >
     need_attention, project_desc, clause
@@ -48,16 +49,16 @@
       his_name, use_crowd, price,
       report_time, report_time_desc, wj_code,
       sale_num, pic_url, detail_img,
-      status, test_type, disease_type,
+      status, sample_type, test_type, disease_type,
       take_type, need_attention, project_desc,
       clause)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{hisId,jdbcType=VARCHAR},
       #{hisName,jdbcType=VARCHAR}, #{useCrowd,jdbcType=VARCHAR}, #{price,jdbcType=BIGINT},
       #{reportTime,jdbcType=VARCHAR}, #{reportTimeDesc,jdbcType=VARCHAR}, #{wjCode,jdbcType=VARCHAR},
       #{saleNum,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{detailImg,jdbcType=VARCHAR},
-      #{status,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR}, #{diseaseType,jdbcType=VARCHAR},
-      #{takeType,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR}, #{projectDesc,jdbcType=LONGVARCHAR},
-      #{clause,jdbcType=LONGVARCHAR})
+      #{status,jdbcType=VARCHAR}, #{sampleType,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR},
+      #{diseaseType,jdbcType=VARCHAR}, #{takeType,jdbcType=VARCHAR}, #{needAttention,jdbcType=LONGVARCHAR},
+      #{projectDesc,jdbcType=LONGVARCHAR}, #{clause,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tcl.model.PackageModelWithBLOBs" >
     insert into app_c_package
@@ -100,6 +101,9 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="sampleType != null" >
+        sample_type,
       </if>
       <if test="testType != null" >
         test_type,
@@ -160,6 +164,9 @@
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
+      <if test="sampleType != null" >
+        #{sampleType,jdbcType=VARCHAR},
+      </if>
       <if test="testType != null" >
         #{testType,jdbcType=VARCHAR},
       </if>
@@ -219,6 +226,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="sampleType != null" >
+        sample_type = #{sampleType,jdbcType=VARCHAR},
+      </if>
       <if test="testType != null" >
         test_type = #{testType,jdbcType=VARCHAR},
       </if>
@@ -254,6 +264,7 @@
     pic_url = #{picUrl,jdbcType=VARCHAR},
     detail_img = #{detailImg,jdbcType=VARCHAR},
     status = #{status,jdbcType=VARCHAR},
+    sample_type = #{sampleType,jdbcType=VARCHAR},
     test_type = #{testType,jdbcType=VARCHAR},
     disease_type = #{diseaseType,jdbcType=VARCHAR},
     take_type = #{takeType,jdbcType=VARCHAR},
@@ -276,6 +287,7 @@
       pic_url = #{picUrl,jdbcType=VARCHAR},
       detail_img = #{detailImg,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
+      sample_type = #{sampleType,jdbcType=VARCHAR},
       test_type = #{testType,jdbcType=VARCHAR},
       disease_type = #{diseaseType,jdbcType=VARCHAR},
       take_type = #{takeType,jdbcType=VARCHAR}

@@ -21,10 +21,10 @@ public class ExcelExportUtil {
 
     public static void orderRecoredExport(HttpServletResponse response, List<OrderModelWithBLOBs> orderList) {
         //标题行
-        String title[] = {"我方条码号", "病人姓名", "病人唯一号", "门诊住院号", "性别（1男2女）", "年龄",
+        String title[] = {"我方条码号", "病人姓名", "病人唯一号", "门诊住院号", "性别", "年龄",
                 "年龄单位", "在院方式", "申请科室（采集机构）", "病床号", "临床诊断", "检验目的ID",
                 "检验目的名称", "标本类型", "开单医生", "开单时间", "采样人", "采样时间",
-                "客户号（采集点号）", "客户条码", "标本费用"};
+                "客户号（采集点号）", "客户条码"};
         StringBuilder tempPath = new StringBuilder();
         SimpleDateFormat fileNameFormat = new SimpleDateFormat("yyyyMMddkkmmss_S");
         tempPath.append(fileNameFormat.format(new Date()));
@@ -49,17 +49,11 @@ public class ExcelExportUtil {
             }
             for (int i=0; i<orderList.size(); i++) {
                 int j=0;
-                sheet.addCell(new Label(j++, i+1, orderList.get(i).getBarcode(), format));
+                sheet.addCell(new Label(j++, i + 1, orderList.get(i).getBarcode(), format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getApplicantModel() != null ? orderList.get(i).getApplicantModel().getApplyName() : "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getApplicantModel() != null ? (orderList.get(i).getApplicantModel().getId() != null ? Long.toString(orderList.get(i).getApplicantModel().getId()) : "") : "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getTradeId() != null ? Long.toString(orderList.get(i).getTradeId()) : "", format));
-                if (orderList.get(i).getApplicantModel() != null && orderList.get(i).getApplicantModel().getSex() != null && orderList.get(i).getApplicantModel().getSex().equals("男")) {
-                    sheet.addCell(new Label(j++, i+1, "1", format));
-                } else if (orderList.get(i).getApplicantModel() != null && orderList.get(i).getApplicantModel().getSex() != null && orderList.get(i).getApplicantModel().getSex().equals("女")) {
-                    sheet.addCell(new Label(j++, i+1, "2", format));
-                } else {
-                    sheet.addCell(new Label(j++, i+1, "", format));
-                }
+                sheet.addCell(new Label(j++, i + 1, orderList.get(i).getApplicantModel() != null ? orderList.get(i).getApplicantModel().getSex() : "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getApplicantModel() != null ? (orderList.get(i).getApplicantModel().getAge() != null ? Integer.toString(orderList.get(i).getApplicantModel().getAge()) : "") : "", format));
                 sheet.addCell(new Label(j++, i + 1, "岁", format));
                 sheet.addCell(new Label(j++, i + 1, "", format));
@@ -68,14 +62,13 @@ public class ExcelExportUtil {
                 sheet.addCell(new Label(j++, i + 1, "体检", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getPackageModel() != null ? orderList.get(i).getPackageModel().getHisId() : "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getPackageModel() != null ? orderList.get(i).getPackageModel().getHisName() : "", format));
-                sheet.addCell(new Label(j++, i + 1, "", format));
+                sheet.addCell(new Label(j++, i + 1, orderList.get(i).getPackageModel() != null ? orderList.get(i).getPackageModel().getSampleType(): "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getTradeModel() != null ? orderList.get(i).getTradeModel().getYzDoctorName() : "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getTradeModel() != null ? StringUtil.getFormatDate(orderList.get(i).getTradeModel().getYzTime(), "yyyy/M/d H:m") : "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getDoctorModel() != null ? orderList.get(i).getDoctorModel().getDoctorName() : "", format));
                 sheet.addCell(new Label(j++, i + 1, StringUtil.getFormatDate(orderList.get(i).getTakeTime(), "yyyy/M/d H:m"), format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getTradeModel() != null ? (orderList.get(i).getTradeModel().getHospitalId() != null ? Long.toString(orderList.get(i).getTradeModel().getHospitalId()) : ""): "", format));
                 sheet.addCell(new Label(j++, i + 1, orderList.get(i).getTradeModel() != null ? orderList.get(i).getTradeModel().getTradeNum() : "", format));
-                sheet.addCell(new Label(j++, i + 1, StringUtil.priceToString(orderList.get(i).getPrice()), format));
             }
             //写入数据
             book.write();

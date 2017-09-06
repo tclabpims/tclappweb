@@ -295,6 +295,7 @@ function ItemEdit(id) {
         $("#edit_wjCode").val(package.wjCode);
         $("#edit_saleNum").val(package.saleNum);
         $("#edit_status option[value='"+package.status+"']").attr("selected", 'selected');
+        $("#edit_sampleType").val(package.sampleType);
         $("#edit_testType").val(package.testType);
         $("#edit_diseaseType").val(package.diseaseType);
         $("#edit_takeType").val(package.takeType);
@@ -429,13 +430,14 @@ function ItemDetail(id) {
         }
         package_table.rows[6].cells[1].innerHTML = package.wjCode;
         package_table.rows[7].cells[1].innerHTML = package.testType;
-        package_table.rows[8].cells[1].innerHTML = package.useCrowd;
+        package_table.rows[8].cells[1].innerHTML = package.sampleType;
+        package_table.rows[9].cells[1].innerHTML = package.useCrowd;
 
-        package_table.rows[9].cells[1].innerHTML = package.diseaseType;
-        package_table.rows[10].cells[1].innerHTML = package.takeType;
-        package_table.rows[11].cells[1].innerHTML = package.needAttention;
-        package_table.rows[12].cells[1].innerHTML = package.projectDesc;
-        package_table.rows[13].cells[1].innerHTML = package.clause;
+        package_table.rows[10].cells[1].innerHTML = package.diseaseType;
+        package_table.rows[11].cells[1].innerHTML = package.takeType;
+        package_table.rows[12].cells[1].innerHTML = package.needAttention;
+        package_table.rows[13].cells[1].innerHTML = package.projectDesc;
+        package_table.rows[14].cells[1].innerHTML = package.clause;
         $("#package_picture").attr("src", $("#package_picture")[0].title + package.picUrl);
         $("#packageDetailImg").attr("src", package.detailImg);
     })
@@ -452,8 +454,7 @@ function importExcel() {
                     offset: '160px'
                 })
             })
-            return;
-        }
+            return;        }
         if($("#selectedExcelFile").val().lastIndexOf(".xls") < 0) {
             layui.use('layer', function() {
                 var layer = layui.layer;

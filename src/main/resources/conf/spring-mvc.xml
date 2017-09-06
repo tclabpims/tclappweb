@@ -33,6 +33,34 @@
         <property name="maxUploadSize" value="5242880"></property>
     </bean>
 
+    <!-- *********quartz配置********** -->
+
+    <!-- 要调用的类 -->
+    <bean id="quartzJob" class="com.tcl.controller.QuartzStat"/>
+    <!-- 定义调用对象和调用方法 -->
+    <bean id="jobtask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 要调用的类 -->
+        <property name="targetObject" ref="quartzJob"/>
+        <!-- 要调用类中方法 -->
+        <property name="targetMethod" value="work"/>
+    </bean>
+
+    <!-- 定义触发时间 -->
+    <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="jobtask"/>
+        <!-- 配置时间 每天23:00 -->
+        <property name="cronExpression" value="0 32 23 * * ?"/>
+    </bean>
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="doTime"/>
+            </list>
+        </property>
+    </bean>
+
     <!-- 对模型视图添加前后缀 -->
      <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
       p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>

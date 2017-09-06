@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.PackageSaleStatModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.PackageSaleStatModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="package_id" property="packageId" jdbcType="BIGINT" />
+    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    <result column="package_price" property="packagePrice" jdbcType="BIGINT" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="sales_num" property="salesNum" jdbcType="BIGINT" />
+    <result column="sales_amount" property="salesAmount" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, package_id, package_name, package_price, year, month, sales_num, sales_amount, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_c_package_sale_stat
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_package_sale_stat
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.PackageSaleStatModel" >
+    insert into app_c_package_sale_stat (id, package_id, package_name, 
+      package_price, year, month, 
+      sales_num, sales_amount, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{packageId,jdbcType=BIGINT}, #{packageName,jdbcType=VARCHAR}, 
+      #{packagePrice,jdbcType=BIGINT}, #{year,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, 
+      #{salesNum,jdbcType=BIGINT}, #{salesAmount,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.PackageSaleStatModel" >
+    insert into app_c_package_sale_stat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="packageId != null" >
+        package_id,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="packagePrice != null" >
+        package_price,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="month != null" >
+        month,
+      </if>
+      <if test="salesNum != null" >
+        sales_num,
+      </if>
+      <if test="salesAmount != null" >
+        sales_amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="packageId != null" >
+        #{packageId,jdbcType=BIGINT},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packagePrice != null" >
+        #{packagePrice,jdbcType=BIGINT},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNum != null" >
+        #{salesNum,jdbcType=BIGINT},
+      </if>
+      <if test="salesAmount != null" >
+        #{salesAmount,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.PackageSaleStatModel" >
+    update app_c_package_sale_stat
+    <set >
+      <if test="packageId != null" >
+        package_id = #{packageId,jdbcType=BIGINT},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packagePrice != null" >
+        package_price = #{packagePrice,jdbcType=BIGINT},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        month = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNum != null" >
+        sales_num = #{salesNum,jdbcType=BIGINT},
+      </if>
+      <if test="salesAmount != null" >
+        sales_amount = #{salesAmount,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.PackageSaleStatModel" >
+    update app_c_package_sale_stat
+    set package_id = #{packageId,jdbcType=BIGINT},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      package_price = #{packagePrice,jdbcType=BIGINT},
+      year = #{year,jdbcType=VARCHAR},
+      month = #{month,jdbcType=VARCHAR},
+      sales_num = #{salesNum,jdbcType=BIGINT},
+      sales_amount = #{salesAmount,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from app_c_package_sale_stat
+    WHERE 1= 1
+    <if test="id != null">
+      AND id = #{id, jdbcType=BIGINT}
+    </if>
+    <if test="packageName != null and packageName != ''">
+      AND package_name = #{packageName, jdbcType=VARCHAR}
+    </if>
+    <if test="start_year != null and start_year != ''">
+      AND year &gt;= #{start_year, jdbcType=VARCHAR}
+    </if>
+    <if test="end_year != null and end_year != ''">
+      AND year &lt;= #{end_year, jdbcType=VARCHAR}
+    </if>
+    <if test="start_month != null and start_month != ''">
+      AND month &gt;= #{start_month, jdbcType=VARCHAR}
+    </if>
+    <if test="end_month != null and end_month != ''">
+      AND month &lt;= #{end_month, jdbcType=VARCHAR}
+    </if>
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
+  </select>
+  <update id="cleanTable">
+    truncate table app_c_package_sale_stat;
+  </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into app_c_package_sale_stat(package_id, package_name, package_price, year, month, sales_num, sales_amount, create_time) VALUES
+    <foreach collection="list" item="item" separator="," close=";">
+      (
+      #{item.packageId, jdbcType=BIGINT},
+      #{item.packageName, jdbcType=VARCHAR},
+      #{item.packagePrice, jdbcType=BIGINT},
+      #{item.year, jdbcType=VARCHAR},
+      #{item.month, jdbcType=DATE},
+      #{item.salesNum, jdbcType=BIGINT},
+      #{item.salesAmount, jdbcType=BIGINT},
+      #{item.createTime, jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+</mapper>
