@@ -34,47 +34,53 @@
             <br/>
             <form action="${pageContext.request.contextPath}/order/query.do" METHOD="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">用户名</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="userName" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="userName" id="userName_query" value="${userName_}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">订单编号</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="tradeNum" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="tradeNum" id="tradeNum_query" value="${tradeNum}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">套餐名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="packageName" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="packageName" id="packageName_query" value="${packageName}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">订单状态</label>
-                &nbsp;&nbsp;&nbsp;<select class="select_style" name="status">
+                &nbsp;&nbsp;&nbsp;<select class="select_style" name="status" id="status_query">
                                     <option value=""></option>
-                                    <option value="-2">未确认（预约医生）</option>
-                                    <option value="-1">已确认（预约医生）</option>
-                                    <option value="0">已下单</option>
-                                    <option value="1">已付款</option>
-                                    <option value="2">已开医嘱</option>
-                                    <option value="3">已采集</option>
-                                    <option value="4">检验中</option>
-                                    <option value="5">已报告</option>
-                                    <option value="6">已解读</option>
+                                    <option value="-2" <c:if test="${status == -2}">selected</c:if>>未确认（预约医生）</option>
+                                    <option value="-1" <c:if test="${status == -1}">selected</c:if>>已确认（预约医生）</option>
+                                    <option value="0" <c:if test="${status == '0'}">selected</c:if>>已下单</option>
+                                    <option value="1" <c:if test="${status == 1}">selected</c:if>>已付款</option>
+                                    <option value="2" <c:if test="${status == 2}">selected</c:if>>已开医嘱</option>
+                                    <option value="3" <c:if test="${status == 3}">selected</c:if>>已采集</option>
+                                    <option value="4" <c:if test="${status == 4}">selected</c:if>>检验中</option>
+                                    <option value="5" <c:if test="${status == 5}">selected</c:if>>已报告</option>
+                                    <option value="6" <c:if test="${status == 6}">selected</c:if>>已解读</option>
                                   </select>
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">条码号</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="barcode" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="barcode" id="barcode_query" value="${barcode}" />
 
                 <br/><br/>
-                &nbsp;&nbsp;
-                <label class="label_Style">创建时间</label>&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">采集点</label>
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="hospitalName" value="${hospitalName}" id="hospitalName_query" />
+                &nbsp;&nbsp;&nbsp;<label class="label_Style">采集时间</label>&nbsp;&nbsp;&nbsp;
+                <div class="layui-inline">
+                    <input class="input_text_style" name="takeTimeStart" placeholder="开始日期" id="taketime_range_start" value="${takeTimeStart}">
+                </div>&nbsp;——&nbsp;
+
+                <div class="layui-inline">
+                    <input class="input_text_style" name="takeTimeEnd" placeholder="结束日期" id="taketime_range_end" value="${takeTimeEnd}">
+                </div>
+               <%-- <label class="label_Style">创建时间</label>&nbsp;&nbsp;&nbsp;
                 <div class="layui-inline">
                     <input class="input_text_style" name="createTimeStart" placeholder="开始日期" id="createtime_range_start">
                 </div>&nbsp;——&nbsp;
 
                 <div class="layui-inline">
                     <input class="input_text_style" name="createTimeEnd" placeholder="结束日期" id="createtime_range_end">
-                </div>
+                </div>--%>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
 
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -144,7 +150,7 @@
         <c:when test="${query_flag == true}">
             <c:choose>
                 <c:when test="${pageNo > 1}">
-                    <a href="${pageContext.request.contextPath}/order/query.do?pageNo=${pageNo - 1}&userName=${userName}&tradeNum=${tradeNum}&packageName=${packageName}&status=${status}&barcode=${barcode}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">上一页</a>&nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/order/query.do?pageNo=${pageNo - 1}&userName=${userName_}&tradeNum=${tradeNum}&packageName=${packageName}&status=${status}&barcode=${barcode}&hospitalName=${hospitalName}&takeTimeStart=${takeTimeStart}&takeTimeEnd=${takeTimeEnd}">上一页</a>&nbsp;&nbsp;
                 </c:when>
                 <c:otherwise>
                     <a href="#">上一页</a>&nbsp;&nbsp;
@@ -152,7 +158,7 @@
             </c:choose>
             <c:choose>
                 <c:when test="${pageNo < totalPage}">
-                    <a href="${pageContext.request.contextPath}/order/query.do?pageNo=${pageNo + 1}&userName=${userName}&tradeNum=${tradeNum}&packageName=${packageName}&status=${status}&barcode=${barcode}&createTimeStart=${createTimeStart}&createTimeEnd=${createTimeEnd}">下一页</a>&nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/order/query.do?pageNo=${pageNo + 1}&userName=${userName_}&tradeNum=${tradeNum}&packageName=${packageName}&status=${status}&barcode=${barcode}&hospitalName=${hospitalName}&takeTimeStart=${takeTimeStart}&takeTimeEnd=${takeTimeEnd}">下一页</a>&nbsp;&nbsp;
                 </c:when>
                 <c:otherwise>
                     <a href="#">下一页</a>&nbsp;&nbsp;
@@ -403,7 +409,7 @@
         <tr>
             <td align="left">条形码</td>
             <td align="left"></td>
-            <td align="left">报告URL</td>
+            <td align="left">采集点</td>
             <td align="left"></td>
         </tr>
         <tr>

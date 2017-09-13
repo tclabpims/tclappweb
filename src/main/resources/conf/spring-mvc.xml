@@ -48,8 +48,8 @@
     <!-- 定义触发时间 -->
     <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="jobtask"/>
-        <!-- 配置时间 每天23:00 -->
-        <property name="cronExpression" value="0 0 0 * * ?"/>
+        <!-- 配置时间 每天23:50 -->
+        <property name="cronExpression" value="0 50 23 * * ?"/>
     </bean>
 
     <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->

@@ -31,7 +31,7 @@
               <br/><form action="${pageContext.request.contextPath}/doctor/query.do" method="post">
               &nbsp;&nbsp;&nbsp;
               <label class="label_Style">用户名:</label>&nbsp;&nbsp;&nbsp;
-              <input id="query_userName" name="userName" type="text" class="input_text_style" />
+              <input id="query_userName" name="userName" type="text" class="input_text_style" value="${userName_}" />
 
               &nbsp;&nbsp;&nbsp;
               <label class="label_Style">采集点:</label>&nbsp;&nbsp;&nbsp;
@@ -41,43 +41,43 @@
 
               &nbsp;&nbsp;&nbsp;
               <label class="label_Style">姓名:</label>&nbsp;&nbsp;&nbsp;
-              <input id="query_doctor_name" name="doctorName" type="text" class="input_text_style" />
+              <input id="query_doctor_name" name="doctorName" type="text" class="input_text_style" value="${doctorName}" />
 
               &nbsp;&nbsp;&nbsp;
               <label class="label_Style">职称:</label>&nbsp;&nbsp;&nbsp;
               <select id="query_title" name="title" lay-verify="" class="select_style" />
               <option value=""></option>
-              <option value="住院医师（初级）">住院医师（初级）</option>
-              <option value="主治医师（中级）">主治医师（中级）</option>
-              <option value="副主任医师（副高）">副主任医师（副高）</option>
-              <option value="主任医师（正高）">主任医师（正高）</option>
+              <option value="住院医师（初级）" <c:if test="${title == '住院医师（初级）'}">selected</c:if>>住院医师（初级）</option>
+              <option value="主治医师（中级）" <c:if test="${title == '主治医师（中级）'}">selected</c:if>>主治医师（中级）</option>
+              <option value="副主任医师（副高）" <c:if test="${title == '副主任医师（副高）'}">selected</c:if>>副主任医师（副高）</option>
+              <option value="主任医师（正高）" <c:if test="${title == '主任医师（正高）'}">selected</c:if>>主任医师（正高）</option>
               </select>
 
               &nbsp;&nbsp;&nbsp;
               <label class="label_Style">状态:</label>&nbsp;&nbsp;&nbsp;
               <select id="query_status" name="status" lay-verify="" class="select_style" >
                   <option value=""></option>
-                  <option value="0">初始化</option>
-                  <option value="1">可用</option>
-                  <option value="2">待审核</option>
-                  <option value="3">停用</option>
+                  <option value="0" <c:if test="${status == '0'}">selected</c:if>>初始化</option>
+                  <option value="1" <c:if test="${status == 1}">selected</c:if>>可用</option>
+                  <option value="2" <c:if test="${status == 2}">selected</c:if>>待审核</option>
+                  <option value="3" <c:if test="${status == 3}">selected</c:if>>停用</option>
               </select>
 
               <br/><br/>&nbsp;&nbsp;&nbsp;
               <label class="label_Style">岗位:</label>&nbsp;&nbsp;&nbsp;
               <select id="query_type" name="type" lay-verify="" class="select_style" >
                   <option value=""></option>
-                  <option value="1">医生</option>
-                  <option value="2">护士</option>
+                  <option value="1" <c:if test="${type == 1}">selected</c:if>>医生</option>
+                  <option value="2" <c:if test="${type == 2}">selected</c:if>>护士</option>
               </select>
 
               &nbsp;&nbsp;&nbsp;
               <label class="label_Style">创建时间:</label>&nbsp;&nbsp;&nbsp;
               <div class="layui-inline">
-                  <input class="input_text_style" name="createTimeStart" placeholder="开始日期" id="createtime_range_start">
+                  <input class="input_text_style" name="createTimeStart" placeholder="开始日期" id="createtime_range_start" value="${createTimeStart}">
               </div>&nbsp;——&nbsp;
               <div class="layui-inline">
-                  <input class="input_text_style" name="createTimeEnd" placeholder="结束日期" id="createtime_range_end">
+                  <input class="input_text_style" name="createTimeEnd" placeholder="结束日期" id="createtime_range_end" value="${createTimeEnd}">
               </div>
 
               &nbsp;&nbsp;&nbsp;

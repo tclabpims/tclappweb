@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by LiuQi on 2017/9/3.
@@ -22,38 +19,35 @@ public class HospitalSaleStatController {
     @Autowired
     private HospitalSaleStatService hospitalSaleStatService;
 
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 8;
 
     @RequestMapping("list")
     public String hospitalSaleStatInfoList(ModelMap map, String pageNo) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
+        Calendar calendar = Calendar.getInstance();
+        mapInfo.put("year", Integer.toString(calendar.get(Calendar.YEAR)));
         Map<String, Object> map_result = getData(mapInfo);
         map.put("pageNo", map_result.get("pageNo"));
         map.put("totalPage", map_result.get("totalPage"));
+        map.put("year", map_result.get("year"));
         map.put("list", map_result.get("list"));
         return "saleStat/hospitalSaleStat";
     }
 
     @RequestMapping("query")
-    public String hospitalSaleStatInfoPageList(ModelMap map, String pageNo, String hospitalName, String timeStart, String timeEnd) {
+    public String hospitalSaleStatInfoPageList(ModelMap map, String pageNo, String hospitalName, String year, String month) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
-        mapInfo.put("hospitalName", hospitalName.trim());
-        if (timeStart != null && !timeStart.trim().isEmpty()) {
-            mapInfo.put("start_year", timeStart.substring(0, 4));
-            mapInfo.put("start_month", Integer.toString(Integer.parseInt(timeStart.substring(5))));
-        }
-        if (timeEnd != null && !timeEnd.trim().isEmpty()) {
-            mapInfo.put("end_year", timeEnd.substring(0, 4));
-            mapInfo.put("end_month", Integer.toString(Integer.parseInt(timeEnd.substring(5))));
-        }
+        mapInfo.put("hospitalName", hospitalName);
+        mapInfo.put("year", year.trim());
+        mapInfo.put("month", month.trim());
         Map<String, Object> map_result = getData(mapInfo);
         map.put("pageNo", map_result.get("pageNo"));
         map.put("totalPage", map_result.get("totalPage"));
         map.put("hospitalName", map_result.get("hospitalName"));
-        map.put("timeStart", timeStart.trim());
-        map.put("timeEnd", timeEnd.trim());
+        map.put("year", map_result.get("year"));
+        map.put("month", month.trim());
         map.put("list", map_result.get("list"));
         map.put("query_flag", true);
         return "saleStat/hospitalSaleStat";

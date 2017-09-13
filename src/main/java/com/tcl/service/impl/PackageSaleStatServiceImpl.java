@@ -63,6 +63,7 @@ public class PackageSaleStatServiceImpl implements PackageSaleStatService {
                     packageSaleStatModel.setMonth(Integer.toString(j));
                     packageSaleStatModel.setPackageId(packageModel.getId());
                     packageSaleStatModel.setPackageName(packageModel.getName());
+                    packageSaleStatModel.setPackagePrice(packageModel.getPrice());
                     packageSaleStat_list.add(packageSaleStatModel);
                 }
             }
@@ -86,7 +87,7 @@ public class PackageSaleStatServiceImpl implements PackageSaleStatService {
             long sale_amount = 0L;
             for (OrderModelWithBLOBs orderModel : order_list) {
                 String order_date = StringUtil.getFormatDate(orderModel.getCreateTime(), "yyyy-M");
-                if (orderModel.getStatus() >= 1 && order_date.equals(year_month) &&
+                if (orderModel.getStatus() >= 3 && order_date.equals(year_month) &&
                         packageSaleStatModel.getPackageId() == orderModel.getPackageId() &&
                         packageSaleStatModel.getPackageName().equals(orderModel.getPackageName())) {
                     sale_number += orderModel.getPackageNum();

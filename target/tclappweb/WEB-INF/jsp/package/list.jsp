@@ -34,27 +34,27 @@
             <br/>
             <form action="${pageContext.request.contextPath}/package/query.do" METHOD="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">套餐名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="name" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="name" value="${name}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">状态</label>&nbsp;&nbsp;&nbsp;
                 <select class="select_style" name="status" >
                     <option value=""></option>
-                    <option value="0">未发布</option>
-                    <option value="1">已发布</option>
-                    <option value="2">已下线</option>
+                    <option value="0" <c:if test="${status == '0'}">selected</c:if>>未发布</option>
+                    <option value="1" <c:if test="${status == 1}">selected</c:if>>已发布</option>
+                    <option value="2" <c:if test="${status == 2}">selected</c:if>>已下线</option>
                 </select>
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">物价编码</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="wjCode" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="wjCode" value="${wjCode}"/>
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">价格</label>&nbsp;&nbsp;&nbsp;
-                <input type="text" class="input_text_style" placeholder="最低价格" name="min_price" />&nbsp;——&nbsp;
-                <input type="text" class="input_text_style" placeholder="最高价格" name="max_price" />
+                <input type="text" class="input_text_style" placeholder="最低价格" name="min_price" value="${min_price}" />&nbsp;——&nbsp;
+                <input type="text" class="input_text_style" placeholder="最高价格" name="max_price" value="${max_price}" />
 
                 <br/><br/>
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">销售次数</label>&nbsp;&nbsp;&nbsp;
-                <input type="text" class="input_text_style" placeholder="最少次数" name="min_saleNum" />&nbsp;——&nbsp;
-                <input type="text" class="input_text_style" placeholder="最多次数" name="max_saleNum" />
+                <input type="text" class="input_text_style" placeholder="最少次数" name="min_saleNum" value="${min_saleNum}" />&nbsp;——&nbsp;
+                <input type="text" class="input_text_style" placeholder="最多次数" name="max_saleNum" value="${max_saleNum}"/>
 
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
                 &nbsp;&nbsp;&nbsp;<button type="button" class="layui-btn layui-btn-radius layui-btn-small" onclick="addPackage()">增加</button>

@@ -87,7 +87,7 @@ public class HospitalSaleStatServiceImpl implements HospitalSaleStatService {
             long sale_amount = 0L;
             for (OrderModelWithBLOBs orderModel : order_list) {
                 String order_date = StringUtil.getFormatDate(orderModel.getCreateTime(), "yyyy-M");
-                if (orderModel.getStatus() >= 1 && order_date.equals(year_month) && orderModel.getTradeModel() != null &&
+                if (orderModel.getStatus() >= 3 && order_date.equals(year_month) && orderModel.getTradeModel() != null &&
                         hospitalSaleStatModel.getHospitalId() == orderModel.getTradeModel().getHospitalId() &&
                         hospitalSaleStatModel.getHospitalName().equals(orderModel.getTradeModel().getHospitalName())) {
                     sale_number += orderModel.getPackageNum();

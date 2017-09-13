@@ -41,10 +41,13 @@ public class StringUtil {
      * @return
      */
     public static Date getDate(String time, String format) {
+        if (time == null || time.trim().isEmpty()) {
+            return null;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         Date date = null;
         try {
-            date = sdf.parse(time);
+            date = sdf.parse(time.trim());
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -80,7 +80,7 @@ public class TradeController {
         mapInfo.put("create_time_start", create_time_start);
         mapInfo.put("create_time_end", create_time_end);
         Map<String, Object> result_map =  getData(mapInfo);
-        map.put("userName", userName.trim());
+        map.put("userName_", userName.trim());
         map.put("applyName", applyName.trim());
         map.put("tradeNum", tradeNum.trim());
         map.put("status", status.trim());

@@ -139,10 +139,10 @@
       and a.id = #{id, jdbcType=BIGINT}
     </if>
     <if test="hisId != null">
-      and his_id = #{hisId, jdbcType=VARCHAR}
+      and a.his_id = #{hisId, jdbcType=VARCHAR}
     </if>
     <if test="hisName != null and hisName != ''">
-      and his_name = #{hisName, jdbcType=VARCHAR}
+      and a.his_name = #{hisName, jdbcType=VARCHAR}
     </if>
     <if test="hisPrice != null">
       and his_price = #{hisPrice, jdbcType=BIGINT}

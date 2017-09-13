@@ -134,20 +134,17 @@
     <if test="id != null">
      AND id = #{id, jdbcType=BIGINT}
     </if>
+    <if test="hospitalId != null">
+      AND hospital_id = #{hospitalId, jdbcType=BIGINT}
+    </if>
     <if test="hospitalName != null and hospitalName != ''">
       AND hospital_name = #{hospitalName, jdbcType=VARCHAR}
     </if>
-    <if test="start_year != null and start_year != ''">
-      AND year &gt;= #{start_year, jdbcType=VARCHAR}
+    <if test="year != null and year != ''">
+      and year = #{year, jdbcType=VARCHAR}
     </if>
-    <if test="end_year != null and end_year != ''">
-      AND year &lt;= #{end_year, jdbcType=VARCHAR}
-    </if>
-    <if test="start_month != null and start_month != ''">
-      AND month &gt;= #{start_month, jdbcType=VARCHAR}
-    </if>
-    <if test="end_month != null and end_month != ''">
-      AND month &lt;= #{end_month, jdbcType=VARCHAR}
+    <if test="month != null and month != ''">
+      AND month = #{month, jdbcType=VARCHAR}
     </if>
     <if test="start_num != null and pageSize != null">
      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}

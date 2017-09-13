@@ -34,21 +34,21 @@
             <br/>
             <form action="${pageContext.request.contextPath}/cart/query.do" METHOD="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">用户名</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style_new" name="user_username" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style_new" name="user_username" value="${user_username}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">用户姓名</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style_new" name="user_name" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style_new" name="user_name" value="${user_name}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">套餐名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style_new" name="package_name" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style_new" name="package_name" value="${package_name}" />
 
                 &nbsp;&nbsp;&nbsp;
                 <label class="label_Style">创建时间:</label>&nbsp;&nbsp;&nbsp;
                 <div class="layui-inline">
-                    <input class="input_text_style_new" name="createTimeStart" placeholder="开始日期" id="createtime_range_start">
+                    <input class="input_text_style_new" name="createTimeStart" placeholder="开始日期" id="createtime_range_start" value="${createTimeStart}">
                 </div>&nbsp;——&nbsp;
                 <div class="layui-inline">
-                    <input class="input_text_style_new" name="createTimeEnd" placeholder="结束日期" id="createtime_range_end">
+                    <input class="input_text_style_new" name="createTimeEnd" placeholder="结束日期" id="createtime_range_end" value="${createTimeEnd}">
                 </div>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">

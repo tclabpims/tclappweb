@@ -31,10 +31,10 @@
             <br/>
             <form action="${pageContext.request.contextPath}/hospital/query.do" method="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">医院名称:</label>
-                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="name" />
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="name" value="${name}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">电话:</label>
-                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="telphone" />
+                &nbsp;&nbsp;&nbsp;<input class="input_text_style" name="telphone" value="${telphone}" />
 
                 &nbsp;&nbsp;&nbsp;
                 <input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询" />

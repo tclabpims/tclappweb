@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.DoctorTakeStatModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.DoctorTakeStatModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="take_doctor_id" property="takeDoctorId" jdbcType="BIGINT" />
+    <result column="take_doctor_name" property="takeDoctorName" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="take_num" property="takeNum" jdbcType="BIGINT" />
+    <result column="take_amount" property="takeAmount" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, take_doctor_id, take_doctor_name, year, month, take_num, take_amount, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_c_doctor_take_stat
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_doctor_take_stat
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.DoctorTakeStatModel" >
+    insert into app_c_doctor_take_stat (id, take_doctor_id, take_doctor_name, 
+      year, month, take_num, 
+      take_amount, create_time)
+    values (#{id,jdbcType=BIGINT}, #{takeDoctorId,jdbcType=BIGINT}, #{takeDoctorName,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{takeNum,jdbcType=BIGINT}, 
+      #{takeAmount,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.DoctorTakeStatModel" >
+    insert into app_c_doctor_take_stat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="takeDoctorId != null" >
+        take_doctor_id,
+      </if>
+      <if test="takeDoctorName != null" >
+        take_doctor_name,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="month != null" >
+        month,
+      </if>
+      <if test="takeNum != null" >
+        take_num,
+      </if>
+      <if test="takeAmount != null" >
+        take_amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="takeDoctorId != null" >
+        #{takeDoctorId,jdbcType=BIGINT},
+      </if>
+      <if test="takeDoctorName != null" >
+        #{takeDoctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="takeNum != null" >
+        #{takeNum,jdbcType=BIGINT},
+      </if>
+      <if test="takeAmount != null" >
+        #{takeAmount,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.DoctorTakeStatModel" >
+    update app_c_doctor_take_stat
+    <set >
+      <if test="takeDoctorId != null" >
+        take_doctor_id = #{takeDoctorId,jdbcType=BIGINT},
+      </if>
+      <if test="takeDoctorName != null" >
+        take_doctor_name = #{takeDoctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        month = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="takeNum != null" >
+        take_num = #{takeNum,jdbcType=BIGINT},
+      </if>
+      <if test="takeAmount != null" >
+        take_amount = #{takeAmount,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.DoctorTakeStatModel" >
+    update app_c_doctor_take_stat
+    set take_doctor_id = #{takeDoctorId,jdbcType=BIGINT},
+      take_doctor_name = #{takeDoctorName,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      month = #{month,jdbcType=VARCHAR},
+      take_num = #{takeNum,jdbcType=BIGINT},
+      take_amount = #{takeAmount,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    from app_c_doctor_take_stat
+    WHERE 1= 1
+    <if test="id != null">
+      AND id = #{id, jdbcType=BIGINT}
+    </if>
+    <if test="takeDoctorName != null and doctorName != ''">
+      AND take_doctor_name = #{takeDoctorName, jdbcType=VARCHAR}
+    </if>
+    <if test="year != null and year != ''">
+      AND year = #{year, jdbcType=VARCHAR}
+    </if>
+    <if test="month != null and month != ''">
+      AND month = #{month, jdbcType=VARCHAR}
+    </if>
+    <if test="start_num != null and pageSize != null">
+      limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </if>
+  </select>
+  <update id="cleanTable">
+    truncate table app_c_doctor_take_stat;
+  </update>
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into app_c_doctor_take_stat(take_doctor_id, take_doctor_name, year, month, take_num, take_amount, create_time) VALUES
+    <foreach collection="list" item="item" separator="," close=";">
+      (
+      #{item.takeDoctorId, jdbcType=BIGINT},
+      #{item.takeDoctorName, jdbcType=VARCHAR},
+      #{item.year, jdbcType=VARCHAR},
+      #{item.month, jdbcType=VARCHAR},
+      #{item.takeNum, jdbcType=BIGINT},
+      #{item.takeAmount, jdbcType=BIGINT},
+      #{item.createTime, jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+</mapper>

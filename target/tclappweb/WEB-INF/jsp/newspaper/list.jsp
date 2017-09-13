@@ -36,22 +36,22 @@
             <br/>
             <form action="${pageContext.request.contextPath}/newspaper/query.do" METHOD="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">标题</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="title" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="title" value="${title}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">类型</label>&nbsp;&nbsp;&nbsp;
                 <select class="select_style" name="type" >
                     <option value=""></option>
-                    <option value="0">客户端首页广告</option>
-                    <option value="1">医生端广告</option>
-                    <option value="2">护士</option>
+                    <option value="0" <c:if test="${type == '0'}">selected</c:if>>客户端首页广告</option>
+                    <option value="1" <c:if test="${type == 1}">selected</c:if>>医生端广告</option>
+                    <option value="2" <c:if test="${type == 2}">selected</c:if>>护士</option>
                 </select>
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">状态</label>&nbsp;&nbsp;&nbsp;
                 <select class="select_style" name="status" >
                     <option value=""></option>
-                    <option value="0">暂存草稿</option>
-                    <option value="1">已发布</option>
-                    <option value="2">取消发布</option>
+                    <option value="0" <c:if test="${status == '0'}">selected</c:if>>暂存草稿</option>
+                    <option value="1" <c:if test="${status == 1}">selected</c:if>>已发布</option>
+                    <option value="2" <c:if test="${status == 2}">selected</c:if>>取消发布</option>
                 </select>
 
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">

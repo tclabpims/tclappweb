@@ -90,7 +90,7 @@ public class DoctorBillStatServiceImpl implements DoctorBillStatService {
             long bill_amount = 0L;
             for (OrderModelWithBLOBs orderModel : order_list) {
                 String order_date = StringUtil.getFormatDate(orderModel.getCreateTime(), "yyyy-M");
-                if (orderModel.getStatus() >= 1 && order_date.equals(year_month) && orderModel.getTradeModel() != null &&
+                if (orderModel.getStatus() >= 3 && order_date.equals(year_month) && orderModel.getTradeModel() != null &&
                         orderModel.getTradeModel().getYzDoctorId() != null && !orderModel.getTradeModel().getYzDoctorId().trim().isEmpty() &&
                         doctorBillStatModel.getDoctorId() == Long.parseLong(orderModel.getTradeModel().getYzDoctorId()) &&
                         orderModel.getTradeModel().getYzDepartmentName() != null &&

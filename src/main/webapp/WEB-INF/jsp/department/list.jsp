@@ -33,7 +33,7 @@
             <br/>
             <form action="${pageContext.request.contextPath}/department/query.do" METHOD="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">科室名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="departmentName" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="departmentName" value="${departmentName}" />
 
 
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">

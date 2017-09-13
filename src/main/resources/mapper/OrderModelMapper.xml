@@ -361,7 +361,7 @@
     unscramble_time, unscramble_audio_url, unscramble_audio_time, o.create_time, o.modify_time,
     remark, unscramble_content,
     u.user_name u_user_name,
-    t.trade_num t_trade_num,
+    t.trade_num t_trade_num, t.hospital_name t_hospital_name,
     d.doctor_name d_doctor_name
     from (app_c_order o LEFT JOIN app_c_user u ON o.user_id = u.id)
     LEFT JOIN app_c_trade t ON o.trade_id = t.id
@@ -385,11 +385,14 @@
     <if test="barcode != null and barcode != ''">
       and o.barcode = #{barcode, jdbcType=VARCHAR}
     </if>
-    <if test="create_time_start != null">
-      AND t.create_time &gt;= #{create_time_start, jdbcType=TIMESTAMP}
+    <if test="hospitalName != null and hospitalName != ''">
+      AND t.hospital_name = #{hospitalName, jdbcType=VARCHAR}
     </if>
-    <if test="create_time_end != null">
-      AND t.create_time &lt;= #{create_time_end, jdbcType=TIMESTAMP}
+    <if test="take_time_start != null">
+      AND o.take_time &gt;= #{take_time_start, jdbcType=TIMESTAMP}
+    </if>
+    <if test="take_time_end != null">
+      AND o.take_time &lt;= #{take_time_end, jdbcType=TIMESTAMP}
     </if>
     <if test="start_num != null and pageSize != null">
       limit #{start_num, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
@@ -405,17 +408,44 @@
     LEFT JOIN app_c_applicant a on a.id = t.applicant_id
     LEFT JOIN app_c_doctor d on o.take_doctor_id = d.id
     LEFT JOIN app_c_package p on p.id = o.package_id
+    LEFT JOIN app_c_user u ON o.user_id = u.id
     where 1 = 1
     <if test="id != null">
       and o.id = #{id, jdbcType=BIGINT}
+    </if>
+    <if test="userName != null and userName != ''">
+      AND u.user_name = #{userName, jdbcType=VARCHAR}
+    </if>
+    <if test="tradeNum != null and tradeNum != ''">
+      AND t.trade_num = #{tradeNum, jdbcType=VARCHAR}
+    </if>
+    <if test="packageName != null and packageName != ''">
+      AND o.package_name = #{packageName, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      AND o.status = #{status, jdbcType=VARCHAR}
+    </if>
+    <if test="barcode != null and barcode != ''">
+      AND o.barcode = #{barcode, jdbcType=VARCHAR}
+    </if>
+    <if test="hospitalName != null and hospitalName != ''">
+      AND t.hospitalName = #{hospitalName, jdbcType=VARCHAR}
+    </if>
+    <if test="take_time_start != null">
+      AND o.take_time &gt;= #{take_time_start, jdbcType=TIMESTAMP}
+    </if>
+    <if test="take_time_end != null">
+      AND o.take_time &lt;= #{take_time_end, jdbcType=TIMESTAMP}
     </if>
   </select>
 
   <select id="orderWithHospitalInfoList" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select o.id, o.user_id, trade_id, package_id, package_name, package_num, o.price,
-    o.status, o.create_time, o.modify_time,
+    o.status, o.create_time, o.modify_time, o.take_doctor_id,
     t.hospital_id t_hospital_id, t.hospital_name t_hospital_name,
-    t.yz_doctor_id t_yz_doctor_id, t.yz_doctor_name t_yz_doctor_name
-    from app_c_order o left JOIN app_c_trade t on o.trade_id = t.id
+    t.yz_doctor_id t_yz_doctor_id, t.yz_doctor_name t_yz_doctor_name,
+    d.doctor_name d_doctor_name
+    from (app_c_order o left JOIN app_c_trade t on o.trade_id = t.id)
+    LEFT JOIN app_c_doctor d on o.take_doctor_id = d.id
   </select>
 </mapper>

@@ -9,7 +9,6 @@
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/saleStat/doctorBillStat.js"></script>
     <%
         request.setAttribute("nav", "draw");
         request.setAttribute("tab", "set");
@@ -33,33 +32,60 @@
             <form action="${pageContext.request.contextPath}/doctorBillStat/query.do" METHOD="post">
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">医生姓名</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="doctorName" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="doctorName" value="${doctorName}" />
 
                 &nbsp;&nbsp;&nbsp;
-                <label class="label_Style">日期范围</label>&nbsp;&nbsp;&nbsp;
                 <div class="layui-inline">
-                    <input class="input_text_style" name="timeStart" placeholder="开始日期" id="time_range_start">
-                </div>&nbsp;——&nbsp;
-
+                    <label>年份</label>&nbsp;&nbsp;&nbsp;
+                    <div class="layui-input-inline">
+                        <input type="hidden" id="year_input" value="${year}">
+                        <select name="year" id="year_id" class="select_style">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;
                 <div class="layui-inline">
-                    <input class="input_text_style" name="timeEnd" placeholder="结束日期" id="time_range_end">
+                    <label>月份</label>&nbsp;&nbsp;&nbsp;
+                    <div class="layui-input-inline">
+                        <select name="month" id="month_query" class="select_style">
+                            <option value=""></option>
+                            <option value="1" <c:if test="${month == 1}">selected</c:if>>一月</option>
+                            <option value="2" <c:if test="${month == 2}">selected</c:if>>二月</option>
+                            <option value="3" <c:if test="${month == 3}">selected</c:if>>三月</option>
+                            <option value="4" <c:if test="${month == 4}">selected</c:if>>四月</option>
+                            <option value="5" <c:if test="${month == 5}">selected</c:if>>五月</option>
+                            <option value="6" <c:if test="${month == 6}">selected</c:if>>六月</option>
+                            <option value="7" <c:if test="${month == 7}">selected</c:if>>七月</option>
+                            <option value="8" <c:if test="${month == 8}">selected</c:if>>八月</option>
+                            <option value="9" <c:if test="${month == 9}">selected</c:if>>九月</option>
+                            <option value="10" <c:if test="${month == 10}">selected</c:if>>十月</option>
+                            <option value="11" <c:if test="${month == 11}">selected</c:if>>十一月</option>
+                            <option value="12" <c:if test="${month == 12}">selected</c:if>>十二月</option>
+                        </select>
+                    </div>
                 </div>
 
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
             </form>
         </div>
         <%--查询 end--%>
-
+        <br>
+        <h3 align="center">
+            <c:choose>
+                <c:when test="${doctorName != null and doctorName != ''}">${doctorName}</c:when>
+                <c:otherwise>各医生</c:otherwise>
+            </c:choose>
+            <c:if test="${year != null and year != ''}">${year}年</c:if><c:if test="${month != null and month != ''}">-${month}月</c:if>开单统计
+        </h3>
         <table class="sui-table table-bordered" style="margin-top:20px;">
             <thead>
             <tr>
                 <th class="center left-con" width="8%">编号</th>
                 <th class="center left-con" width="10%">医生编号</th>
-                <th class="center left-con" width="10%">医生名称</th>
-                <th class="center left-con" width="10%">年份</th>
-                <th class="center left-con" width="10%">月份</th>
-                <th class="center left-con" width="15%">套餐开单量（个）</th>
-                <th class="center left-con" width="15%">开单总额（元）</th>
+                <th class="center left-con" width="20%">医生名称</th>
+                <th class="center left-con" width="20%">套餐开单量（个）</th>
+                <th class="center left-con" width="20%">开单总额（元）</th>
                 <th class="center left-con" width="22%">创建时间</th>
             </tr>
             </thead>
@@ -72,10 +98,8 @@
                     <td class="center left-con">${item.id}</td>
                     <td class="center left-con">${item.doctorId}</td>
                     <td class="center left-con">${item.doctorName}</td>
-                    <td class="center left-con">${item.year} 年</td>
-                    <td class="center left-con">${item.month} 月</td>
                     <td class="center left-con">${item.billNum}</td>
-                    <td class="center left-con">${item.billAmount}</td>
+                    <td class="center left-con"><fmt:formatNumber type="number" value="${item.billAmount / 100}" pattern="#0.00" maxFractionDigits="2"/> </td>
                     <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 </tr>
             </c:forEach>
@@ -91,7 +115,7 @@
         <c:when test="${query_flag == true}">
             <c:choose>
                 <c:when test="${pageNo > 1}">
-                    <a href="${pageContext.request.contextPath}/doctorBillStat/query.do?pageNo=${pageNo - 1}&doctorName=${doctorName}&timeStart=${timeStart}&timeEnd=${timeEnd}">上一页</a>&nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/doctorBillStat/query.do?pageNo=${pageNo - 1}&doctorName=${doctorName}&year=${year}&month=${month}">上一页</a>&nbsp;&nbsp;
                 </c:when>
                 <c:otherwise>
                     <a href="#">上一页</a>&nbsp;&nbsp;
@@ -99,7 +123,7 @@
             </c:choose>
             <c:choose>
                 <c:when test="${pageNo < totalPage}">
-                    <a href="${pageContext.request.contextPath}/doctorBillStat/query.do?pageNo=${pageNo + 1}&doctorName=${doctorName}&timeStart=${timeStart}&timeEnd=${timeEnd}">下一页</a>&nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/doctorBillStat/query.do?pageNo=${pageNo + 1}&doctorName=${doctorName}&year=${year}&month=${month}">下一页</a>&nbsp;&nbsp;
                 </c:when>
                 <c:otherwise>
                     <a href="#">下一页</a>&nbsp;&nbsp;
@@ -128,5 +152,6 @@
     共${totalPage}页
 </div>
 <%--分页 end--%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/saleStat/doctorBillStat.js"></script>
 </body>
 </html>

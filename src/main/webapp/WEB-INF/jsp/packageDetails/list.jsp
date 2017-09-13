@@ -34,13 +34,13 @@
             <br/>
             <form action="${pageContext.request.contextPath}/packageDetails/query.do" METHOD="post">
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">his名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="hisName" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="hisName" value="${hisName}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">套餐名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="packageName" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="packageName" value="${packageName}" />
 
                 &nbsp;&nbsp;&nbsp;<label class="label_Style">项目名称</label>
-                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="name" />
+                &nbsp;&nbsp;&nbsp;<input type="text" class="input_text_style" name="name" value="${name}"/>
 
 
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">

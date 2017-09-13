@@ -67,7 +67,7 @@ public class UserController {
         mapInfo.put("create_time_start", create_time_start);
         mapInfo.put("createTimeEnd", create_time_end);
         Map<String, Object> result_map =  getData(mapInfo);
-        map.put("userName", userModel.getUserName().trim());
+        map.put("userName_", userModel.getUserName().trim());
         map.put("name", userModel.getName().trim());
         map.put("status", userModel.getStatus().trim());
         map.put("createTimeStart", createTimeStart.trim());

@@ -219,7 +219,7 @@ function ItemDetail(id) {
         detail_order_table.rows[6].cells[1].innerHTML = order.reportTime
         detail_order_table.rows[6].cells[3].innerHTML = order.reportTimeDesc;
         detail_order_table.rows[7].cells[1].innerHTML = order.barcode;
-        detail_order_table.rows[7].cells[3].innerHTML = order.reportUrl;
+        detail_order_table.rows[7].cells[3].innerHTML = order.tradeModel.hospitalName;
         detail_order_table.rows[8].cells[1].innerHTML = order.reportAcceptTime;
         detail_order_table.rows[8].cells[3].innerHTML = order.unscrambleTime != null ? new Date(order.unscrambleTime).format("yyyy-MM-dd hh:mm:ss") : "";
         detail_order_table.rows[9].cells[1].innerHTML = order.unscrambleAudioUrl;
@@ -252,6 +252,53 @@ function exportExcel() {
         temp_form.method = "post";
         temp_form.style.display = "none";
         document.body.appendChild(temp_form);
+        //用户名
+        var userName_input = document.createElement("input");
+        userName_input.type = "text";
+        userName_input.name = "userName";
+        userName_input.value = $("#userName_query").val();
+        temp_form.appendChild(userName_input);
+        //订单标号
+        var tradeNum_input = document.createElement("input");
+        tradeNum_input.type = "text";
+        tradeNum_input.name = "tradeNum";
+        tradeNum_input.value = $("#tradeNum_query").val();
+        temp_form.appendChild(tradeNum_input);
+        //套餐名称
+        var packageName_input = document.createElement("input");
+        packageName_input.type = "text";
+        packageName_input.name = "packageName";
+        packageName_input.value = $("#packageName_query").val();
+        temp_form.appendChild(packageName_input);
+        //订单状态
+        var status_input = document.createElement("input");
+        status_input.type = "text";
+        status_input.name = "status";
+        status_input.value = $("#status_query").val();
+        temp_form.appendChild(status_input);
+        //条码号
+        var barcode_input = document.createElement("input");
+        barcode_input.type = "text";
+        barcode_input.name = "barcode";
+        barcode_input.value = $("#barcode_query").val();
+        temp_form.appendChild(barcode_input);
+        //采集点
+        var hospitalName_input = document.createElement("input");
+        hospitalName_input.type = "text";
+        hospitalName_input.name = "hospitalName";
+        hospitalName_input.value = $("#hospitalName_query").val();
+        temp_form.appendChild(hospitalName_input);
+        //采集时间
+        var takeTimeStart_input = document.createElement("input");
+        takeTimeStart_input.type = "text";
+        takeTimeStart_input.name = "takeTimeStart";
+        takeTimeStart_input.value = $("#taketime_range_start").val();
+        temp_form.appendChild(takeTimeStart_input);
+        var takeTimeEnd_input = document.createElement("input");
+        takeTimeEnd_input.type = "text";
+        takeTimeEnd_input.name = "takeTimeEnd";
+        takeTimeEnd_input.value = $("#taketime_range_end").val();
+        temp_form.appendChild(takeTimeEnd_input);
         temp_form.submit();
     })
 }
@@ -301,12 +348,16 @@ layui.use('laydate', function(){
         }
     };
 
-    document.getElementById('createtime_range_start').onclick = function(){
+    document.getElementById('taketime_range_start').onclick = function(){
         start.elem = this;
+        start.istime = true;
+        start.format = "YYYY-MM-DD hh:mm:ss";
         laydate(start);
     };
-    document.getElementById('createtime_range_end').onclick = function(){
+    document.getElementById('taketime_range_end').onclick = function(){
         end.elem = this;
+        end.istime = true;
+        end.format = "YYYY-MM-DD hh:mm:ss";
         laydate(end);
     }
 

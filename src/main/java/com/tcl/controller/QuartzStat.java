@@ -1,6 +1,7 @@
 package com.tcl.controller;
 
 import com.tcl.service.DoctorBillStatService;
+import com.tcl.service.DoctorTakeStatService;
 import com.tcl.service.HospitalSaleStatService;
 import com.tcl.service.PackageSaleStatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class QuartzStat {
     @Autowired
     private DoctorBillStatService doctorBillStatService;
 
+    @Autowired
+    private DoctorTakeStatService doctorTakeStatService;
+
     public void work() {
         if (singleThreadExecutor == null) {
             singleThreadExecutor = Executors.newSingleThreadExecutor();
@@ -43,5 +47,6 @@ public class QuartzStat {
         hospitalSaleStatService.statHospitalSaleData();
         packageSaleStatService.statPackageSaleData();
         doctorBillStatService.statDoctorBillData();
+        doctorTakeStatService.statDoctorTakeData();
     }
 }

@@ -1,32 +1,33 @@
 /**
  * Created by LiuQi on 2017/9/5.
  */
+function formRender() {
+    layui.use('form', function() {
+        var form = layui.form();
+        form.render();
+    });
+}
 
-layui.use('laydate', function() {
-    var laydate = layui.laydate;
-    var start = {
-        max: laydate.now()
-        ,istoday: false
-        ,choose: function(datas){
-            end.min = datas; //开始日选好后，重置结束日的最小日期
-            end.start = datas; //将结束日的初始值设定为开始日
+function selectConfirm() {
+    //确定年份的选择框
+    var year_input = $("#year_input").val();
+    if(year_input != null && year_input != '' && year_input != undefined) {
+        var year_id = document.getElementById("year_id");
+        for(var i=0; i<year_id.options.length; i++){
+            if(year_id.options[i].text == year_input){
+                year_id.options[i].selected = true;
+                break;
+            }
         }
-    };
-    var end = {
-        max: laydate.now()
-        ,istoday: false
-        ,choose: function(datas){
-            start.max = datas; //结束日选好后，重置开始日的最大日期
-        }
-    };
-    document.getElementById('time_range_start').onclick = function(){
-        start.elem = this;
-        start.format = 'YYYY-MM';
-        laydate(start);
-    };
-    document.getElementById('time_range_end').onclick = function(){
-        end.elem = this;
-        end.format = 'YYYY-MM';
-        laydate(end);
     }
-})
+}
+
+function generateSelect() {
+    var year = document.getElementById("year_id");
+    for(var i = 2017; i <= parseInt(new Date().getFullYear().toString()); i++) {
+        year.options.add(new Option(i, i));
+    }
+    selectConfirm();
+}
+generateSelect();
+

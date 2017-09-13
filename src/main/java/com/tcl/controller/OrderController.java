@@ -63,18 +63,19 @@ public class OrderController {
      * @param status
      * @param pageNo
      * @param barcode
-     * @param createTimeStart
-     * @param createTimeEnd
+     * @param takeTimeStart
+     * @param takeTimeEnd
      * @return
      */
     @RequestMapping(value = "/query")
     public String queryPackageDetails(ModelMap map, String userName, String tradeNum, String packageName, String status,
-                                      String pageNo, String barcode, String createTimeStart, String createTimeEnd) {
+                                      String pageNo, String barcode, String hospitalName, String takeTimeStart, String takeTimeEnd) {
         Map<String, Object> mapInfo = new HashMap<String, Object>();
         mapInfo.put("pageNo", pageNo);
         mapInfo.put("userName", userName.trim());
         mapInfo.put("tradeNum", tradeNum.trim());
         mapInfo.put("packageName", packageName.trim());
+        mapInfo.put("hospitalName", hospitalName.trim());
         Integer status_ = null;
         if (status != null && status != "") {
             status_ = Integer.parseInt(status.trim());
@@ -82,24 +83,25 @@ public class OrderController {
         mapInfo.put("status", status_);
         mapInfo.put("barcode", barcode.trim());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date create_time_start = null;
-        Date create_time_end = null;
+        Date take_time_start = null;
+        Date take_time_end = null;
         try{
-            create_time_start = dateFormat.parse(createTimeStart.trim());
-            create_time_end = dateFormat.parse(createTimeEnd.trim());
+            take_time_start = dateFormat.parse(takeTimeStart.trim());
+            take_time_end = dateFormat.parse(takeTimeEnd.trim());
         }catch (Exception e) {
             e.getStackTrace();
         }
-        mapInfo.put("create_time_start", create_time_start);
-        mapInfo.put("create_time_end", create_time_end);
+        mapInfo.put("take_time_start", take_time_start);
+        mapInfo.put("take_time_end", take_time_end);
         Map<String, Object> result_map =  getData(mapInfo);
-        map.put("userName", userName.trim());
+        map.put("userName_", userName.trim());
         map.put("tradeNum", tradeNum.trim());
         map.put("packageName", packageName.trim());
         map.put("status", status.trim());
         map.put("barcode", barcode.trim());
-        map.put("createTimeStart", createTimeStart.trim());
-        map.put("createTimeEnd", createTimeEnd.trim());
+        map.put("takeTimeStart", takeTimeStart.trim());
+        map.put("takeTimeEnd", takeTimeEnd.trim());
+        map.put("hospitalName", hospitalName.trim());
         map.put("pageNo", result_map.get("pageNo"));
         map.put("totalPage", result_map.get("totalPage"));
         map.put("list", result_map.get("list"));
@@ -240,13 +242,26 @@ public class OrderController {
 
     /**
      * 导出Excel功能
-     * @param request
      * @param response
      * @return
      */
     @RequestMapping(value = "/exportexcel", method = RequestMethod.POST)
-    public String exportExcel(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public String exportExcel(HttpServletResponse response, String userName, String tradeNum,
+                              String packageName, String status, String barcode, String hospitalName,
+                              String takeTimeStart, String takeTimeEnd) throws UnsupportedEncodingException {
         Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userName", userName.trim());
+        map.put("tradeNum", tradeNum.trim());
+        map.put("packageName", packageName.trim());
+        Integer status_ = null;
+        if (status != null && status != "") {
+            status_ = Integer.parseInt(status.trim());
+        }
+        map.put("status", status_);
+        map.put("barcode", barcode.trim());
+        map.put("hospitalName", hospitalName.trim());
+        map.put("take_time_start",StringUtil.getDate(takeTimeStart, "yyyy-MM-dd HH:mm:ss"));
+        map.put("take_time_end", StringUtil.getDate(takeTimeEnd, "yyyy-MM-dd HH:mm:ss"));
         List<OrderModelWithBLOBs> orderList = orderService.selectOrdersForExcelExport(map);
         ExcelExportUtil.orderRecoredExport(response, orderList);
 //        System.out.println("你好，我是中国人");
