@@ -30,4 +30,18 @@ function generateSelect() {
     selectConfirm();
 }
 generateSelect();
-
+//打印
+var LODOP;
+function f_print() {
+    //CheckIsInstall();
+    //var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'));
+    LODOP = getLodop();
+    LODOP.PRINT_INIT("采集点销售统计");
+    LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "A4");
+    LODOP.SET_PRINT_STYLE("FontSize", 9);
+    LODOP.SET_PRINT_STYLE("Bold", 1);
+    var strBodyStyle="<style>table,th, td{ border: 1 solid #000000;border-collapse:collapse;text-align: center }</style>";
+    var strHtml = strBodyStyle + "<body>" + document.getElementById("table_stat").innerHTML + "</body>";
+    LODOP.ADD_PRINT_HTM(50,30,700,950,strHtml);
+    LODOP.PREVIEW();
+}

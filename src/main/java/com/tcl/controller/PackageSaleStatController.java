@@ -34,6 +34,7 @@ public class PackageSaleStatController {
         map.put("totalPage", map_result.get("totalPage"));
         map.put("year", map_result.get("year"));
         map.put("list", map_result.get("list"));
+        map.put("list_all", map_result.get("list_all"));
         return "saleStat/packageSaleStat";
     }
 
@@ -51,6 +52,7 @@ public class PackageSaleStatController {
         map.put("year", year.trim());
         map.put("month", month.trim());
         map.put("list", map_result.get("list"));
+        map.put("list_all", map_result.get("list_all"));
         map.put("query_flag", true);
         return "saleStat/packageSaleStat";
     }
@@ -84,6 +86,7 @@ public class PackageSaleStatController {
             map.put("pageSize", PAGE_SIZE);
             List<PackageSaleStatModel> list_for_page = packageSaleStatService.selectList(map);
             map.put("list", list_for_page);
+            map.put("list_all", list_for_all);
         }else {
             map.put("list",new ArrayList<PackageSaleStatModel>());
         }

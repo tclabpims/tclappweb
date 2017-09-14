@@ -32,6 +32,7 @@ public class HospitalSaleStatController {
         map.put("totalPage", map_result.get("totalPage"));
         map.put("year", map_result.get("year"));
         map.put("list", map_result.get("list"));
+        map.put("list_all", map_result.get("list_all"));
         return "saleStat/hospitalSaleStat";
     }
 
@@ -49,6 +50,7 @@ public class HospitalSaleStatController {
         map.put("year", map_result.get("year"));
         map.put("month", month.trim());
         map.put("list", map_result.get("list"));
+        map.put("list_all", map_result.get("list_all"));
         map.put("query_flag", true);
         return "saleStat/hospitalSaleStat";
     }
@@ -82,6 +84,7 @@ public class HospitalSaleStatController {
             map.put("pageSize", PAGE_SIZE);
             List<HospitalSaleStatModel> list_for_page = hospitalSaleStatService.selectList(map);
             map.put("list", list_for_page);
+            map.put("list_all", list_for_all);
         }else {
             map.put("list",new ArrayList<HospitalSaleStatModel>());
         }

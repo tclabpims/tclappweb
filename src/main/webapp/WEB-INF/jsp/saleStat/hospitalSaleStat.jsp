@@ -18,6 +18,9 @@
             host = host.substring(0, host.indexOf(':'));
         }
     %>
+    <object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0>
+        <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
+    </object>
 </head>
 <body style="background: #f6f1eb none repeat scroll 0 0;">
 <%@include file="../top.jsp"%>
@@ -72,47 +75,94 @@
                     </div>
                 </div>
                 &nbsp;&nbsp;&nbsp;<input type="submit" class="layui-btn layui-btn-radius layui-btn-small" value="查询">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" class="layui-btn layui-btn-small" value="打印" onclick="f_print()">
             </form>
         </div>
         <%--查询 end--%>
         <br>
-        <h3 align="center">
-            <c:choose>
-                <c:when test="${hospitalName != null and hospitalName != ''}">${hospitalName}</c:when>
-                <c:otherwise>各采集点</c:otherwise>
-            </c:choose>
-            <c:if test="${year != null and year != ''}">${year}年</c:if><c:if test="${month != null and month != ''}">-${month}月</c:if>套餐销售统计
-        </h3>
-        <table class="sui-table table-bordered" style="margin-top:20px;">
-            <thead>
-            <tr>
-                <th class="center left-con" width="8%">编号</th>
-                <th class="center left-con" width="30%">采集点名称</th>
-                <%--<th class="center left-con" width="10%">年份</th>--%>
-                <%--<th class="center left-con" width="10%">月份</th>--%>
-                <th class="center left-con" width="20%">套餐完成量（个）</th>
-                <th class="center left-con" width="20%">销售额（元）</th>
-                <th class="center left-con" width="22%">创建时间</th>
-            </tr>
-            </thead>
-            <tbody id="all_task0">
-            <c:if test="${fn:length(list)==0}">
-                <tr ><td colspan="6" class="center left-con" >亲，暂时没有活动哦！</td></tr>
-            </c:if>
-            <c:forEach items="${list}" var="item">
+        <div >
+            <h3 align="center">
+                <c:choose>
+                    <c:when test="${hospitalName != null and hospitalName != ''}">${hospitalName}</c:when>
+                    <c:otherwise>各采集点</c:otherwise>
+                </c:choose>
+                <c:if test="${year != null and year != ''}">${year}年</c:if><c:if test="${month != null and month != ''}">-${month}月</c:if>套餐销售统计
+            </h3>
+            <table class="sui-table table-bordered" style="margin-top:20px;">
+                <thead>
                 <tr>
-                    <td class="center left-con">${item.id}</td>
-                    <td class="center left-con">${item.hospitalName}</td>
+                    <th class="center left-con" width="8%">编号</th>
+                    <th class="center left-con" width="30%">采集点名称</th>
+                    <%--<th class="center left-con" width="10%">年份</th>--%>
+                    <%--<th class="center left-con" width="10%">月份</th>--%>
+                    <th class="center left-con" width="20%">套餐完成量（个）</th>
+                    <th class="center left-con" width="20%">销售额（元）</th>
+                    <th class="center left-con" width="22%">创建时间</th>
+                </tr>
+                </thead>
+                <tbody id="all_task0">
+                <c:if test="${fn:length(list)==0}">
+                    <tr ><td colspan="6" class="center left-con" >亲，暂时没有活动哦！</td></tr>
+                </c:if>
+                <c:forEach items="${list}" var="item">
+                    <tr>
+                        <td class="center left-con">${item.id}</td>
+                        <td class="center left-con">${item.hospitalName}</td>
+                        <%--<td class="center left-con">${item.month} 月</td>--%>
+                        <%--<td class="center left-con">${item.year} 年</td>--%>
+                        <td class="center left-con">${item.salesNum}</td>
+                        <td class="center left-con"><fmt:formatNumber type="number" value="${item.salesAmount / 100}" pattern="#0.00" maxFractionDigits="2" /></td>
+                        <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+   </div>
+</div>
+
+<div id="table_stat" style="display: none">
+    <h3 align="center">
+        <c:choose>
+            <c:when test="${hospitalName != null and hospitalName != ''}">${hospitalName}</c:when>
+            <c:otherwise>各采集点</c:otherwise>
+        </c:choose>
+        <c:if test="${year != null and year != ''}">${year}年</c:if><c:if test="${month != null and month != ''}">-${month}月</c:if>套餐销售统计
+    </h3>
+    <table class="sui-table table-bordered" style="margin-top:20px;">
+        <thead>
+        <tr>
+            <th class="center left-con" width="8%">编号</th>
+            <th class="center left-con" width="30%">采集点名称</th>
+            <%--<th class="center left-con" width="10%">年份</th>--%>
+            <%--<th class="center left-con" width="10%">月份</th>--%>
+            <th class="center left-con" width="20%">套餐完成量（个）</th>
+            <th class="center left-con" width="20%">销售额（元）</th>
+            <th class="center left-con" width="22%">创建时间</th>
+        </tr>
+        </thead>
+        <tbody id="all_task1">
+        <c:if test="${fn:length(list_all)==0}">
+            <tr ><td colspan="6" class="center left-con" >亲，暂时没有活动哦！</td></tr>
+        </c:if>
+        <c:forEach items="${list_all}" var="item">
+            <tr>
+                <td class="center left-con">${item.id}</td>
+                <td class="center left-con">${item.hospitalName}</td>
                     <%--<td class="center left-con">${item.month} 月</td>--%>
                     <%--<td class="center left-con">${item.year} 年</td>--%>
-                    <td class="center left-con">${item.salesNum}</td>
-                    <td class="center left-con"><fmt:formatNumber type="number" value="${item.salesAmount / 100}" pattern="#0.00" maxFractionDigits="2" /></td>
-                    <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                </tr>
-            </c:forEach>
-            </tbody>
+                <td class="center left-con">${item.salesNum}</td>
+                <td class="center left-con"><fmt:formatNumber type="number" value="${item.salesAmount / 100}" pattern="#0.00" maxFractionDigits="2" /></td>
+                <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
     </table>
-   </div>
 </div>
 
 <%--分页 start--%>

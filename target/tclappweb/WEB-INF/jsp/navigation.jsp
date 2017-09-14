@@ -54,7 +54,7 @@
              <li class="active">
                  <a id="menu8" href="#" class="adbj8 ad">销售统计</a>
                  <ul id="divmenu8" class="sub-menu">
-                     <li><a id="sub81" href="/hospitalSaleStat/list.do">医院销售统计</a></li>
+                     <li><a id="sub81" href="/hospitalSaleStat/list.do">采集点销售统计</a></li>
                      <li><a id="sub82" href="/packageSaleStat/list.do">套餐销售统计</a></li>
                      <li><a id="sub83" href="/doctorBillStat/list.do">医生开单统计</a></li>
                      <li><a id="sub84" href="/doctorTakeStat/list.do">医生采集统计</a></li>
