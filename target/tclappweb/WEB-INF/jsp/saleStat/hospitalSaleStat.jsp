@@ -9,6 +9,7 @@
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
+    <script language="javascript" src="${pageContext.request.contextPath}/LODOP/LodopFuncs.js"></script>
     <%
         request.setAttribute("nav", "draw");
         request.setAttribute("tab", "set");
@@ -100,7 +101,7 @@
                     <th class="center left-con" width="30%">采集点名称</th>
                     <%--<th class="center left-con" width="10%">年份</th>--%>
                     <%--<th class="center left-con" width="10%">月份</th>--%>
-                    <th class="center left-con" width="20%">套餐完成量（个）</th>
+                    <th class="center left-con" width="20%">套餐量（个）</th>
                     <th class="center left-con" width="20%">销售额（元）</th>
                     <th class="center left-con" width="22%">创建时间</th>
                 </tr>
@@ -134,14 +135,14 @@
         </c:choose>
         <c:if test="${year != null and year != ''}">${year}年</c:if><c:if test="${month != null and month != ''}">-${month}月</c:if>套餐销售统计
     </h3>
-    <table class="sui-table table-bordered" style="margin-top:20px;">
+    <table class="sui-table table-bordered" style="margin-top:20px;width: 700px">
         <thead>
         <tr>
             <th class="center left-con" width="8%">编号</th>
             <th class="center left-con" width="30%">采集点名称</th>
             <%--<th class="center left-con" width="10%">年份</th>--%>
             <%--<th class="center left-con" width="10%">月份</th>--%>
-            <th class="center left-con" width="20%">套餐完成量（个）</th>
+            <th class="center left-con" width="20%">套餐量（个）</th>
             <th class="center left-con" width="20%">销售额（元）</th>
             <th class="center left-con" width="22%">创建时间</th>
         </tr>
@@ -150,19 +151,23 @@
         <c:if test="${fn:length(list_all)==0}">
             <tr ><td colspan="6" class="center left-con" >亲，暂时没有活动哦！</td></tr>
         </c:if>
+        <c:set var="totalSalesAmount" value="${0}" />
         <c:forEach items="${list_all}" var="item">
             <tr>
                 <td class="center left-con">${item.id}</td>
-                <td class="center left-con">${item.hospitalName}</td>
+                <td class="center left-con" style="text-align: left">${item.hospitalName}</td>
                     <%--<td class="center left-con">${item.month} 月</td>--%>
                     <%--<td class="center left-con">${item.year} 年</td>--%>
                 <td class="center left-con">${item.salesNum}</td>
                 <td class="center left-con"><fmt:formatNumber type="number" value="${item.salesAmount / 100}" pattern="#0.00" maxFractionDigits="2" /></td>
+                <c:set var="totalSalesAmount" value="${item.salesAmount + totalSalesAmount}" />
                 <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd"/></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <br>
+    <p align="right">总计：<fmt:formatNumber type="number" value="${totalSalesAmount / 100}" pattern="#0.00" maxFractionDigits="2" />（元） </p>
 </div>
 
 <%--分页 start--%>

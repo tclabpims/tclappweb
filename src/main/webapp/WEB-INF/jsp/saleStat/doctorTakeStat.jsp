@@ -9,6 +9,7 @@
 <title>app 后台</title>
     <%@include file="../../head.jsp"%>
     <%@include file="../../jquery.jsp"%>
+    <script language="javascript" src="${pageContext.request.contextPath}/LODOP/LodopFuncs.js"></script>
     <%
         request.setAttribute("nav", "draw");
         request.setAttribute("tab", "set");
@@ -91,9 +92,9 @@
             <tr>
                 <th class="center left-con" width="8%">编号</th>
                 <th class="center left-con" width="10%">采集医生编号</th>
-                <th class="center left-con" width="20%">采集医生名称</th>
-                <th class="center left-con" width="20%">套餐采集量（个）</th>
-                <th class="center left-con" width="20%">采集套餐总额（元）</th>
+                <th class="center left-con" width="20%">采集医生姓名</th>
+                <th class="center left-con" width="20%">采集量（个）</th>
+                <th class="center left-con" width="20%">采集总额（元）</th>
                 <th class="center left-con" width="22%">创建时间</th>
             </tr>
             </thead>
@@ -124,21 +125,22 @@
         </c:choose>
         <c:if test="${year != null and year != ''}">${year}年</c:if><c:if test="${month != null and month != ''}">-${month}月</c:if>采集统计
     </h3>
-    <table class="sui-table table-bordered" style="margin-top:20px;">
+    <table class="sui-table table-bordered" style="margin-top:20px;width: 700px">
         <thead>
         <tr>
             <th class="center left-con" width="8%">编号</th>
-            <th class="center left-con" width="10%">采集医生编号</th>
-            <th class="center left-con" width="20%">采集医生名称</th>
-            <th class="center left-con" width="20%">套餐采集量（个）</th>
-            <th class="center left-con" width="20%">采集套餐总额（元）</th>
-            <th class="center left-con" width="22%">创建时间</th>
+            <th class="center left-con" width="17%">采集医生编号</th>
+            <th class="center left-con" width="20%">采集医生姓名</th>
+            <th class="center left-con" width="20%">采集量（个）</th>
+            <th class="center left-con" width="20%">采集总额（元）</th>
+            <th class="center left-con" width="15%">创建时间</th>
         </tr>
         </thead>
         <tbody id="all_task1">
         <c:if test="${fn:length(list_all)==0}">
             <tr ><td colspan="6" class="center left-con" >亲，暂时没有活动哦！</td></tr>
         </c:if>
+        <c:set var="totalTakeAmount" value="${0}" />
         <c:forEach items="${list_all}" var="item">
             <tr>
                 <td class="center left-con">${item.id}</td>
@@ -146,11 +148,14 @@
                 <td class="center left-con">${item.takeDoctorName}</td>
                 <td class="center left-con">${item.takeNum}</td>
                 <td class="center left-con"><fmt:formatNumber type="number" value="${item.takeAmount / 100}" pattern="#0.00" maxFractionDigits="2"/> </td>
+                <c:set var="totalTakeAmount" value="${item.takeAmount + totalTakeAmount}" />
                 <td class="center left-con"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd"/></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <br>
+    <p align="right">总计：<fmt:formatNumber type="number" value="${totalTakeAmount / 100}" pattern="#0.00" maxFractionDigits="2" />（元） </p>
 </div>
 
 <%--分页 start--%>

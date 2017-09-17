@@ -1,9 +1,11 @@
 package com.tcl.controller;
 
 import com.tcl.model.HospitalSaleStatModel;
+import com.tcl.model.PackageModelWithBLOBs;
 import com.tcl.model.PackageSaleStatModel;
 import com.tcl.service.HospitalSaleStatService;
 import com.tcl.service.PackageSaleStatService;
+import com.tcl.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +23,9 @@ public class PackageSaleStatController {
     @Autowired
     private PackageSaleStatService packageSaleStatService;
 
+    @Autowired
+    private PackageService packageService;
+
     private static final int PAGE_SIZE = 8;
 
     @RequestMapping("list")
@@ -29,6 +34,8 @@ public class PackageSaleStatController {
         mapInfo.put("pageNo", pageNo);
         Calendar calendar = Calendar.getInstance();
         mapInfo.put("year", Integer.toString(calendar.get(Calendar.YEAR)));
+        mapInfo.put("packageName", "");
+        mapInfo.put("month", "");
         Map<String, Object> map_result = getData(mapInfo);
         map.put("pageNo", map_result.get("pageNo"));
         map.put("totalPage", map_result.get("totalPage"));
@@ -76,20 +83,59 @@ public class PackageSaleStatController {
             total_page = 1;
             isEmpty = true;
         }
-        if(page_no > total_page) {
-            page_no = total_page;
-        }
-        map.put("pageNo", page_no);
-        map.put("totalPage", total_page);
         if(!isEmpty) {
             map.put("start_num", (page_no - 1) * PAGE_SIZE);
             map.put("pageSize", PAGE_SIZE);
             List<PackageSaleStatModel> list_for_page = packageSaleStatService.selectList(map);
+            if (!((String)map.get("year")).isEmpty() && ((String)map.get("packageName")).isEmpty() && ((String)map.get("month")).isEmpty()) {
+                list_for_page.clear();
+                List<PackageModelWithBLOBs> packageModels = packageService.selectList(new HashMap());
+                for (PackageModelWithBLOBs packageModel : packageModels) {
+                    PackageSaleStatModel packageSaleStatYear = new PackageSaleStatModel();
+                    Long totalNumber = 0L;
+                    Long totalAmount = 0L;
+                    for (PackageSaleStatModel packageSaleStatModel : list_for_all) {
+                        if (packageModel.getName().equals(packageSaleStatModel.getPackageName())) {
+                            totalNumber += packageSaleStatModel.getSalesNum();
+                            totalAmount += packageSaleStatModel.getSalesAmount();
+                        }
+                    }
+                    packageSaleStatYear.setSalesNum(totalNumber);
+                    packageSaleStatYear.setSalesAmount(totalAmount);
+                    packageSaleStatYear.setPackageId(packageModel.getId());
+                    packageSaleStatYear.setPackageName(packageModel.getName());
+                    packageSaleStatYear.setPackagePrice(packageModel.getPrice());
+                    packageSaleStatYear.setYear((String) map.get("year"));
+                    packageSaleStatYear.setId(packageModel.getId());
+                    packageSaleStatYear.setCreateTime(new Date());
+                    list_for_page.add(packageSaleStatYear);
+                }
+                list_for_all.clear();
+                for (PackageSaleStatModel packageSaleStatModel: list_for_page) {
+                    list_for_all.add(packageSaleStatModel);
+                }
+                list_for_page.clear();
+                if (page_no * PAGE_SIZE > list_for_all.size()) {
+                    list_for_page = list_for_all.subList((page_no - 1) * PAGE_SIZE, list_for_all.size());
+                } else {
+                    list_for_page = list_for_all.subList((page_no - 1) * PAGE_SIZE, page_no * PAGE_SIZE);
+                }
+            }
+            total_page = (list_for_all.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+            if (total_page < 1) {
+                total_page = 1;
+            }
+            if(page_no > total_page) {
+                page_no = total_page;
+            }
             map.put("list", list_for_page);
             map.put("list_all", list_for_all);
         }else {
             map.put("list",new ArrayList<PackageSaleStatModel>());
+            map.put("list_all",new ArrayList<PackageSaleStatModel>());
         }
+        map.put("pageNo", page_no);
+        map.put("totalPage", total_page);
         return map;
     }
 }

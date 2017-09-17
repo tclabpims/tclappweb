@@ -133,7 +133,7 @@
     <if test="id != null">
       AND id = #{id, jdbcType=BIGINT}
     </if>
-    <if test="takeDoctorName != null and doctorName != ''">
+    <if test="takeDoctorName != null and takeDoctorName != ''">
       AND take_doctor_name = #{takeDoctorName, jdbcType=VARCHAR}
     </if>
     <if test="year != null and year != ''">
