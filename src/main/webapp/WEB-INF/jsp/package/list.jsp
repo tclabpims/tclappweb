@@ -95,7 +95,7 @@
                     <td class="center left-con">${item.name}</td>
                     <td class="center left-con"><img src="<%@include file="../../ImgUrl/acquireUrl.jsp"%>${item.picUrl}" style="height: 30px; width: 50px"/></td>
                     <td class="line_limit" valign="middle" style="height: 34px">${item.useCrowd}</td>
-                    <td class="center left-con"><fmt:formatNumber type="number" value="${item.price / 100}" pattern="#0.00" maxFractionDigits="2"/></td>
+                    <td class="center left-con"><c:if test="${item.price != null}"><fmt:formatNumber type="number" value="${item.price / 100}" pattern="#0.00" maxFractionDigits="2"/></c:if></td>
                     <td class="line_limit" valign="middle" style="height: 34px">${item.needAttention}</td>
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
@@ -156,7 +156,7 @@
 
  <%--<%@include file="mbottom.jsp"%>--%>
 <%--增加套餐 start--%>
-<div id="add_package" style="display: none">
+<div id="add_package" style="display: none;">
     <br/><form id="add_package_form" action="" class="layui-form">
     <%--套餐名称--%>
     <div class="layui-form-item">
@@ -332,7 +332,7 @@
 <%--套餐关联信息 end--%>
 
 <%--编辑套餐 start--%>
-<div id="edit_package" style="display: none">
+<script type="text/html" id="edit_package">
     <br/><form id="edit_package_form" action="" class="layui-form">
     <%--套餐名称--%>
     <div class="layui-form-item">
@@ -484,12 +484,109 @@
             <textarea id="edit_clause" name="clause" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
         </div>
     </div>
-</form>
-</div>
+    </form>
+</script>
 <%--编辑套餐 end--%>
+<%--知识库编辑start--%>
+<script type="text/html" id="edit_packageKnowledge">
+    <br><form class="layui-form" id="edit_package_knowledge_from">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">套餐名称</label>
+            <div class="layui-input-block">
+                <input type="hidden" id="edit_knowledge_id" name="id">
+                <input type="hidden" id="edit_knowledge_package_id" name="packageId">
+                <input type="text" id="packageNameOfKnowledge" class="layui-input" style="width: 260px" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">项目介绍</label>
+            <div class="layui-input-block">
+                <textarea id="edit_knowledge_introduction" name="introduction" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">检验目的</label>
+            <div class="layui-input-block">
+                <textarea id="edit_knowledge_objective" name="objective" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">检验时间</label>
+            <div class="layui-input-block">
+                <textarea id="edit_knowledge_text_time" name="textTime" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">注意事项</label>
+            <div class="layui-input-block">
+                <textarea id="edit_knowledge_need_attention" name="needAttention" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+            </div>
+        </div>
+    </form>
+</script>
+<%--知识库编辑end--%>
+
+<%--采集手册编辑start--%>
+<script type="text/html" id="edit_collect_manual">
+    <br><form class="layui-form" id="edit_package_collect_manual_from">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">套餐名称</label>
+            <div class="layui-input-block">
+                <input type="hidden" id="edit_collect_manual_id" name="id">
+                <input type="hidden" id="edit_collect_manual_package_id" name="packageId">
+                <input type="text" id="packageNameOfCollectManual" class="layui-input" style="width: 260px" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">检验方法</label>
+            <div class="layui-input-block">
+                <input type="text" id="edit_collect_manual_text_method" name="textMethod" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">采集管</label>
+            <div class="layui-input-block">
+                <input type="text" id="edit_collect_manual_collect_tube" name="collectTube" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">采集图片</label>
+            <div class="layui-input-block">
+                <input type="file" id="collectImg_edit" style="width: 210px" title="<%@include file="../../ImgUrl/uploadUrl.jsp"%>">
+                <input type="hidden" id="collectImg_edit_" name="collectImg" />
+                <input type="button"  class="layui-btn layui-btn-radius layui-btn-small" value="上传" onclick="uploadCollectImgEdit()">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">存储条件</label>
+            <div class="layui-input-block">
+                <input type="text" id="edit_collect_manual_storage_condit" name="storageCondit" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">采集要求</label>
+            <div class="layui-input-block">
+                <input type="text" id="edit_collect_manual_collect_require" name="collectRequire" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">注意事项</label>
+            <div class="layui-input-block">
+                <input type="text" id="edit_collect_manual_need_attention" name="needAttention" required lay-verify="required" class="layui-input" style="width: 260px">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">备注说明</label>
+            <div class="layui-input-block">
+                <textarea id="edit_collect_manual_remark" name="remark" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+            </div>
+        </div>
+    </form>
+</script>
+<%--采集手册编辑end--%>
 
 <%--套餐详情 start--%>
-<div id="detail_package" style="display: none">
+<script type="text/html" id="detail_package">
     <table id="detail_package_table" class="layui-table" lay-even lay-skin="nob">
         <colgroup align="left" span="4">
             <col width="20%">
@@ -569,7 +666,84 @@
         </tr>
         </tbody>
     </table>
-</div>
+</script>
 <%--套餐详情 end--%>
+<%--知识库详情start--%>
+<script type="text/html" id="knowledge_details">
+    <table id="detail_knowledge_table" class="layui-table" lay-even lay-skin="nob">
+        <colgroup align="left" span="2">
+            <col width="20%">
+            <col width="80%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td align="left">套餐名称</td>
+                <td align="left"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 50px">项目介绍</td>
+                <td style="height: 50px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 50px">检验目的</td>
+                <td style="height: 50px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 50px">何时检测</td>
+                <td style="height: 50px" valign="top"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="left" style="height: 50px">注意事项</td>
+                <td style="height: 50px" valign="top"></td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+<%--知识库详情end--%>
+
+<%--采集手册详情start--%>
+<script type="text/html" id="collect_manual_details">
+    <table id="detail_collect_manual_table" class="layui-table" lay-even lay-skin="nob">
+        <colgroup align="left" span="2">
+            <col width="20%">
+            <col width="80%">
+        </colgroup>
+        <tbody>
+        <tr>
+            <td align="left">套餐名称</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">检验方法</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">采集管</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">采集图片</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">存储条件</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">采集要求</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">注意事项</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">备注说明</td>
+            <td style="height: 50px" valign="top"></td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+<%--采集手册详情end--%>
 </body>
 </html>

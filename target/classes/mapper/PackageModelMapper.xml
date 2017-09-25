@@ -19,6 +19,25 @@
     <result column="test_type" property="testType" jdbcType="VARCHAR" />
     <result column="disease_type" property="diseaseType" jdbcType="VARCHAR" />
     <result column="take_type" property="takeType" jdbcType="VARCHAR" />
+    <collection property="knowledgeModel" javaType="com.tcl.model.KnowledgeModelWithBLOBs">
+      <id column="k_id" property="id" jdbcType="BIGINT" />
+      <result column="k_package_id" property="packageId" jdbcType="BIGINT" />
+      <result column="k_introduction" property="introduction" jdbcType="LONGVARCHAR" />
+      <result column="k_objective" property="objective" jdbcType="LONGVARCHAR" />
+      <result column="k_text_time" property="textTime" jdbcType="LONGVARCHAR" />
+      <result column="k_need_attention" property="needAttention" jdbcType="LONGVARCHAR" />
+    </collection>
+    <collection property="collectManualModel" javaType="com.tcl.model.CollectManualModel">
+      <id column="c_id" property="id" jdbcType="BIGINT" />
+      <result column="c_package_id" property="packageId" jdbcType="BIGINT" />
+      <result column="c_text_method" property="textMethod" jdbcType="VARCHAR" />
+      <result column="c_collect_tube" property="collectTube" jdbcType="VARCHAR" />
+      <result column="c_collect_img" property="collectImg" jdbcType="VARCHAR" />
+      <result column="c_storage_condit" property="storageCondit" jdbcType="VARCHAR" />
+      <result column="c_collect_require" property="collectRequire" jdbcType="VARCHAR" />
+      <result column="c_need_attention" property="needAttention" jdbcType="VARCHAR" />
+      <result column="c_remark" property="remark" jdbcType="LONGVARCHAR" />
+    </collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.PackageModelWithBLOBs" extends="BaseResultMap" >
     <result column="need_attention" property="needAttention" jdbcType="LONGVARCHAR" />
@@ -34,11 +53,14 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from app_c_package
-    where id = #{id,jdbcType=BIGINT}
+    p.id, name, his_id, his_name, use_crowd, price, report_time, report_time_desc, wj_code,
+    sale_num, pic_url, detail_img, status, sample_type, test_type, disease_type, take_type, p.need_attention, project_desc, clause,
+    k.id k_id, k.package_id k_package_id, k.introduction k_introduction, k.objective k_objective, k.text_time k_text_time, k.need_attention k_need_attention,
+    c.id c_id, c.package_id c_package_id, c.text_method c_text_method, c.collect_tube c_collect_tube, c.collect_img c_collect_img, c.storage_condit c_storage_condit,
+    c.collect_require c_collect_require, c.need_attention c_need_attention, c.remark c_remark
+    from (app_c_package p LEFT JOIN app_c_knowledge k on p.id = k.package_id)
+    LEFT JOIN app_collect_manual c on p.id = c.package_id
+    where p.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from app_c_package

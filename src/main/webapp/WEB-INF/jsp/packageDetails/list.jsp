@@ -84,6 +84,7 @@
                     <td class="center left-con">
                        <span class=""><a href="javascript:void(0)" onclick="ItemDele('${item.id}');">删除</a></span>&nbsp;&nbsp;
                        <span class=""><a href="javascript:void(0)" onclick="ItemEdit('${item.id}');">编辑</a></span>&nbsp;&nbsp;
+                       <span class=""><a href="javascript:void(0)" onclick="ItemDetail('${item.id}');">详情</a></span>&nbsp;&nbsp;
                     </td>
                 </tr>
             </c:forEach>
@@ -198,7 +199,7 @@
 <%--增加检验细项 end--%>
 
 <%--编辑检验细项 start--%>
-<div id="edit_packageDetails" style="display: none">
+<script type="text/html" id="edit_packageDetails">
     <br/><form id="edit_packageDetails_form" action="" class="layui-form">
     <%--套餐名称--%>
     <div class="layui-form-item">
@@ -254,7 +255,120 @@
         </div>
     </div>
 </form>
-</div>
+</script>
 <%--编辑检验细项 end--%>
+<%--编辑检验细项知识库start--%>
+<script type="text/html" id="edit_detail_knowledge">
+    <br/><form id="edit_packageDetails_knowledge_form" action="" class="layui-form">
+    <%--套餐名称--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">细项名称</label>
+        <div class="layui-input-block">
+            <input type="hidden" id="edit_knowledge_id" name="id">
+            <input type="hidden" id="edit_knowledge_packagedetails_id" name="packagedetailsId">
+            <input type="text" id="detail_knowledge_name" readonly="readonly" class="layui-input" style="width: 260px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目介绍</label>
+        <div class="layui-input-block">
+            <textarea id="edit_knowledge_introduction" name="introduction" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">检验目的</label>
+        <div class="layui-input-block">
+            <textarea id="edit_knowledge_objective" name="objective" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">检验时间</label>
+        <div class="layui-input-block">
+            <textarea id="edit_knowledge_text_time" name="textTime" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">临床意义</label>
+        <div class="layui-input-block">
+            <textarea id="edit_knowledge_clinical" name="clinical" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">注意事项</label>
+        <div class="layui-input-block">
+            <textarea id="edit_knowledge_need_attention" name="needAttention" required lay-verify="required" class="layui-textarea" style="width: 320px"></textarea>
+        </div>
+    </div>
+</script>
+<%--编辑检验细项知识库end--%>
+
+<%--检验细项详情start--%>
+<script type="text/html" id="packageDetails_detail">
+    <table id="packageDetails_table" class="layui-table" lay-even lay-skin="nob">
+        <colgroup align="left" span="2">
+            <col width="20%">
+            <col width="80%">
+        </colgroup>
+        <tbody>
+        <tr>
+            <td align="left">his名称</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">his价格到分</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">套餐名称</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">细项名称</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td align="left">细项价格</td>
+            <td align="left"></td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+<%--检验细项详情end--%>
+<%--细项知识库详情start--%>
+<script type="text/html" id="packageDetails_knowledge">
+    <table id="packageDetails_knowledge_table" class="layui-table" lay-even lay-skin="nob">
+        <colgroup align="left" span="2">
+            <col width="20%">
+            <col width="80%">
+        </colgroup>
+        <tbody>
+        <tr>
+            <td align="left">细项名称</td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">项目介绍</td>
+            <td style="height: 50px" valign="top"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">检验目的</td>
+            <td style="height: 50px" valign="top"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">何时检测</td>
+            <td style="height: 50px" valign="top"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">临床意义</td>
+            <td style="height: 50px" valign="top"></td>
+        </tr>
+        <tr>
+            <td valign="top" align="left" style="height: 50px">注意事项</td>
+            <td style="height: 50px" valign="top"></td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+<%--细项知识库详情end--%>
 </body>
 </html>

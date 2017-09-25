@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.KnowledgeDetailsModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.KnowledgeDetailsModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="packagedetails_id" property="packagedetailsId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.KnowledgeDetailsModelWithBLOBs" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+    <result column="objective" property="objective" jdbcType="LONGVARCHAR" />
+    <result column="text_time" property="textTime" jdbcType="LONGVARCHAR" />
+    <result column="clinical" property="clinical" jdbcType="LONGVARCHAR" />
+    <result column="need_attention" property="needAttention" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, packagedetails_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction, objective, text_time, clinical, need_attention
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_c_knowledge_details
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_c_knowledge_details
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.KnowledgeDetailsModelWithBLOBs" >
+    insert into app_c_knowledge_details (id, packagedetails_id, introduction, 
+      objective, text_time, clinical, 
+      need_attention)
+    values (#{id,jdbcType=BIGINT}, #{packagedetailsId,jdbcType=BIGINT}, #{introduction,jdbcType=LONGVARCHAR}, 
+      #{objective,jdbcType=LONGVARCHAR}, #{textTime,jdbcType=LONGVARCHAR}, #{clinical,jdbcType=LONGVARCHAR}, 
+      #{needAttention,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.KnowledgeDetailsModelWithBLOBs" >
+    insert into app_c_knowledge_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="packagedetailsId != null" >
+        packagedetails_id,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="objective != null" >
+        objective,
+      </if>
+      <if test="textTime != null" >
+        text_time,
+      </if>
+      <if test="clinical != null" >
+        clinical,
+      </if>
+      <if test="needAttention != null" >
+        need_attention,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="packagedetailsId != null" >
+        #{packagedetailsId,jdbcType=BIGINT},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="objective != null" >
+        #{objective,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="textTime != null" >
+        #{textTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="clinical != null" >
+        #{clinical,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="needAttention != null" >
+        #{needAttention,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.KnowledgeDetailsModelWithBLOBs" >
+    update app_c_knowledge_details
+    <set >
+      <if test="packagedetailsId != null" >
+        packagedetails_id = #{packagedetailsId,jdbcType=BIGINT},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="objective != null" >
+        objective = #{objective,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="textTime != null" >
+        text_time = #{textTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="clinical != null" >
+        clinical = #{clinical,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="needAttention != null" >
+        need_attention = #{needAttention,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tcl.model.KnowledgeDetailsModelWithBLOBs" >
+    update app_c_knowledge_details
+    set packagedetails_id = #{packagedetailsId,jdbcType=BIGINT},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      objective = #{objective,jdbcType=LONGVARCHAR},
+      text_time = #{textTime,jdbcType=LONGVARCHAR},
+      clinical = #{clinical,jdbcType=LONGVARCHAR},
+      need_attention = #{needAttention,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.KnowledgeDetailsModel" >
+    update app_c_knowledge_details
+    set packagedetails_id = #{packagedetailsId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

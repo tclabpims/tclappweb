@@ -213,7 +213,6 @@ function exportExcel() {
         temp_form.submit();
     })
 }
-
 /*编辑套餐*/
 function ItemEdit(id) {
     var package;
@@ -232,9 +231,10 @@ function ItemEdit(id) {
             console.log(er);
         }
     });
-    layui.use(['layer', 'form'], function() {
+    layui.use(['layer', 'form', 'element'], function() {
         var layer = layui.layer;
         var form = layui.form();
+        var element = layui.element();
         if(package.name == "paramIsError") {
             layer.msg('获取信息失败', {
                 time: 1000,
@@ -242,69 +242,222 @@ function ItemEdit(id) {
             });
             return;
         }
-        layer.open({
-            type: 1,
-            title: '套餐编辑',
-            area: ['480px', '720px'],
-            skin: "layui-layer-rim",
-            content: $("#edit_package"),
+        layer.tab({
+            id: "edit_tab",
+            area: ['480px', '640px'],
+            tab:[{
+                    title: '套餐编辑',
+                    content: $("#edit_package").html(),
+                },{
+                    title: '知识库编辑',
+                    content: $("#edit_packageKnowledge").html(),
+                },{
+                    title: '采集手册编辑',
+                    content: $("#edit_collect_manual").html(),
+                }
+            ],
             btn: ['提交', '取消'],
             yes: function(index, layero) {
-                $("#picUrl_edit_").val(packageImg_edit_path);
-                if(packageDetailImg_edit_path != null && packageDetailImg_edit_path != '' && packageDetailImg_edit_path != undefined) {
-                    $("#detailImg_edit_").val("http://183.247.179.221:9099" + packageDetailImg_edit_path);
-                }
-                $.ajax({
-                    url: "update.do",
-                    type: "POST",
-                    data: $("#edit_package_form").serializeArray(),
-                    dataType: "json",
-                    success: function(data) {
-                        if(data.msg == "success") {
-                            layer.msg("更新成功", {
-                                time: 1000,
-                                offset: '160px'
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }else if(data.msg == "error") {
-                            layer.msg("更新失败", {
-                                time: 1000,
-                                offset: '160px'
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    },
-                    error: function(er) {
-                        console.log(er);
+                if(tab_flag === 1) {
+                    $("#picUrl_edit_").val(packageImg_edit_path);
+                    if (packageDetailImg_edit_path != null && packageDetailImg_edit_path != '' && packageDetailImg_edit_path != undefined) {
+                        $("#detailImg_edit_").val("http://183.247.179.221:9099" + packageDetailImg_edit_path);
                     }
-                });
+                    $.ajax({
+                        url: "update.do",
+                        type: "POST",
+                        data: $("#edit_package_form").serializeArray(),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.msg == "success") {
+                                layer.msg("更新成功", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            } else if (data.msg == "error") {
+                                layer.msg("更新失败", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        },
+                        error: function (er) {
+                            console.log(er);
+                        }
+                    });
+                } else if(tab_flag === 2) {
+                    $.ajax({
+                        url: "/knowledge/update.do",
+                        type: "POST",
+                        data: $("#edit_package_knowledge_from").serializeArray(),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.msg == "success") {
+                                layer.msg("更新成功", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            } else if (data.msg == "error") {
+                                layer.msg("更新失败", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        },
+                        error: function (er) {
+                            console.log(er);
+                        }
+                    });
+                } else if(tab_flag ===3) {
+                    if (collectImg_edit_path != null && collectImg_edit_path != '' && collectImg_edit_path != undefined) {
+                        $("#collectImg_edit_").val("http://183.247.179.221:9099" + collectImg_edit_path);
+                    }
+                    $.ajax({
+                        url: "/collectManual/update.do",
+                        type: "POST",
+                        data: $("#edit_package_collect_manual_from").serializeArray(),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.msg == "success") {
+                                layer.msg("更新成功", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            } else if (data.msg == "error") {
+                                layer.msg("更新失败", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        },
+                        error: function (er) {
+                            console.log(er);
+                        }
+                    });
+                }
             },
             btn2: function(index, layero) {
                 layer.close(index);
             }
         });
-        $("#edit_name").val(package.name);
-        $("#edit_useCrowd").val(package.useCrowd);
-        $("#edit_price").val((parseFloat(package.price) / 100).toFixed(2));
-        $("#edit_reportTime").val(package.reportTime);
-        $("#edit_reportTimeDesc").val(package.reportTimeDesc);
-        $("#edit_wjCode").val(package.wjCode);
-        $("#edit_saleNum").val(package.saleNum);
+        $("#edit_name").attr('value', package.name);
+        $("#edit_useCrowd").attr('value', package.useCrowd);
+        if(package.price != null) {
+            $("#edit_price").attr('value', (parseFloat(package.price) / 100).toFixed(2));
+        } else {
+            $("#edit_price").attr('value', "");
+        }
+        $("#edit_reportTime").attr('value', package.reportTime);
+        $("#edit_reportTimeDesc").attr('value', package.reportTimeDesc);
+        $("#edit_wjCode").attr('value', package.wjCode);
+        $("#edit_saleNum").attr('value', package.saleNum);
         $("#edit_status option[value='"+package.status+"']").attr("selected", 'selected');
-        $("#edit_sampleType").val(package.sampleType);
-        $("#edit_testType").val(package.testType);
-        $("#edit_diseaseType").val(package.diseaseType);
-        $("#edit_takeType").val(package.takeType);
-        $("#edit_needAttention").val(package.needAttention);
-        $("#edit_projectDesc").val(package.projectDesc);
-        $("#edit_clause").val(package.clause);
-        $("#edit_id").val(id);
+        $("#edit_sampleType").attr('value', package.sampleType);
+        $("#edit_testType").attr('value', package.testType);
+        $("#edit_diseaseType").attr('value', package.diseaseType);
+        $("#edit_takeType").attr('value', package.takeType);
+        $("#edit_needAttention").text(package.needAttention);
+        $("#edit_projectDesc").text(package.projectDesc);
+        $("#edit_clause").text(package.clause);
+        $("#edit_id").attr('value', id);
+        //知识库
+        $("#packageNameOfKnowledge").attr('value', package.name);
+        $("#edit_knowledge_package_id").attr('value', id);
+        if(package.knowledgeModel != null) {
+            $("#edit_knowledge_id").attr('value', package.knowledgeModel.id);
+            $("#edit_knowledge_introduction").attr('value', package.knowledgeModel.introduction);
+            $("#edit_knowledge_objective").attr('value', package.knowledgeModel.objective);
+            $("#edit_knowledge_text_time").attr('value', package.knowledgeModel.textTime);
+            $("#edit_knowledge_need_attention").attr('value', package.knowledgeModel.needAttention);
+        }
+        $("#packageNameOfCollectManual").attr('value', package.name);
+        $("#edit_collect_manual_package_id").attr('value', id);
+        if(package.collectManualModel != null) {
+            $("#edit_collect_manual_id").attr('value', package.collectManualModel.id)
+            $("#edit_collect_manual_text_method").attr('value', package.collectManualModel.textMethod)
+            $("#edit_collect_manual_collect_tube").attr('value', package.collectManualModel.collectTube)
+            $("#edit_collect_manual_storage_condit").attr('value', package.collectManualModel.storageCondit)
+            $("#edit_collect_manual_collect_require").attr('value', package.collectManualModel.collectRequire)
+            $("#edit_collect_manual_need_attention").attr('value', package.collectManualModel.needAttention)
+            $("#edit_collect_manual_remark").attr('value', package.collectManualModel.remark)
+        }
         form.render();
+
+        //确定当前在哪个tab页, 默认在一个tab页
+        var tab_flag = 1;
+
+        var edit_tab = document.getElementById("edit_tab");
+        //监听选项卡的切换
+        var previous = edit_tab.previousElementSibling;
+        previous.onclick = function() {
+            var childs = previous.childNodes;
+            for (var i = 0; i < childs.length; i++) {
+                var child = childs[i];
+                if (child.getAttribute("class") === 'layui-layer-tabnow') {
+                    if (i === 0) {
+                        tab_flag = 1;
+                    } else if (i === 1) {
+                        tab_flag = 2;
+                    } else {
+                        tab_flag = 3;
+                    }
+                }
+            }
+        }
     })
+}
+/*修改采集图片*/
+var collectImg_edit_path;
+function uploadCollectImgEdit() {
+    var formData = new FormData();
+    formData.append('file',$("#collectImg_edit")[0].files[0]);    //将文件转成二进制形式
+    $.ajax({
+        type: "post",
+        url: $("#collectImg_edit")[0].title,
+        async: false,
+        contentType: false,    //这个一定要写
+        processData: false, //这个也一定要写，不然会报错
+        data:formData,
+        dataType:'json',    //返回类型，有json，text，HTML。这里并没有jsonp格式，所以别妄想能用jsonp做跨域了。
+        success:function(data){
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                if(data.txt != null && data.txt != "" && data.txt != undefined) {
+                    collectImg_edit_path = data.txt;
+                    layer.msg("上传成功", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }else {
+                    layer.msg("上传失败", {
+                        time: 1000,
+                        offset: "160px"
+                    })
+                }
+            });
+        },
+        error:function(er){
+            console.log(er);
+        }
+    });
 }
 /*修改套餐主图*/
 var packageImg_edit_path;
@@ -404,16 +557,28 @@ function ItemDetail(id) {
             });
             return;
         }
-        layer.open({
-            type: 1,
-            title: "详细信息",
-            skin: 'layui-layer-rim',
+        layer.tab({
             area: ['600px', '680px'],
-            content: $("#detail_package")
+            tab:[
+                {
+                    title: "套餐详情",
+                    content: $("#detail_package").html()
+                },{
+                    title: "知识库详情",
+                    content: $('#knowledge_details').html()
+                },{
+                    title: "采集手册详情",
+                    content: $("#collect_manual_details").html()
+                }
+            ]
         });
         var package_table = document.getElementById("detail_package_table");
         package_table.rows[0].cells[1].innerHTML = package.name;
-        package_table.rows[1].cells[1].innerHTML = (parseFloat(package.price) / 100).toFixed(2) + " 元";
+        if(package.price != null) {
+            package_table.rows[1].cells[1].innerHTML = (parseFloat(package.price) / 100).toFixed(2) + " 元";
+        }else {
+            package_table.rows[1].cells[1].innerHTML = "";
+        }
         if(package.status == "0") {
             package_table.rows[2].cells[1].innerHTML = "未发布";
         }else if(package.status == "1") {
@@ -440,6 +605,27 @@ function ItemDetail(id) {
         package_table.rows[14].cells[1].innerHTML = package.clause;
         $("#package_picture").attr("src", $("#package_picture")[0].title + package.picUrl);
         $("#packageDetailImg").attr("src", package.detailImg);
+        //知识库
+        var knowledge_table = document.getElementById("detail_knowledge_table");
+        knowledge_table.rows[0].cells[1].innerHTML = package.name;
+        if(package.knowledgeModel != null) {
+            knowledge_table.rows[1].cells[1].innerHTML = package.knowledgeModel.introduction;
+            knowledge_table.rows[2].cells[1].innerHTML = package.knowledgeModel.objective;
+            knowledge_table.rows[3].cells[1].innerHTML = package.knowledgeModel.textTime;
+            knowledge_table.rows[4].cells[1].innerHTML = package.knowledgeModel.needAttention;
+        }
+        //采集手册
+        var detail_collect_manual_table = document.getElementById("detail_collect_manual_table");
+        detail_collect_manual_table.rows[0].cells[1].innerHTML = package.name;
+        if(package.collectManualModel != null) {
+            detail_collect_manual_table.rows[1].cells[1].innerHTML = package.collectManualModel.textMethod;
+            detail_collect_manual_table.rows[2].cells[1].innerHTML = package.collectManualModel.collectTube;
+            detail_collect_manual_table.rows[3].cells[1].innerHTML = package.collectManualModel.collectImg;
+            detail_collect_manual_table.rows[4].cells[1].innerHTML = package.collectManualModel.storageCondit;
+            detail_collect_manual_table.rows[5].cells[1].innerHTML = package.collectManualModel.collectRequire;
+            detail_collect_manual_table.rows[6].cells[1].innerHTML = package.collectManualModel.needAttention;
+            detail_collect_manual_table.rows[7].cells[1].innerHTML = package.collectManualModel.remark;
+        }
     })
 }
 

@@ -139,69 +139,199 @@ function ItemEdit(id) {
             });
             return;
         }
-        layer.open({
-            type: 1,
-            title: '套餐编辑',
+        layer.tab({
+            id: "edit_tab",
             area: ['480px', '480px'],
-            skin: "layui-layer-rim",
-            content: $("#edit_packageDetails"),
+            tab: [
+                {
+                    title: '检验细项编辑',
+                    content: $("#edit_packageDetails").html(),
+                },
+                {
+                    title: '检验细项知识库编辑',
+                    content: $("#edit_detail_knowledge").html()
+                }
+            ],
             btn: ['提交', '取消'],
             yes: function(index, layero) {
-                var hisId_check_edit = document.getElementById("hisId_check_edit");
-                if($("#hisId_edit").val() == "") {
-                    hisId_check_edit.innerHTML = "his项目编号不能为空";
-                    return;
-                } else{
-                    hisId_check_edit.innerHTML = "";
-                }
-                var packageId_check_edit = document.getElementById("packageId_check_edit")
-                if($("#packageId_edit").val() == "") {
-                    packageId_check_edit.innerHTML = "套餐编号不能为空";
-                    return;
-                } else {
-                    packageId_check_edit.innerHTML = "";
-                }
-                $.ajax({
-                    url: "update.do",
-                    type: "POST",
-                    data: $("#edit_packageDetails_form").serializeArray(),
-                    dataType: "json",
-                    success: function(data) {
-                        if(data.msg == "success") {
-                            layer.msg("更新成功", {
-                                time: 1000,
-                                offset: '160px'
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }else if(data.msg == "error") {
-                            layer.msg("更新失败", {
-                                time: 1000,
-                                offset: '160px'
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    },
-                    error: function(er) {
-                        console.log(er);
+                if(tab_flag === 1) {
+                    var hisId_check_edit = document.getElementById("hisId_check_edit");
+                    if($("#hisId_edit").val() == "") {
+                        hisId_check_edit.innerHTML = "his项目编号不能为空";
+                        return;
+                    } else{
+                        hisId_check_edit.innerHTML = "";
                     }
-                });
+                    var packageId_check_edit = document.getElementById("packageId_check_edit")
+                    if($("#packageId_edit").val() == "") {
+                        packageId_check_edit.innerHTML = "套餐编号不能为空";
+                        return;
+                    } else {
+                        packageId_check_edit.innerHTML = "";
+                    }
+                    $.ajax({
+                        url: "update.do",
+                        type: "POST",
+                        data: $("#edit_packageDetails_form").serializeArray(),
+                        dataType: "json",
+                        success: function(data) {
+                            if(data.msg == "success") {
+                                layer.msg("更新成功", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }else if(data.msg == "error") {
+                                layer.msg("更新失败", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        },
+                        error: function(er) {
+                            console.log(er);
+                        }
+                    });
+                }else if(tab_flag === 2) {
+                    $.ajax({
+                        url: "/knowledgeDetails/update.do",
+                        type: "POST",
+                        data: $("#edit_packageDetails_knowledge_form").serializeArray(),
+                        dataType: "json",
+                        success: function(data) {
+                            if(data.msg == "success") {
+                                layer.msg("更新成功", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }else if(data.msg == "error") {
+                                layer.msg("更新失败", {
+                                    time: 1000,
+                                    offset: '160px'
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        },
+                        error: function(er) {
+                            console.log(er);
+                        }
+                    });
+                }
             },
             btn2: function(index, layero) {
                 layer.close(index);
             }
         });
-        $("#hisId_edit").val(packageDetails.hisId);
-        $("#hisName_edit").val(packageDetails.hisName);
-        $("#hisPrice_edit").val((parseFloat(packageDetails.hisPrice) / 100).toFixed(2));
-        $("#packageId_edit").val(packageDetails.packageId);
-        $("#name_edit").val(packageDetails.name);
-        $("#price_edit").val((parseFloat(packageDetails.price) / 100).toFixed(2));
-        $("#edit_id").val(id);
+        $("#hisId_edit").attr('value', packageDetails.hisId);
+        $("#hisName_edit").attr('value', packageDetails.hisName);
+        if(packageDetails.hisPrice != null) {
+            $("#hisPrice_edit").attr('value', (parseFloat(packageDetails.hisPrice) / 100).toFixed(2));
+        }
+        $("#packageId_edit").attr('value', packageDetails.packageId);
+        $("#name_edit").attr('value', packageDetails.name);
+        if(packageDetails.price != null) {
+            $("#price_edit").attr('value', (parseFloat(packageDetails.price) / 100).toFixed(2));
+        }
+        $("#edit_id").attr('value', id);
+
+        //知识库
+        $("#detail_knowledge_name").attr('value', packageDetails.name);
+        $('#edit_knowledge_packagedetails_id').attr('value', id);
+        if(packageDetails.knowledgeDetailsModel != null) {
+            $("#edit_knowledge_id").attr('value', packageDetails.knowledgeDetailsModel.id);
+            $("#edit_knowledge_introduction").attr('value', packageDetails.knowledgeDetailsModel.introduction);
+            $("#edit_knowledge_objective").attr('value', packageDetails.knowledgeDetailsModel.objective);
+            $("#edit_knowledge_text_time").attr('value', packageDetails.knowledgeDetailsModel.textTime);
+            $("#edit_knowledge_clinical").attr('value', packageDetails.knowledgeDetailsModel.clinical);
+            $("#edit_knowledge_need_attention").attr('value', packageDetails.knowledgeDetailsModel.needAttention);
+        }
         form.render();
+
+        //确定当前在哪个tab页, 默认在一个tab页
+        var tab_flag = 1;
+
+        var edit_tab = document.getElementById("edit_tab");
+        //监听选项卡的切换
+        var previous = edit_tab.previousElementSibling;
+        previous.onclick = function() {
+            var childs = previous.childNodes;
+            for (var i = 0; i < childs.length; i++) {
+                var child = childs[i];
+                if (child.getAttribute("class") === 'layui-layer-tabnow') {
+                    if (i === 0) {
+                        tab_flag = 1;
+                    } else {
+                        tab_flag = 2;
+                    }
+                }
+            }
+        }
+    })
+}
+
+//详情
+function ItemDetail(id) {
+    var packageDetails;
+    $.ajax({
+        url: 'acquire.do',
+        type: 'POST',
+        data: {
+            id: id
+        },
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+            packageDetails = data.packageDetails;
+        },
+        error: function(er) {
+            console.log(er);
+        }
+    });
+    layui.use('layer', function() {
+        var layer = layui.layer;
+        if(packageDetails.name == "paramIsError") {
+            layer.msg('获取信息失败', {
+                time: 1000,
+                offset: '160px',
+            });
+            return;
+        }
+        layer.tab({
+            area: ['580px', '640px'],
+            tab: [
+                {
+                    title: '检验细项详情',
+                    content: $("#packageDetails_detail").html()
+                },{
+                    title: '细项知识库详情',
+                    content: $("#packageDetails_knowledge").html()
+                }
+            ]
+        });
+        var packageDetails_table = document.getElementById('packageDetails_table');
+        packageDetails_table.rows[0].cells[1].innerHTML = packageDetails.hisName;
+        packageDetails_table.rows[1].cells[1].innerHTML = packageDetails.hisPrice;
+        packageDetails_table.rows[2].cells[1].innerHTML = packageDetails.packageModel.name;
+        packageDetails_table.rows[3].cells[1].innerHTML = packageDetails.name;
+        packageDetails_table.rows[4].cells[1].innerHTML = packageDetails.price;
+
+        var packageDetails_knowledge_table = document.getElementById('packageDetails_knowledge_table');
+        packageDetails_knowledge_table.rows[0].cells[1].innerHTML = packageDetails.name;
+        packageDetails_knowledge_table.rows[1].cells[1].innerHTML = packageDetails.knowledgeDetailsModel.introduction;
+        packageDetails_knowledge_table.rows[2].cells[1].innerHTML = packageDetails.knowledgeDetailsModel.objective;
+        packageDetails_knowledge_table.rows[3].cells[1].innerHTML = packageDetails.knowledgeDetailsModel.textTime;
+        packageDetails_knowledge_table.rows[4].cells[1].innerHTML = packageDetails.knowledgeDetailsModel.clinical;
+        packageDetails_knowledge_table.rows[5].cells[1].innerHTML = packageDetails.knowledgeDetailsModel.needAttention;
     })
 }
 

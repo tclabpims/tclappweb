@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcl.dao.CollectManualModelMapper" >
+  <resultMap id="BaseResultMap" type="com.tcl.model.CollectManualModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="package_id" property="packageId" jdbcType="BIGINT" />
+    <result column="text_method" property="textMethod" jdbcType="VARCHAR" />
+    <result column="collect_tube" property="collectTube" jdbcType="VARCHAR" />
+    <result column="collect_img" property="collectImg" jdbcType="VARCHAR" />
+    <result column="storage_condit" property="storageCondit" jdbcType="VARCHAR" />
+    <result column="collect_require" property="collectRequire" jdbcType="VARCHAR" />
+    <result column="need_attention" property="needAttention" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tcl.model.CollectManualModel" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, package_id, text_method, collect_tube, collect_img, storage_condit, collect_require, 
+    need_attention
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_collect_manual
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_collect_manual
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tcl.model.CollectManualModel" >
+    insert into app_collect_manual (id, package_id, text_method, 
+      collect_tube, collect_img, storage_condit, 
+      collect_require, need_attention, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{packageId,jdbcType=BIGINT}, #{textMethod,jdbcType=VARCHAR}, 
+      #{collectTube,jdbcType=VARCHAR}, #{collectImg,jdbcType=VARCHAR}, #{storageCondit,jdbcType=VARCHAR}, 
+      #{collectRequire,jdbcType=VARCHAR}, #{needAttention,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tcl.model.CollectManualModel" >
+    insert into app_collect_manual
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="packageId != null" >
+        package_id,
+      </if>
+      <if test="textMethod != null" >
+        text_method,
+      </if>
+      <if test="collectTube != null" >
+        collect_tube,
+      </if>
+      <if test="collectImg != null" >
+        collect_img,
+      </if>
+      <if test="storageCondit != null" >
+        storage_condit,
+      </if>
+      <if test="collectRequire != null" >
+        collect_require,
+      </if>
+      <if test="needAttention != null" >
+        need_attention,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="packageId != null" >
+        #{packageId,jdbcType=BIGINT},
+      </if>
+      <if test="textMethod != null" >
+        #{textMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="collectTube != null" >
+        #{collectTube,jdbcType=VARCHAR},
+      </if>
+      <if test="collectImg != null" >
+        #{collectImg,jdbcType=VARCHAR},
+      </if>
+      <if test="storageCondit != null" >
+        #{storageCondit,jdbcType=VARCHAR},
+      </if>
+      <if test="collectRequire != null" >
+        #{collectRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="needAttention != null" >
+        #{needAttention,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tcl.model.CollectManualModel" >
+    update app_collect_manual
+    <set >
+      <if test="packageId != null" >
+        package_id = #{packageId,jdbcType=BIGINT},
+      </if>
+      <if test="textMethod != null" >
+        text_method = #{textMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="collectTube != null" >
+        collect_tube = #{collectTube,jdbcType=VARCHAR},
+      </if>
+      <if test="collectImg != null and collectImg != ''" >
+        collect_img = #{collectImg,jdbcType=VARCHAR},
+      </if>
+      <if test="storageCondit != null" >
+        storage_condit = #{storageCondit,jdbcType=VARCHAR},
+      </if>
+      <if test="collectRequire != null" >
+        collect_require = #{collectRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="needAttention != null" >
+        need_attention = #{needAttention,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tcl.model.CollectManualModel" >
+    update app_collect_manual
+    set package_id = #{packageId,jdbcType=BIGINT},
+      text_method = #{textMethod,jdbcType=VARCHAR},
+      collect_tube = #{collectTube,jdbcType=VARCHAR},
+      collect_img = #{collectImg,jdbcType=VARCHAR},
+      storage_condit = #{storageCondit,jdbcType=VARCHAR},
+      collect_require = #{collectRequire,jdbcType=VARCHAR},
+      need_attention = #{needAttention,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tcl.model.CollectManualModel" >
+    update app_collect_manual
+    set package_id = #{packageId,jdbcType=BIGINT},
+      text_method = #{textMethod,jdbcType=VARCHAR},
+      collect_tube = #{collectTube,jdbcType=VARCHAR},
+      collect_img = #{collectImg,jdbcType=VARCHAR},
+      storage_condit = #{storageCondit,jdbcType=VARCHAR},
+      collect_require = #{collectRequire,jdbcType=VARCHAR},
+      need_attention = #{needAttention,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

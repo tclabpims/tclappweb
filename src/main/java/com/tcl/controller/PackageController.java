@@ -212,6 +212,7 @@ public class PackageController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> updateById(PackageModelWithBLOBs packageModel, String price_str) {
+		System.out.println("price: " + price_str);
 		packageModel.setPrice(StringUtil.priceProcess(price_str));
 		int result = packageService.updateById(packageModel);
 		Map<String, String> map = new HashMap<String, String>();

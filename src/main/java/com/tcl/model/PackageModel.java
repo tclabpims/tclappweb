@@ -35,6 +35,26 @@ public class PackageModel {
 
     private String takeType;
 
+    private KnowledgeModelWithBLOBs knowledgeModel;
+
+    private CollectManualModel collectManualModel;
+
+    public KnowledgeModelWithBLOBs getKnowledgeModel() {
+        return knowledgeModel;
+    }
+
+    public void setKnowledgeModel(KnowledgeModelWithBLOBs knowledgeModel) {
+        this.knowledgeModel = knowledgeModel;
+    }
+
+    public CollectManualModel getCollectManualModel() {
+        return collectManualModel;
+    }
+
+    public void setCollectManualModel(CollectManualModel collectManualModel) {
+        this.collectManualModel = collectManualModel;
+    }
+
     public String getSampleType() {
         return sampleType;
     }

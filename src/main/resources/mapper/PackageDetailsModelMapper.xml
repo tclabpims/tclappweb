@@ -9,6 +9,19 @@
     <result column="package_id" property="packageId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="BIGINT" />
+    <collection property="knowledgeDetailsModel" javaType="com.tcl.model.KnowledgeDetailsModelWithBLOBs">
+      <id column="k_id" property="id" jdbcType="BIGINT" />
+      <result column="k_packagedetails_id" property="packagedetailsId" jdbcType="BIGINT" />
+      <result column="k_introduction" property="introduction" jdbcType="LONGVARCHAR" />
+      <result column="k_objective" property="objective" jdbcType="LONGVARCHAR" />
+      <result column="k_text_time" property="textTime" jdbcType="LONGVARCHAR" />
+      <result column="k_clinical" property="clinical" jdbcType="LONGVARCHAR" />
+      <result column="k_need_attention" property="needAttention" jdbcType="LONGVARCHAR" />
+    </collection>
+    <collection property="packageModel" javaType="com.tcl.model.PackageModel">
+      <id column="b_id" property="id" jdbcType="BIGINT" />
+      <result column="b_name" property="name" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
 
   <resultMap id="RelatedResultMap" type="com.tcl.model.PackageDetailsModel" >
@@ -30,9 +43,12 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
-    <include refid="Base_Column_List" />
-    from app_c_package_details
-    where id = #{id,jdbcType=BIGINT}
+    p.id, p.his_id, p.his_name, p.his_price, package_id, p.name, p.price,
+    k.id k_id, k.packagedetails_id k_packagedetails_id, k.introduction k_introduction, k.objective k_objective, k.text_time k_text_time,
+    k.clinical k_clinical, k.need_attention k_need_attention, b.name b_name
+    from (app_c_package_details p LEFT JOIN app_c_knowledge_details k on p.id = k.packagedetails_id)
+    LEFT JOIN app_c_package b ON p.package_id = b.id
+    where p.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from app_c_package_details

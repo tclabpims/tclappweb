@@ -15,6 +15,16 @@ public class PackageDetailsModel {
 
     private Long price;
 
+    private KnowledgeDetailsModelWithBLOBs knowledgeDetailsModel;
+
+    public KnowledgeDetailsModelWithBLOBs getKnowledgeDetailsModel() {
+        return knowledgeDetailsModel;
+    }
+
+    public void setKnowledgeDetailsModel(KnowledgeDetailsModelWithBLOBs knowledgeDetailsModel) {
+        this.knowledgeDetailsModel = knowledgeDetailsModel;
+    }
+
     private PackageModel packageModel;
 
     public PackageModel getPackageModel() {
