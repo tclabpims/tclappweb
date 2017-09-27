@@ -702,6 +702,7 @@
 <%--知识库详情end--%>
 
 <%--采集手册详情start--%>
+<%----%>
 <script type="text/html" id="collect_manual_details">
     <table id="detail_collect_manual_table" class="layui-table" lay-even lay-skin="nob">
         <colgroup align="left" span="2">
